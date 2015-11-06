@@ -37,9 +37,10 @@ public class TbInventario implements Serializable {
      private TbcClaseActivo tbcClaseActivo;
      private TbcEstadoInventario tbcEstadoInventario;
      private TbcPersona tbcPersona;
+     private TbcPersona tbcPersonaAsignada;
      private TbcProveedor tbcProveedor;
      private TbcUbicacion tbcUbicacion;
-     private Integer idPersonaAsignado;
+     //private Integer idPersonaAsignado;
      private Integer idLocalizacion;
      private String descripcionEquipo;
      private String codigoInventario;
@@ -101,6 +102,17 @@ public class TbInventario implements Serializable {
     public void setTbcPersona(TbcPersona tbcPersona) {
         this.tbcPersona = tbcPersona;
     }
+@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ID_PERSONA_ASIGNADO")
+    public TbcPersona getTbcPersonaAsignada() {
+        return tbcPersonaAsignada;
+    }
+
+    public void setTbcPersonaAsignada(TbcPersona tbcPersonaAsignada) {
+        this.tbcPersonaAsignada = tbcPersonaAsignada;
+    }
+    
+    
 
 @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ID_PROVEEDOR")
@@ -112,15 +124,15 @@ public class TbInventario implements Serializable {
         this.tbcProveedor = tbcProveedor;
     }
 
-    
-    @Column(name="ID_PERSONA_ASIGNADO")
-    public Integer getIdPersonaAsignado() {
-        return this.idPersonaAsignado;
-    }
-    
-    public void setIdPersonaAsignado(Integer idPersonaAsignado) {
-        this.idPersonaAsignado = idPersonaAsignado;
-    }
+//    
+//    @Column(name="ID_PERSONA_ASIGNADO")
+//    public Integer getIdPersonaAsignado() {
+//        return this.idPersonaAsignado;
+//    }
+//    
+//    public void setIdPersonaAsignado(Integer idPersonaAsignado) {
+//        this.idPersonaAsignado = idPersonaAsignado;
+//    }
 
     @Column(name="ID_LOCALIZACION")  
     public Integer getIdLocalizacion() {

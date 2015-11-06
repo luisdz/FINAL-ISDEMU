@@ -474,7 +474,7 @@ public class TB_InventarioController {
                     
                     String idAsignado=ObjInv.getString("idCustodiade");
                     int idAsignadoInt=Integer.parseInt(idAsignado);
-                    inv.setIdPersonaAsignado(idAsignadoInt);
+                 //   inv.setIdPersonaAsignado(idAsignadoInt);
                     
                     String marca=ObjInv.getString("marca");
                     inv.setMarca(marca);

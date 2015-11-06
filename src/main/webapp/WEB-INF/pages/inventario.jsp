@@ -156,6 +156,21 @@
                                 </form:select>
                                 <span for="clasifi" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
                             </div>
+                            
+                           
+                             <div class="form-group">
+                                <label for="form-field-select-3">
+                                    asignado<span id="span_clasi" class="symbol "></span>
+                                </label>
+
+                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control search-select" id="persona" name="persona">
+                                    <form:option value="0"  label="Seleccion un proveedor"/>
+                                    <c:forEach var="persona" items="${persona}">
+                                        <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
+                                    </c:forEach>
+                                </form:select>
+                                
+                            </div>
 
 
 
