@@ -288,7 +288,9 @@ public class TB_PrestamoController {
                 
                 tbPrestamoService.update(prestamoEquipo);
                 
-               /* TbPrestamoEquipo UltPres =(TbPrestamoEquipo) tbPrestamoService.LastIdPrestamo().get(0);
+                tbrPrestamoInvService.delete(id1);
+                
+                TbPrestamoEquipo UltPres =(TbPrestamoEquipo) tbPrestamoService.findByKey(id1);
                 
                  
                 // JSONObject array = new JSONObject(prestamo);
@@ -312,10 +314,6 @@ public class TB_PrestamoController {
                    
                 }
                  
-                
-                */
-                
-            
 		//tbMovimientoService.save(movi);
 		String message = "Prestamo was successfully added.";
 		modelAndView.addObject("message", message);

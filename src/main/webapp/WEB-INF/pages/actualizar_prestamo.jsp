@@ -150,48 +150,67 @@
                               </div>   
                         <div class="row">
 
+                           
+                </div>
+                <div class="col-md-12 text-center">            
+                                <div class="form-group" align="center">
+                                    <label class="control-label">
+                                        Codigo Inventario<span class="symbol "></span>
+                                    </label>
+                                    <form:input path=""  type="text" placeholder="Ingrese un codigo" class="form-control" id="codigo" name="codigo" style="width:50%" />
+                                    <span for="codigo" class="help-block  no-display" id="span_codigoE">El codigo es invalido o ya esta agreagado</span>  
+                                    <span for="codigo" class="help-block  no-display" id="span_codigoE2">El inventario con ese codigo esta descargado</span>  
+
+                                 </div> 
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-default" onclick="enviarCodeM();" >Agregar</button>  
+                                &nbsp;<br/><br/>
+                            </div>   
+                
+                       <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tabla_prueba">
+                                <thead>
+                                        <tr>
+                                            <th class="no-display">id</th>
+                                            <th>Codigo Inv</th>                                             
+                                            <th>Clase Activo</th>
+                                            <th>Descripcion</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                </thead>
+                                <tbody id="tablabody" name="tablabody">
+
+                                <c:forEach var="pre" items="${prestamoInv}">
+                                            <tr id="${pre[0]}">
+                                                <td class="no-display">${pre[0]}</td>
+                                                <td>${pre[1]}</td>
+                                                <td>${pre[2]}</td>
+                                                <td>${pre[3]}</td>
+                                                <td><a href="" onclick="return deleteElement('${pre[0]}');"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                            </tr>
+                                        </c:forEach>	
+                                          
+
+                                </tbody>
+                        </table>
+                </div>
                             <div class="row">
-                                
+                                <div class="col-md-12">
+                                     &nbsp;<br/>  
+                                </div>
                                 <div class="col-md-4">
                                         <button class="btn btn-yellow btn-block" type="button" onclick="enviar();">
                                                 Actualizar <i class="fa fa-arrow-circle-right"></i>
                                         </button>
                                 </div>
                             </div>
-                </div>
-                  </form:form>
-
-                       <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="tabla_prueba">
-                                <thead>
-                                        <tr>
-                                             <th>id prestamo inv</th>
-                                               <th>ID Prestamo</th>
-                                                <th>Delete</th>
-                                        </tr>
-                                </thead>
-                                <tbody id="tablabody" name="tablabody">
-
-                                <c:forEach var="pre" items="${prestamoInv}">
-                                            <tr id="${pre.idPrestamoEquipoInventario}">
-                                                <td>${pre.idPrestamoEquipoInventario}</td>
-                                                <td>${pre.tbPrestamoEquipo.idPrestamoEquipo}</td>                                               
-                                                <td><a href="" onclick="return deleteElement('${pre.idPrestamoEquipoInventario}');"> Eliminar</a></td>
-
-                                            </tr>
-                                </c:forEach>	
-                                          
-
-                                </tbody>
-                        </table>
-                </div>
-
- 
+        </form:form>
             </div>
-                                </div>
-                                <!-- end: FORM VALIDATION 1 PANEL -->
-                        </div>
-                </div>
+                            </div>
+                            <!-- end: FORM VALIDATION 1 PANEL -->
+                    </div>
+            </div>
 
                 <!-- end: PAGE CONTENT-->
 <%@include file="footer.jsp" %>			
@@ -253,7 +272,7 @@ function enviar()
            dataType: "json",
            contentType: 'application/json',
            success: function (msg) {
-               alert("Almacenado con Exito");
+               alert("Actualizado con Exito");
                location.reload();
            },
            data: jsonArray

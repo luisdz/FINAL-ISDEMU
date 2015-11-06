@@ -38,6 +38,7 @@ public class TbInventario implements Serializable {
      private TbcEstadoInventario tbcEstadoInventario;
      private TbcPersona tbcPersona;
      private TbcProveedor tbcProveedor;
+     private TbcUbicacion tbcUbicacion;
      private Integer idPersonaAsignado;
      private Integer idLocalizacion;
      private String descripcionEquipo;
@@ -293,9 +294,16 @@ public class TbInventario implements Serializable {
         this.fechaUpdate = fechaUpdate;
     }
     
-  
+ 
+@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ID_UBICACION", nullable=true)
+    public TbcUbicacion getTbcUbicacion() {
+        return tbcUbicacion;
+    }
 
-
+    public void setTbcUbicacion(TbcUbicacion tbcUbicacion) {
+        this.tbcUbicacion = tbcUbicacion;
+    }
 
 }
 

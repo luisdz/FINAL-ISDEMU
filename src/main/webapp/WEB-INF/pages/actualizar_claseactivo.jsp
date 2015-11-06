@@ -68,7 +68,7 @@
 									<hr>
 
 
-<form:form method="POST" action="${pageContext.request.contextPath}/ClaseActivo/actualizar/${claseA.idClaseActivo}" modelAttribute="claseA" >
+<form:form method="POST" action="${pageContext.request.contextPath}/ClaseActivo/actualizar/${claseA.idClaseActivo}" modelAttribute="claseA" id="claseAF" >
     
      <div class="row">
                         <div class="col-md-12">
@@ -101,8 +101,8 @@
                                 <label class="control-label">
                                     Nombre Clase:<span id="span_marca" class="symbol"></span>
                                 </label>
-                                <form:input path="nombreClase" type="text" placeholder="Ingrese una Clase de Activo" class="form-control" id="clase" name="clase" onblur="return validaMarca(event);"/>
-                                <span for="clase" class="help-block  no-display" id="span_marcaT">Ingrese una Clase</span> 
+                                <form:input path="nombreClase" type="text" placeholder="Ingrese una Clase de Activo" class="form-control" id="clase" name="clase" onblur="return validaClase(event);"/>
+                                <span for="clase" class="help-block  no-display" id="span_claseT">Ingrese una Clase</span> 
                             </div>
                          
 
@@ -116,8 +116,8 @@
                                 <label class="control-label">
                                     Codigo Clase:<span id="span_serie" class="symbol"></span>
                                 </label>
-                                <form:input path="codigoClase" type="text" placeholder="Ingrese el codigo de la clase" class="form-control" id="codigoClase" name="codigoClase" onblur="return validaSerie(event);"/>
-                                <span for="codigoClase" class="help-block  no-display" id="span_serieT">Ingrese el codigo de la clase</span> 
+                                <form:input path="codigoClase" type="text" placeholder="Ingrese el codigo de la clase" class="form-control" id="codigoClase" name="codigoClase" onkeypress="return valideKey(event);" onblur="return validaCodigo(event);"/>
+                                <span for="codigoClase" class="help-block  no-display" id="span_codigoT">Ingrese el codigo de la clase</span> 
                             </div>
 
                              
@@ -152,3 +152,4 @@
 						
 						<!-- end: PAGE CONTENT-->
 				<%@include file="footer.jsp" %>		
+<script src="${pageContext.request.contextPath}/assets/validaciones/validacionesClaseAct.js"></script>

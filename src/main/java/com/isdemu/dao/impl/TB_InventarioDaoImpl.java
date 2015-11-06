@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -115,4 +116,54 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
              //dc.addOrder(Order.desc("idInventario"));
              return dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
         }
+    
+     @Override
+    public void ETLInv(){
+        System.out.println("entra al ETL");
+    Session session = null;
+            session = sessionFactory.getCurrentSession();
+            SQLQuery query = session.createSQLQuery("DELETE FROM ActivosFijosISDEMU.dbo.tb_descargo\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.TBC_CLASIFICACION_LOCALIZACION\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tb_inventario\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_clase_activo\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_clasificacion_activo\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_poliza\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_persona\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_ubicacion\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_localizacion\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_riesgo\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_proveedor\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_estado_inventario\n" +
+"\n" +
+ "INSERT [ActivosFijosISDEMU].[dbo].TBC_CLASIFICACION_LOCALIZACION SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].TBC_CLASIFICACION_LOCALIZACION\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_poliza SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_poliza\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_clasificacion_activo SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_clasificacion_activo\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_clase_activo SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_clase_activo\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_riesgo SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_riesgo\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_localizacion SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_localizacion\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_ubicacion SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_ubicacion\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_persona SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_persona\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_proveedor SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_proveedor\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tbc_estado_inventario SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tbc_estado_inventario\n" +
+"\n" +
+"\n" +
+"INSERT [ActivosFijosISDEMU].[dbo].tb_inventario SELECT *FROM [DESKTOP-78K7A51].[ActivosFijosISDEMU].[dbo].tb_inventario");
+           query.executeUpdate();
+    }
 }

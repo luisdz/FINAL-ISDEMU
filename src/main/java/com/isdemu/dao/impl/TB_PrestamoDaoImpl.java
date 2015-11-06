@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.FetchMode;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -81,14 +82,15 @@ public class TB_PrestamoDaoImpl implements TB_PrestamoDao {
         @Override
 	public List getPreInv(Serializable id) {
             
-		System.out.println("Entra actualiza3");
-            DetachedCriteria dc = DetachedCriteria.forClass(TbrPrestamoEquipoInventario.class,"prestamoInventario");            
+		// TODO Auto-generated method stub
+               System.out.println("ingresa al inventario faltante");
+            Session session = null;
+            session = sessionFactory.getCurrentSession();
+            SQLQuery query = session.createSQLQuery("SELECT  CI.ID_INVENTARIO, I.CODIGO_INVENTARIO,CA.NOMBRE_CLASE ,I.DESCRIPCION_EQUIPO FROM TBR_PRESTAMO_EQUIPO_INVENTARIO CI INNER JOIN TB_INVENTARIO I ON CI.ID_INVENTARIO=I.ID_INVENTARIO INNER JOIN TBC_CLASE_ACTIVO CA ON CA.ID_CLASE_ACTIVO = I.ID_CLASE_ACTIVO WHERE CI.ID_PRESTAMO_EQUIPO ='"+id+"'");
+            System.out.println("la query"+query);
+            List Vinventario = query.list();
             
-            dc.createAlias("prestamoInventario.tbPrestamoEquipo", "pres");
-            dc.add(Restrictions.eq("pres.idPrestamoEquipo", id));         
-             System.out.println("Entra actualiza4");
-           return  dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
-          
+            return Vinventario;
             }
         
         @Override

@@ -32,7 +32,7 @@ function validaClasificacion()
 function validaClase()
     {
        
-        var x = document.forms["inventarioF"]["dropdown1"].value;
+        var x = document.forms["inventarioF"]["dropdown2"].value;
         if (x === null || x === "" || x === "0")
         {
             
@@ -55,7 +55,7 @@ function validaClase()
 function validaCustodia()
     {
        
-        var x = document.forms["inventarioF"]["dropdown3"].value;
+        var x = document.forms["inventarioF"]["persona"].value;
         if (x === null || x === "" || x === "0")
         {
          
@@ -75,10 +75,56 @@ function validaCustodia()
 
     };
     
+     function validaUbicacion()
+    {
+       
+        var x = document.forms["inventarioF"]["tipoClasificacion"].value;
+        if (x === null || x === "" || x === "0")
+        {
+       
+            $('#span_ubicacionT').removeClass("no-display");            
+            $('#span_ubicacionT').closest("div").addClass("has-error");            
+             $('#span_ubicacionT').closest("div").removeClass("has-success");
+            
+            return false;
+        }
+        else
+        {
+       
+            $('#span_ubicacionT').addClass("no-display");
+             $('#span_ubicacionT').closest("div").removeClass("has-error");
+             $('#span_ubicacionT').closest("div").addClass("has-success");
+        }
+
+    };
+    
+    function validatipoLocalizacion()
+    {
+       
+        var x = document.forms["inventarioF"]["tipoClasificacion"].value;
+        if (x === null || x === "" || x === "0")
+        {
+       
+            $('#span_localizaciontipoT').removeClass("no-display");            
+            $('#span_localizaciontipoT').closest("div").addClass("has-error");            
+             $('#span_localizaciontipoT').closest("div").removeClass("has-success");
+            
+            return false;
+        }
+        else
+        {
+       
+            $('#span_localizaciontipoT').addClass("no-display");
+             $('#span_localizaciontipoT').closest("div").removeClass("has-error");
+             $('#span_localizaciontipoT').closest("div").addClass("has-success");
+        }
+
+    };
+    
 function validaLocalizacion()
     {
        
-        var x = document.forms["inventarioF"]["dropdown4"].value;
+        var x = document.forms["inventarioF"]["localizacion"].value;
         if (x === null || x === "" || x === "0")
         {
        
@@ -187,22 +233,22 @@ function validaSerie()
     
 function validaValor()
     {
-        var x = document.forms["inventarioF"]["valor"].value;
-        if (x === null || x === "")
+        var x = document.forms["inventarioF"]["cantidadl"].value;
+        if (x < 0)
         {
             //$('#span_nombre').addClass("symbol required");
-            $('#span_valorT').removeClass("no-display");            
-            $('#span_valorT').closest("div").addClass("has-error");            
-             $('#span_valorT').closest("div").removeClass("has-success");
+            $('#span_valorCT').removeClass("no-display");            
+            $('#span_valorCT').closest("div").addClass("has-error");            
+             $('#span_valorCT').closest("div").removeClass("has-success");
 
             return false;
         }
         else
         {
             //$('#span_nombre').to("required");
-            $('#span_valorT').addClass("no-display");
-             $('#span_valorT').closest("div").removeClass("has-error");
-             $('#span_valorT').closest("div").addClass("has-success");
+            $('#span_valorCT').addClass("no-display");
+             $('#span_valorCT').closest("div").removeClass("has-error");
+             $('#span_valorCT').closest("div").addClass("has-success");
         }
 
     };
@@ -279,64 +325,74 @@ function validaFechaAdq()
     function valida_envio()
     {
          
-        flag=true;        
+        flag=false;        
         
         
         if(validaClasificacion()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         
         if(validaClase()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaCustodia()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
+        }
+        if(validaUbicacion()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = true;
+        } 
+        if(validatipoLocalizacion()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = true;
         }
         if(validaLocalizacion()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaMarca()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaModelo()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaSerie()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaValor()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaFactura()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaFinanciamiento()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
         if(validaFechaAdq()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = false;
+            flag = true;
         }
        return flag;
        

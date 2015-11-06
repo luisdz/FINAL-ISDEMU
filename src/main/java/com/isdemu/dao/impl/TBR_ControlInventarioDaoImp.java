@@ -9,6 +9,7 @@ import com.isdemu.dao.TBR_ControlInventarioDao;
 import com.isdemu.model.TbrControlSalidaInventario;
 import java.io.Serializable;
 import org.hibernate.Session;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,14 @@ public class TBR_ControlInventarioDaoImp  implements TBR_ControlInventarioDao {
 		return control;
         
     }
+    
+     @Override
+	public void delete(Serializable id) {
+		 System.out.println("ingresa al ELIMINAR");
+            Session session = null;
+            session = sessionFactory.getCurrentSession();
+            SQLQuery query = session.createSQLQuery("DELETE FROM TBR_CONTROL_SALIDA_INVENTARIO WHERE ID_CONTROL_SALIDA='"+id+"'");
+            System.out.println("DELETE FROM TBR_CONTROL_SALIDA_INVENTARIO WHERE ID_CONTROL_SALIDA='"+id+"'");
+            query.executeUpdate();
+	}
 }

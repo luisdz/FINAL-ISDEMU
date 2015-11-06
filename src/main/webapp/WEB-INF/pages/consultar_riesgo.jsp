@@ -144,7 +144,7 @@
                                                     <td>${pol.nombreRiesgo}</td> 
                                                     <td><a href="${pageContext.request.contextPath}/Riesgo/editRiesgo/${pol.idRiesgo}">
 					Actualizar</a></td>
-                                                    <td><a href="${pageContext.request.contextPath}/Riesgo/deleteRiesgo/${pol.idRiesgo}"> Eliminar</a>
+                                                    <td><a onclick="return confirmar('¿Está seguro que desea eliminar el registro?')" href="${pageContext.request.contextPath}/Riesgo/deleteRiesgo/${pol.idRiesgo}"> Eliminar</a>
                                                     </td>
                                             </tr>
                                         </c:forEach>
@@ -160,3 +160,10 @@
     </div>
     </div>
 <%@include file="footer.jsp"%>
+
+<script  language="JavaScript">
+    function confirmar( mensaje ) 
+    { 
+        return confirm(mensaje); 
+    } 
+</script>

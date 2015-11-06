@@ -148,7 +148,7 @@
                                     
                                     <td><a href="${pageContext.request.contextPath}/ClaseActivo/actualizar/${clase.idClaseActivo}">
                                             Editar</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/ClaseActivo/eliminarClase/${clase.idClaseActivo}">
+                                    <td><a href="${pageContext.request.contextPath}/ClaseActivo/eliminarClase/${clase.idClaseActivo}" onclick="return confirmar('¿Está seguro que desea eliminar el registro?')">
                                             Eliminar</a></td>
 
                                 </tr>
@@ -164,6 +164,11 @@
     </div>
 </div>
 <!-- end: PAGE CONTENT-->
-
+<script  language="JavaScript">
+    function confirmar( mensaje ) 
+    { 
+        return confirm(mensaje); 
+    } 
+</script>
 
 <%@include file="footer.jsp"%>

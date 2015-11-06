@@ -124,6 +124,15 @@
                                     </div>
                             </div>
                     </div>
+                 <div class="col-md-12">
+                            <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForm">
+
+                                <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                            </div>
+                            <div class="successHandler alert alert-success no-display" id="mensajeExitoFormM">
+                                <i class="fa fa-ok"></i> Eliminado con exito!
+                            </div>
+                        </div>
                     <div class="table-responsive">
                             <table class="table table-striped table-hover" id="sample-table-2">
                                     <thead>
@@ -148,7 +157,7 @@
                                                     <td>${pol.fechaFin}</td>
                                                     <td><a href="${pageContext.request.contextPath}/Poliza/editPoliza/${pol.idPoliza}">
 					Actualizar</a></td>
-                                                    <td><a href="${pageContext.request.contextPath}/Poliza/deletePoliza/${pol.idPoliza}"> Eliminar</a>
+                                                    <td><a onclick="return confirmar('¿Está seguro que desea eliminar el registro?')" href="${pageContext.request.contextPath}/Poliza/deletePoliza/${pol.idPoliza}"> Eliminar</a>
                                                     </td>
                                             </tr>
                                         </c:forEach>
@@ -225,6 +234,14 @@
             </div>
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->
+         
     </div>
     </div>
 <%@include file="footer.jsp"%>
+
+ <script  language="JavaScript">
+    function confirmar( mensaje ) 
+    { 
+        return confirm(mensaje); 
+    } 
+</script>

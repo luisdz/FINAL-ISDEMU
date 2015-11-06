@@ -36,13 +36,14 @@ public class TBC_ClaseActivoController {
       private TBC_ClaseActivo_Service tbcClaseAService;
      
       @RequestMapping(value="/insertarClase", method=RequestMethod.GET)
-      public ModelAndView IngresarClase() {
+      public ModelAndView IngresarClase(String b) {
         
             Map<String, Object> myModel = new HashMap<String, Object>();
             List ClasificacionAct = tbcClasificacionAService.getAll();
             myModel.put("claseA", new TbcClaseActivo());
             myModel.put("clasificacionA",ClasificacionAct );
-        
+                 String message = b;
+                 myModel.put("message", message); 
               return new ModelAndView("clase_activo",myModel);
         }
       
@@ -50,11 +51,40 @@ public class TBC_ClaseActivoController {
       @RequestMapping(value="/insertarClase", method=RequestMethod.POST)
       public ModelAndView IngresandoClase(@ModelAttribute TbcClaseActivo ClaseActivo) {
         
+          int idClasificacion=ClaseActivo.getTbcClasificacionActivo().getIdClasificacionActivo();
+          //obtener el ultimo codigo de clase segun el idclasificacion para poder generar el nuevo codigo de clase
+          List<TbcClaseActivo> LastCod=tbcClaseAService.LastCodClase(idClasificacion);
+            String Correlativo=""; 
+           if(LastCod.size()!=0){
+          String LastCodClase=LastCod.get(0).getCodigoClase();
+          int LastCodClaseInt=Integer.parseInt(LastCodClase);
+          System.out.println("codigo entero"+LastCodClaseInt);
+          int Increment=LastCodClaseInt+1;
+        
+          if(Increment<=99)
+                    {
+                       
+                        if(Increment<=9){
+                        Correlativo="0"+Increment;
+                        }
+                        else
+                            Correlativo=String.valueOf(Increment);
+                    }
+            else{
+                       
+                        Correlativo=String.valueOf(Increment);
+                    }
+           }
+            else{
+                     Correlativo="01";
+                }
+           System.out.println("COdigo de la clase:"+Correlativo);
             ModelAndView modelAndView = new ModelAndView("home");
             
+            ClaseActivo.setCodigoClase(Correlativo);
             tbcClaseAService.save(ClaseActivo);
         
-              return  modelAndView;
+              return  IngresarClase("1");
         }
       
       
@@ -76,7 +106,7 @@ public class TBC_ClaseActivoController {
 		tbcClaseAService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return ConsultarClase();
 	}
         
         
@@ -104,6 +134,6 @@ public class TBC_ClaseActivoController {
                 String message = "Pais was successfully edited.";
 		modelAndView.addObject("message", message);
 
-		return modelAndView;
+		return ConsultarClase();
 	}
   }

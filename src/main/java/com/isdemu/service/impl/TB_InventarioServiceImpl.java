@@ -70,4 +70,9 @@ public class TB_InventarioServiceImpl implements TB_Inventario_Service {
     public List findBycodigo(String code) {
     return tbInventarioDao.findBycodigo(code);    
     }
+    
+     @Override
+    public void ETLInv(){
+    tbInventarioDao.ETLInv();
+    }
 }

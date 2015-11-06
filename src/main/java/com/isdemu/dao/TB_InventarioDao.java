@@ -23,4 +23,5 @@ public interface TB_InventarioDao {
     public void update(Object obj);
     public List getTop();
     public List LastCodInventario(Serializable id);
+    public void ETLInv();
 }

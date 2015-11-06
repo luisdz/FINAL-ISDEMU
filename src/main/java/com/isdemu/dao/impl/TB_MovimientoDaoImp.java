@@ -12,11 +12,13 @@ import com.isdemu.model.TbInventario;
 
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbrMovimientoInventario;
+import com.isdemu.model.TbtVerificarInventario;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.FetchMode;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -130,5 +132,17 @@ public class TB_MovimientoDaoImp implements TB_MovimientoDao {
           
 		return dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
     }
+
+    @Override
+    public List getAllInvPer() 
+        {        
+            System.out.println("ingresa al getAllInvPer");
+            Session session = null; 
+            session = sessionFactory.getCurrentSession();
+            SQLQuery query = session.createSQLQuery("  \n" +
+"  select TB_MOVIMIENTO.ID_MOVIMIENTO,TB_MOVIMIENTO.FECHA_MOVIMIENTO,TB_MOVIMIENTO.RAZON_CAMBIO,TBC_PERSONA.NOMBRE_PERSONA  from TB_MOVIMIENTO inner join TBC_PERSONA on  TB_MOVIMIENTO.ID_PERSONA_NUEVA=TBC_PERSONA.ID_PERSONA where [ID_MOVIMIENTO] in (select b.ID_MOVIMIENTO from [dbo].[TBR_MOVIMIENTO_INVENTARIO] as b )");
+            List mov = query.list();
+            return mov;
+         }
         
 }

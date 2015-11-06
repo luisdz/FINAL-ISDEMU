@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="formatoMovimiento" language="groovy" pageWidth="1500" pageHeight="595" orientation="Landscape" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
+	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idmov" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\ISDEMU\\Ireport Templates\\formato movimiento\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[01/01/1990]]></defaultValueExpression>
+	</parameter>
+	<parameter name="razon" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     UANTES."NOMBRE_UBICACION" as ubi_ini,
+     ANTES."NOMBRE_PERSONA" as resp,
+     B."DESCRIPCION_EQUIPO",
+     B."CODIGO_INVENTARIO",
+     B."MARCA",
+     B."MODELO",
+     B."SERIE",
+     NUEVO."NOMBRE_PERSONA" as nuevo_resp,
+     UNUEVO."NOMBRE_UBICACION" as ubi_fin
+FROM
+     "TBR_MOVIMIENTO_INVENTARIO" A INNER JOIN "TB_INVENTARIO" B ON A."ID_INVENTARIO" = B."ID_INVENTARIO"
+     INNER JOIN "TB_MOVIMIENTO" C ON A."ID_MOVIMIENTO" = C."ID_MOVIMIENTO"
+     INNER JOIN "TBC_PERSONA" NUEVO ON A."ID_PERSONA_NUEVA" = NUEVO."ID_PERSONA"
+     INNER JOIN "TBC_PERSONA" ANTES ON A."ID_PERSONA_ANTERIOR" = ANTES."ID_PERSONA"
+     INNER JOIN "TBC_UBICACION" UANTES ON ANTES."ID_UBICACION" = UANTES."ID_UBICACION"
+     INNER JOIN "TBC_UBICACION" UNUEVO ON ANTES."ID_UBICACION" = UNUEVO."ID_UBICACION"
+
+
+
+where a."ID_MOVIMIENTO" = $P{idmov}]]>
+	</queryString>
+	<field name="ubi_ini" class="java.lang.String"/>
+	<field name="resp" class="java.lang.String"/>
+	<field name="DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<field name="CODIGO_INVENTARIO" class="java.lang.String"/>
+	<field name="MARCA" class="java.lang.String"/>
+	<field name="MODELO" class="java.lang.String"/>
+	<field name="SERIE" class="java.lang.String"/>
+	<field name="nuevo_resp" class="java.lang.String"/>
+	<field name="ubi_fin" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="213" splitType="Stretch">
+			<staticText>
+				<reportElement x="116" y="11" width="1344" height="20" />
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO SALVADOREÑO PARA EL DESARROLLO DE LA MUJER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="31" width="1344" height="31"  />
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOVIMIENTOS DE MOBILIARIO Y EQUIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="73" width="45" height="20"  />
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="93" width="237" height="20" />
+				<text><![CDATA[SEÑOR (A) ENCARGADO (A) DE ACTIVO FIJO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="113" width="1449" height="20"  />
+				<text><![CDATA[ATENTAMENTE SE LE SOLICITA AUTORIZAR LOS SIGUIENTES CAMBIOS EN LA ASIGNACIÓN DE MOBILIARIO Y EQUIPO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="133" width="368" height="20" />
+				<text><![CDATA[LAS RAZONES PARA EFECTUAR LOS CAMBIOS SON LAS SIGUIENTES:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="56" y="73" width="100" height="20" />
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="153" width="1449" height="60"  />
+				<textFieldExpression><![CDATA[$P{razon}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="11" y="11" width="105" height="62"  />
+				<imageExpression><![CDATA["E:\\ISDEMU\\Ireport Templates\\formato movimiento\\Logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<elementGroup/>
+			<staticText>
+				<reportElement x="0" y="1" width="205" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Ubicacion Inicial]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="21" width="205" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ubi_ini}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="205" y="1" width="198" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Responsable del Activo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="205" y="21" width="198" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{resp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="1" width="207" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Descripcion del Activo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="403" y="21" width="207" height="20" />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="610" y="1" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No Inventario]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="610" y="21" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="710" y="1" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="710" y="21" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="810" y="1" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="810" y="21" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{MODELO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="910" y="1" width="116" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No de Serie]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="910" y="21" width="116" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{SERIE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1026" y="1" width="214" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Ubicacion Final]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1026" y="21" width="214" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ubi_fin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1240" y="1" width="220" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Nuevo Responsable]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1240" y="21" width="220" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nuevo_resp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

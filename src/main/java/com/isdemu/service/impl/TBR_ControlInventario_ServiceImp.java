@@ -33,4 +33,10 @@ public class TBR_ControlInventario_ServiceImp implements TBR_ControlInventario_S
         return tbrcontrolInventarioDao.findByKey(id);
     }
     
+    @Override
+   public void delete(Serializable id) {
+           // TODO Auto-generated method stub
+           tbrcontrolInventarioDao.delete(id);
+   }
+    
 }

@@ -17,7 +17,7 @@
                                 </a>
                         </li>
                         <li class="active">
-                                Ingreso Personal
+                                Ingreso Persona
                         </li>
                 </ol>
         </div>

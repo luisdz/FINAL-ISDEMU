@@ -84,4 +84,6 @@ public class TBC_PersonaDaoImpl implements TBC_PersonaDao{
             System.out.println("ingresa antes de enviar con la sesion el objeto para update");
 		getCurrentSession().update(obj);
 	}
+        
+       
 }

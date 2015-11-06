@@ -1,3 +1,4 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -75,65 +76,7 @@
 	<!-- start: BODY -->
 	<body>
 		<!-- start: SLIDING BAR (SB) -->
-		<div id="slidingbar-area">
-			<div id="slidingbar">
-				<div class="row">
-					<!-- start: SLIDING BAR FIRST COLUMN -->
-					<div class="col-md-4 col-sm-4">
-						<h2>My Options</h2>
-						<div class="row">
-							
-							<div class="col-xs-6 col-lg-3">
-								<button class="btn btn-icon btn-block space10">
-									<i class="fa fa-calendar-o"></i>
-									Usuarios <span class="badge badge-info partition-blue"> 5 </span>
-								</button>
-							</div>
-							<div class="col-xs-6 col-lg-3">
-								<button class="btn btn-icon btn-block space10">
-									<i class="fa fa-bell-o"></i>
-									Notificaciones <span class="badge badge-info partition-red"> 9 </span>
-								</button>
-							</div>
-						</div>
-					</div>
-					<!-- end: SLIDING BAR FIRST COLUMN -->
-					<!-- start: SLIDING BAR SECOND COLUMN -->
-					<div class="col-md-4 col-sm-4">
-						<h2></h2>
-						
-					</div>
-					<!-- end: SLIDING BAR SECOND COLUMN -->
-					<!-- start: SLIDING BAR THIRD COLUMN -->
-					<div class="col-md-4 col-sm-4">
-						<h2>Mi Informacion</h2>
-						<address class="margin-bottom-40">
-							Usuario 
-							<br>
-							12345 Street Name, City Name, United States
-							<br>
-							P: (641)-734-4763
-							<br>
-							Email:
-							<a href="#">
-								peter.clark@example.com
-							</a>
-						</address>
-						<a class="btn btn-transparent-white" href="#">
-							<i class="fa fa-pencil"></i> Editar
-						</a>
-					</div>
-					<!-- end: SLIDING BAR THIRD COLUMN -->
-				</div>
-				<div class="row">
-					<!-- start: SLIDING BAR TOGGLE BUTTON -->
-					<div class="col-md-12 text-center">
-						<a href="#" class="sb_toggle"><i class="fa fa-chevron-up"></i></a>
-					</div>
-					<!-- end: SLIDING BAR TOGGLE BUTTON -->
-				</div>
-			</div>
-		</div>
+		
 		<!-- end: SLIDING BAR -->
 		<div class="main-wrapper">
 			<!-- start: TOPBAR -->
@@ -145,7 +88,7 @@
 							<i class="fa fa-bars"></i>
 						</a>
 						<!-- start: LOGO -->
-						<a class="navbar-brand" href="index.html">
+						<a class="navbar-brand" href="${pageContext.request.contextPath}/index">
 							<img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="Rapido"/>
 						</a>
 						<!-- end: LOGO -->
@@ -156,12 +99,12 @@
 							<!-- start: USER DROPDOWN -->
 							<li class="dropdown current-user">
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
-									<img src="${pageContext.request.contextPath}/assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">Usuario </span> <i class="fa fa-caret-down "></i>
+									<img src="${pageContext.request.contextPath}/assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs"><%=SecurityContextHolder.getContext().getAuthentication().getAuthorities()%> </span> <i class="fa fa-caret-down "></i>
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
 									<li>
 										<a href="pages_user_profile.html">
-											My Profile
+											<%=SecurityContextHolder.getContext().getAuthentication().getName()%>
 										</a>
 									</li>
 									<li>
@@ -180,9 +123,8 @@
 										</a>
 									</li>
 									<li>
-										<a href="login_login.html">
-											Log Out
-										</a>
+										<a href="<c:url value="/logout" />" > Logout</a>
+										
 									</li>
 								</ul>
 							</li>
@@ -209,7 +151,7 @@
 							</div>
 							<div class="inline-block">
 								<h5 class="no-margin"> Bienvenido</h5>
-								<h4 class="no-margin"> Usuario  </h4>
+                                                                <h4 class="no-margin"> <%=SecurityContextHolder.getContext().getAuthentication().getName()%> </h4>
 								<a class="btn user-options sb_toggle">
 									<i class="fa fa-cog"></i>
 								</a>
@@ -218,7 +160,7 @@
 						<!-- start: MAIN NAVIGATION MENU -->
 						<ul class="main-navigation-menu">
 							<li class="active open">
-								<a href="index.html"><i class="fa fa-home"></i> <span class="title"> Principal </span><span class="label label-default pull-right ">Accesos</span> </a>
+								<a href="${pageContext.request.contextPath}/index"><i class="fa fa-home"></i> <span class="title"> Principal </span><span class="label label-default pull-right ">Accesos</span> </a>
 							</li>
 					
 							
@@ -242,6 +184,23 @@
 									
 								</ul>
 							</li>
+                                                        
+                                                        <li>
+								<a href="javascript:;" class="active">
+									<i class="fa fa-folder"></i> <span class="title"> Depreciacion </span> <i class="icon-arrow"></i>
+								</a>
+								<ul class="sub-menu">
+									<li>
+										<a href="${pageContext.request.contextPath}/Depreciacion/consultarDepreciacion.html">
+											Consultar Depreciacion <i class="icon-arrow"></i>
+										</a>
+										
+									</li>
+									 
+									
+								</ul>
+							</li>
+                                                        
 
 
 						<li>
@@ -511,10 +470,34 @@
 													
                                                                                 </ul>
 									</li>
+                                                                        <li>
+										<a href="javascript:;">
+											<span class="title"> Usuarios </span> <i class="icon-arrow"></i>
+										</a>
+                                                                                        
+                                                                                <ul class="sub-menu">
+													<li>
+														<a href="${pageContext.request.contextPath}/Usuario/add"><i class="fa fa-times"></i> Ingresar</a>
+													</li>
+													<li>
+														<a href="${pageContext.request.contextPath}/Usuario/list"><i class="fa fa-pencil"></i> Consultar</a>
+													</li>
+													
+                                                                                </ul>
+									</li>
 									
 								</ul>
 							</li>
-							
+							 
+                                                        <li>
+								<a href="javascript:void(0)"><i class="fa fa-user"></i> <span class="title">ETL Inventario</span><i class="icon-arrow"></i> </a>
+								<ul class="sub-menu">
+									<li>
+										<a href="${pageContext.request.contextPath}/Inventario/ETLVISTA"><i class="fa fa-times"></i> Realizar Proceso</a>
+									</li>
+									
+								</ul>
+							</li>
 							<li>
 								<a href="javascript:void(0)"><i class="fa fa-user"></i> <span class="title">Login</span><i class="icon-arrow"></i> </a>
 								<ul class="sub-menu">
@@ -540,6 +523,8 @@
 									</li>
 								</ul>
 							</li>
+                                                        
+                                                       
 						
 						
 							
@@ -589,92 +574,8 @@
 									<ul class="nav navbar-right">
 										<!-- start: TO-DO DROPDOWN -->
 										
-										<li class="dropdown">
-											<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
-												<span class="messages-count badge badge-default hide">3</span> <i class="fa fa-envelope"></i> MENSAJES
-											</a>
-											<ul class="dropdown-menu dropdown-light dropdown-messages">
-												<li>
-													<span class="dropdown-header"> You have 9 messages</span>
-												</li>
-												<li>
-													<div class="drop-down-wrapper ps-container">
-														<ul>
-															<li class="unread">
-																<a href="javascript:;" class="unread">
-																	<div class="clearfix">
-																		<div class="thread-image">
-																			<img src="./assets/images/avatar-2.jpg" alt="">
-																		</div>
-																		<div class="thread-content">
-																			<span class="author">Nicole Bell</span>
-																			<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
-																			<span class="time"> Just Now</span>
-																		</div>
-																	</div>
-																</a>
-															</li>
-															<li>
-																<a href="javascript:;" class="unread">
-																	<div class="clearfix">
-																		<div class="thread-image">
-																			<img src="./assets/images/avatar-3.jpg" alt="">
-																		</div>
-																		<div class="thread-content">
-																			<span class="author">Steven Thompson</span>
-																			<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
-																			<span class="time">8 hrs</span>
-																		</div>
-																	</div>
-																</a>
-															</li>
-															<li>
-																<a href="javascript:;">
-																	<div class="clearfix">
-																		<div class="thread-image">
-																			<img src="./assets/images/avatar-5.jpg" alt="">
-																		</div>
-																		<div class="thread-content">
-																			<span class="author">Kenneth Ross</span>
-																			<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</span>
-																			<span class="time">14 hrs</span>
-																		</div>
-																	</div>
-																</a>
-															</li>
-														</ul>
-													</div>
-												</li>
-												<li class="view-all">
-													<a href="pages_messages.html">
-														See All
-													</a>
-												</li>
-											</ul>
-										</li>
-										<li class="menu-search">
-											<a href="#">
-												<i class="fa fa-search"></i> BUSCAR
-											</a>
-											<!-- start: SEARCH POPOVER -->
-											<div class="popover bottom search-box transition-all">
-												<div class="arrow"></div>
-												<div class="popover-content">
-													<!-- start: SEARCH FORM -->
-													<form class="" id="searchform" action="#">
-														<div class="input-group">
-															<input type="text" class="form-control" placeholder="Search">
-															<span class="input-group-btn">
-																<button class="btn btn-main-color btn-squared" type="button">
-																	<i class="fa fa-search"></i>
-																</button> </span>
-														</div>
-													</form>
-													<!-- end: SEARCH FORM -->
-												</div>
-											</div>
-											<!-- end: SEARCH POPOVER -->
-										</li>
+										 
+										 
 									</ul>
 									<!-- end: TOP NAVIGATION MENU -->
 								</div>

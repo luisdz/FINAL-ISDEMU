@@ -20,4 +20,5 @@ public interface TBC_ClaseActivoDao {
     public void update(Object obj);
     public List getTop();
     public List getAllidClasi(Serializable id);
+    public List LastCodClase(Serializable id);   
 }

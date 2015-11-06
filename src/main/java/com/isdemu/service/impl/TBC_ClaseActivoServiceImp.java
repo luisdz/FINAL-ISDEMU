@@ -66,4 +66,9 @@ public class TBC_ClaseActivoServiceImp implements TBC_ClaseActivo_Service{
 		// TODO Auto-generated method stub
 		tbClaseActivoDao.update(obj);
 	}
+         
+        @Override
+        public List LastCodClase(Serializable id){
+                    return tbClaseActivoDao.LastCodClase(id);
+        }
 }

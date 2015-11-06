@@ -15,4 +15,5 @@ public interface TBR_PrestamoInventario_Service {
     
     public void save(Object obj);
     public Object findByKey(Serializable id);
+    public void delete(Serializable id);
 }

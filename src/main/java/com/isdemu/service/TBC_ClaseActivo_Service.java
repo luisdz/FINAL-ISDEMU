@@ -14,11 +14,12 @@ import java.util.List;
  */
 public interface TBC_ClaseActivo_Service {
     
-      public void save(Object obj);
+    public void save(Object obj);
     public List getAll();
     public List getAllidClasi(Serializable id);
     public List getTop();
     public void delete(Serializable id);
     public Object findByKey(Serializable id);
     public void update(Object obj);
+    public List LastCodClase(Serializable id);    
 }

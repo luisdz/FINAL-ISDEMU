@@ -63,61 +63,59 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 space20">
-                        <button class="btn btn-orange add-row">
-                            Add New <i class="fa fa-plus"></i>
-                        </button>
+                         
                         <div class="btn-group pull-right">
                             <button data-toggle="dropdown" class="btn btn-green dropdown-toggle">
                                 Export <i class="fa fa-angle-down"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-light pull-right">
                                 <li>
-                                    <a href="#" class="export-pdf" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-pdf" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Save as PDF
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-png" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-png" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Save as PNG
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-csv" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-csv" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Save as CSV
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-txt" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-txt" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Save as TXT
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-xml" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-xml" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Save as XML
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-sql" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-sql" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Save as SQL
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-json" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-json" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Save as JSON
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-excel" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-excel" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Export to Excel
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-doc" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-doc" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Export to Word
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-powerpoint" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-powerpoint" data-table="#sample-table-2" data-ignoreColumn ="5">
                                         Export to PowerPoint
                                     </a>
                                 </li>
@@ -151,7 +149,7 @@
                                     <td>${des.tbInventario.codigoInventario}</td>
                                     <td>${des.tbInventario.tbcClaseActivo.nombreClase}</td>
                                     <td>${des.tbInventario.descripcionEquipo}</td> 
-                                    <td><a href="${pageContext.request.contextPath}/Descargo/deleteDescargo/${des.idDescargo}"> Anular</a>
+                                    <td><a class="ask"  onclick="return confirmar('¿Está seguro que desea eliminar el registro?')" href="${pageContext.request.contextPath}/Descargo/deleteDescargo/${des.idDescargo}"> Anular</a>
                                     </td>
 
                                 </tr>
@@ -166,3 +164,10 @@
     </div>
 </div>
 <%@include file="footer.jsp"%>
+
+<script  language="JavaScript">
+    function confirmar( mensaje ) 
+    { 
+        return confirm(mensaje); 
+    } 
+</script>

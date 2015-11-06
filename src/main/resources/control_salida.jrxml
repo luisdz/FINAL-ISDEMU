@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="control_salida2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="4"/>
+	<property name="ireport.y" value="92"/>
+	<parameter name="id_control_sal" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+I.DESCRIPCION_EQUIPO,
+I.MARCA,
+I.CODIGO_INVENTARIO,
+C.DESTINO,
+C.FECHA_TENTATIVA_DEVOLUCION
+from
+TB_INVENTARIO I inner join
+TBR_CONTROL_SALIDA_INVENTARIO CI on I.ID_INVENTARIO = CI.ID_INVENTARIO inner join
+TB_CONTROL_SALIDA C on CI.ID_CONTROL_SALIDA = C.ID_CONTROL_SALIDA
+where C.ID_CONTROL_SALIDA = $P{id_control_sal}]]>
+	</queryString>
+	<field name="DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<field name="MARCA" class="java.lang.String"/>
+	<field name="CODIGO_INVENTARIO" class="java.lang.String"/>
+	<field name="DESTINO" class="java.lang.String"/>
+	<field name="FECHA_TENTATIVA_DEVOLUCION" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="254" y="14" width="305" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Control de Salida de Moviliario y Equipo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="22" width="100" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Señor Vigilante:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="42" width="661" height="20"/>
+				<text><![CDATA[Atentamente le estamos comunicando que el señor: ___________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="62" width="408" height="20"/>
+				<text><![CDATA[esta autorizado para retirar de la Institucion el equipo que se detalla a continuacion]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="702" y="10" width="100" height="20"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="602" y="10" width="100" height="20"/>
+				<text><![CDATA[Fecha de Salida:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipo o Material]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inventario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="559" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Tentativa Devolucion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="687" y="2" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Efectiva de Devolucion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="26" y="0" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="0" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="0" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="0" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$F{DESTINO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="559" y="0" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$F{FECHA_TENTATIVA_DEVOLUCION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="11" width="661" height="20"/>
+				<text><![CDATA[Unidad a la que pertenece el mobiliario y equipo:______________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="24" width="661" height="20"/>
+				<text><![CDATA[Unidad responsable de la salidad del mobiliario y equipo:________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="37" width="661" height="20"/>
+				<text><![CDATA[Observaciones:__________________________________________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="48" width="661" height="20"/>
+				<text><![CDATA[______________________________________________________________________________________________________________]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="0" width="128" height="20"/>
+				<text><![CDATA[_____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="0" width="128" height="20"/>
+				<text><![CDATA[_____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="128" height="20"/>
+				<text><![CDATA[_____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="458" y="0" width="128" height="20"/>
+				<text><![CDATA[_____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="0" width="128" height="20"/>
+				<text><![CDATA[_____________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="20" width="128" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Jefe de Unidad]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="55" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="409" y="55" width="40" height="20"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="171" y="20" width="128" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Administracion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="20" width="128" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Encargado de Activo Fijo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="458" y="20" width="128" height="35"/>
+				<text><![CDATA[Persona que retira mobiliario o equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="20" width="128" height="20"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Vigilante]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

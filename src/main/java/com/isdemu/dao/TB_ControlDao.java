@@ -20,4 +20,5 @@ public interface TB_ControlDao {
     public void update(Object obj);
     public List getConInv(Serializable id);
     public List LastIdControl();
+    public List getInvControl(Serializable id);
 }

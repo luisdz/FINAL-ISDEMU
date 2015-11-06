@@ -74,4 +74,9 @@ public class TB_MovimientoServiceImp implements TB_Movimiento_Service {
     public List LastIdMovimiento() {
         return tbMovimientoDao.LastIdMovimiento();
     }
+
+    @Override
+    public List getAllInvPer() {
+        return tbMovimientoDao.getAllInvPer();
+    }
 }

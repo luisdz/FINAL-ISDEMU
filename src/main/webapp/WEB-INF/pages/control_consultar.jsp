@@ -93,24 +93,25 @@
                                             <table class="table table-hover" id="sample-table-2">
                                                     <thead>
                                                             <tr>
-                                                                    <th>idControl</th>
-                                                                    <th>Ncontol</th>
-                                                                    <th>solicitante</th>
-                                                                    <th>fecha</th>
+                                                                   
+                                                                    <th>Solicitante</th>
+                                                                    <th>Fecha</th>
+                                                                    <th>Detalle Control</th>
                                                                     <th>Eliminar</th>
                                                                     <th>Actualizar</th>
+                                                                    <th>Boleta</th>
                                                             </tr>
                                                     </thead>
                                                     <tbody>
                                                      <c:forEach var="con" items="${control}">
                                                             <tr >
-                                                                    <td>${con.idControlSalida}</td>
-                                                                    <td>${con.NControlSalida}</td>
+                                                               
                                                                     <td>${con.solicitante}</td>
                                                                     <td>${con.fechaSalida}</td>
+                                                                    <td><a href="${pageContext.request.contextPath}/Control/detalle/${con.idControlSalida}">Detalle</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Control/delete/${con.idControlSalida}">Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Control/editControl1/${con.idControlSalida}">Actualizar</a></td>
-                                                                    
+                                                                    <td><a href="${pageContext.request.contextPath}/Reporte/ReporteControl/${con.idControlSalida}">Imprimir</a></td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>

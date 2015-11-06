@@ -15,6 +15,7 @@ import java.util.List;
 public interface TB_MovimientoDao {
     public void save(Object obj);
      public List getAll();
+     public List getAllInvPer();
      public List getTop();
      public List getMovInv(Serializable id);
     public void delete(Serializable id);

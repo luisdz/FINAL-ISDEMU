@@ -22,4 +22,5 @@ public interface TB_Inventario_Service {
     public void update(Object obj);
     public List LastCodInventario(Serializable id);    
     public List findBycodigo(String code);
+     public void ETLInv();
 }

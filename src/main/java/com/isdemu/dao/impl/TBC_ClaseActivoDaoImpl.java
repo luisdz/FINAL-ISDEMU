@@ -14,6 +14,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,4 +92,14 @@ public class TBC_ClaseActivoDaoImpl implements TBC_ClaseActivoDao{
             System.out.println("ingresa antes de enviar con la sesion el objeto para update");
 		getCurrentSession().update(obj);
 	}
+        
+         @Override
+        public List LastCodClase(Serializable id){
+            DetachedCriteria dc = DetachedCriteria.forClass(TbcClaseActivo.class,"clase");
+            dc.createAlias("clase.tbcClasificacionActivo", "clasi");
+            dc.add(Restrictions.eq("clasi.idClasificacionActivo", id));
+             dc.addOrder(Order.desc("idClaseActivo"));
+          
+		return dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+        }
 }

@@ -38,13 +38,14 @@ public class TBC_ClasificacionActivoController {
      
     
      @RequestMapping(value="/insertarClasificacion", method=RequestMethod.GET)
-      public ModelAndView IngresarClasificacion() {
+      public ModelAndView IngresarClasificacion(String b) {
         
             Map<String, Object> myModel = new HashMap<String, Object>();
             List poliza = tbcPolizaService.getAll();
             myModel.put("clasificacionA", new TbcClasificacionActivo());
             myModel.put("poliza",poliza );
-        
+            String message = b;
+            myModel.put("message", message); 
               return new ModelAndView("clasificacion_activo",myModel);
         }
       
@@ -55,7 +56,7 @@ public class TBC_ClasificacionActivoController {
             
             tbcClasificacionAService.save(ClasificacionActivo);
         
-              return  modelAndView;
+              return  IngresarClasificacion("1");
         }
       
       @RequestMapping(value="/listaClasificacion")
@@ -74,7 +75,7 @@ public class TBC_ClasificacionActivoController {
 		tbcClasificacionAService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return ConsultarClase();
 	}
         
          @RequestMapping(value="/actualizarClasificacion/{id}", method=RequestMethod.GET)
@@ -100,6 +101,6 @@ public class TBC_ClasificacionActivoController {
                 String message = "Pais was successfully edited.";
 		modelAndView.addObject("message", message);
 
-		return modelAndView;
+		return ConsultarClase();
 	}
 }

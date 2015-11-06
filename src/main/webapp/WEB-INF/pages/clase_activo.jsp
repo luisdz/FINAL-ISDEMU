@@ -70,7 +70,7 @@
 
 
 
-                <form:form method="POST" action="${pageContext.request.contextPath}/ClaseActivo/insertarClase" onsubmit="return valida_envio();" modelAttribute="claseA" id="inventarioF">
+                <form:form method="POST" action="${pageContext.request.contextPath}/ClaseActivo/insertarClase" onsubmit="return valida_envio();" modelAttribute="claseA" id="claseAF">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -78,8 +78,8 @@
 
                                 <i class="fa fa-times-sign"></i> Se encontraron errores, favor verificarlos.
                             </div>
-                            <div class="successHandler alert alert-success no-display">
-                                <i class="fa fa-ok"></i> Validacion exitosa!
+                            <div class="successHandler alert alert-success no-display" id="mensajeExitoFormM">
+                                <i class="fa fa-ok"></i> Guardado con exito!
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -98,14 +98,7 @@
                                 <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione una Clasificacion</span>
                             </div>
                             
-                            
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Nombre Clase:<span id="span_marca" class="symbol"></span>
-                                </label>
-                                <form:input path="nombreClase" type="text" placeholder="Ingrese una Clase de Activo" class="form-control" id="clase" name="clase" onblur="return validaMarca(event);"/>
-                                <span for="clase" class="help-block  no-display" id="span_marcaT">Ingrese una Clase</span> 
-                            </div>
+                           
                          
 
 
@@ -114,17 +107,15 @@
                         </div>  
                         <!--     Cierre div izquiero-->
                         <div class="col-md-6">
+                             
                             <div class="form-group">
                                 <label class="control-label">
-                                    Codigo Clase:<span id="span_serie" class="symbol"></span>
+                                    Nombre Clase:<span id="span_marca" class="symbol"></span>
                                 </label>
-                                <form:input path="codigoClase" type="text" placeholder="Ingrese el codigo de la clase" class="form-control" id="codigoClase" name="codigoClase" onblur="return validaSerie(event);"/>
-                                <span for="codigoClase" class="help-block  no-display" id="span_serieT">Ingrese el codigo de la clase</span> 
+                                <form:input path="nombreClase" type="text" placeholder="Ingrese una Clase de Activo" class="form-control" id="clase" name="clase" onblur="return validaClase(event);"/>
+                                <span for="clase" class="help-block  no-display" id="span_claseT">Ingrese una Clase</span> 
                             </div>
-
-                             
-
-
+                            
                         </div>
 
                         <div class="row">
@@ -138,6 +129,8 @@
                                 </div>
                             </div>
                         </div>
+                                  <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <form:input class="no-display" path="" type="text" value="${message}"  id="msje"  />
                     </form:form>
                 </div>
 
@@ -150,5 +143,39 @@
 
 <!-- end: PAGE CONTENT-->
 <%@include file="footer.jsp" %>	
+<script src="${pageContext.request.contextPath}/assets/validaciones/validacionesClaseAct.js"></script>
 
+ <script>
+   $(document).ready(function () 
+   {       
+          
+        if (document.forms["claseAF"]["msje"].value==="1")
+        {
+             
+           $('#mensajeExitoFormM').removeClass("no-display"); 
+           document.forms["claseAF"]["msje"].value==="0";
+        }
 
+    }); 
+    
+    
+    function valideKey(evt)
+		    {
+		        var code = (evt.which) ? evt.which : evt.keyCode;
+		            if(code==8)
+		            {
+		                //backspace
+		                return true;
+		            }
+		            else if(code>=48 && code<=57)
+		            {
+		                //is a number
+		                return true;
+		            }
+		            else
+		            {
+		                return false;
+		            }
+		    };
+                    
+</script>

@@ -44,27 +44,6 @@ function validaSolicitante()
 
     };
     
-    function validaObservacion()
-    {
-        var x = document.forms["controlE"]["observacion"].value;
-        if (x === null || x === "")
-        {
-             
-            $('#span_observacionT').removeClass("no-display");            
-            $('#span_observacionT').closest("div").addClass("has-error");            
-             $('#span_observacionT').closest("div").removeClass("has-success");
-             
-            return false;
-        }
-        else
-        {
-            
-            $('#span_observacionT').addClass("no-display");
-             $('#span_observacionT').closest("div").removeClass("has-error");
-             $('#span_observacionT').closest("div").addClass("has-success");
-        }
-
-    };
     
     function validaDestino()
     {
@@ -145,12 +124,7 @@ function validaSolicitante()
             $('#mensajeErrorForm').removeClass("no-display");
             flag = true;
         }
-        
-        if(validaObservacion()===false)
-        {        
-            $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
-        }
+       
         
         if(validaDestino()===false)
         {        

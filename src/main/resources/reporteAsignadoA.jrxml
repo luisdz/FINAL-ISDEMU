@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteAsignadoA" language="groovy" pageWidth="2000" pageHeight="555" orientation="Landscape" columnWidth="2000" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0"  >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idpersona" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mayor600" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="menorque" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     TB_INVENTARIO."DESCRIPCION_EQUIPO" AS TB_INVENTARIO_DESCRIPCION_EQUIPO,
+     TB_INVENTARIO."CODIGO_INVENTARIO" AS TB_INVENTARIO_CODIGO_INVENTARIO,
+     TB_INVENTARIO."MARCA" AS TB_INVENTARIO_MARCA,
+     TB_INVENTARIO."MODELO" AS TB_INVENTARIO_MODELO,
+     TB_INVENTARIO."SERIE" AS TB_INVENTARIO_SERIE,
+     TB_INVENTARIO."FECHA_ADQUISICION" AS TB_INVENTARIO_FECHA_ADQUISICION,
+     TB_INVENTARIO."VALOR" AS TB_INVENTARIO_VALOR,
+     TB_INVENTARIO."N_FACTURA" AS TB_INVENTARIO_N_FACTURA,
+     TB_INVENTARIO."FINANCIAMIENTO" AS TB_INVENTARIO_FINANCIAMIENTO,
+     TB_INVENTARIO."OBSERVACION" AS TB_INVENTARIO_OBSERVACION,
+     TB_INVENTARIO."VALOR_LIBRO" AS TB_INVENTARIO_VALOR_LIBRO,
+     TB_INVENTARIO."FECHA_GARANTIA" AS TB_INVENTARIO_FECHA_GARANTIA,
+     TB_INVENTARIO."REGION" AS TB_INVENTARIO_REGION,
+     TB_INVENTARIO."USER_INSERT" AS TB_INVENTARIO_USER_INSERT,
+     TB_INVENTARIO."FECHA_INSERT" AS TB_INVENTARIO_FECHA_INSERT,
+     TB_INVENTARIO."USER_UPDATE" AS TB_INVENTARIO_USER_UPDATE,
+     TB_INVENTARIO."FECHA_UPDATE" AS TB_INVENTARIO_FECHA_UPDATE,
+     TBC_CLASE_ACTIVO."NOMBRE_CLASE" AS TBC_CLASE_ACTIVO_NOMBRE_CLASE,
+     TBC_PERSONA."NOMBRE_PERSONA" AS TBC_PERSONA_NOMBRE_PERSONA,
+     TBC_UBICACION."NOMBRE_UBICACION" AS TBC_UBICACION_NOMBRE_UBICACION,
+     asignado."NOMBRE_PERSONA" AS asignado_NOMBRE_PERSONA
+FROM
+     "dbo"."TBC_CLASE_ACTIVO" TBC_CLASE_ACTIVO INNER JOIN "dbo"."TB_INVENTARIO" TB_INVENTARIO ON TBC_CLASE_ACTIVO."ID_CLASE_ACTIVO" = TB_INVENTARIO."ID_CLASE_ACTIVO"
+     INNER JOIN "dbo"."TBC_PERSONA" TBC_PERSONA ON TB_INVENTARIO."ID_PERSONA" = TBC_PERSONA."ID_PERSONA"
+     INNER JOIN "dbo"."TBC_UBICACION" TBC_UBICACION ON TBC_PERSONA."ID_UBICACION" = TBC_UBICACION."ID_UBICACION"  INNER JOIN "dbo"."TBC_PERSONA" as asignado ON TB_INVENTARIO."ID_PERSONA_ASIGNADO" = asignado."ID_PERSONA" where TB_INVENTARIO."VALOR" >= $P{mayor600} and   asignado."ID_PERSONA" = $P{idpersona} and TB_INVENTARIO."VALOR" < $P{menorque} ]]>
+	</queryString>
+	<field name="TB_INVENTARIO_DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_CODIGO_INVENTARIO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_MARCA" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_MODELO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_SERIE" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_FECHA_ADQUISICION" class="java.sql.Date"/>
+	<field name="TB_INVENTARIO_VALOR" class="java.math.BigDecimal"/>
+	<field name="TB_INVENTARIO_N_FACTURA" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_FINANCIAMIENTO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_OBSERVACION" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_VALOR_LIBRO" class="java.math.BigDecimal"/>
+	<field name="TB_INVENTARIO_FECHA_GARANTIA" class="java.sql.Date"/>
+	<field name="TB_INVENTARIO_REGION" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_USER_INSERT" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_FECHA_INSERT" class="java.sql.Date"/>
+	<field name="TB_INVENTARIO_USER_UPDATE" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_FECHA_UPDATE" class="java.sql.Date"/>
+	<field name="TBC_CLASE_ACTIVO_NOMBRE_CLASE" class="java.lang.String"/>
+	<field name="TBC_PERSONA_NOMBRE_PERSONA" class="java.lang.String"/>
+	<field name="TBC_UBICACION_NOMBRE_UBICACION" class="java.lang.String"/>
+	<field name="asignado_NOMBRE_PERSONA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject"  x="0" y="0" width="100" height="20"  />
+				<text><![CDATA[CODIGO ACTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="20"  />
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="20"  />
+				<text><![CDATA[CLASE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="20"  />
+				<text><![CDATA[MARCA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="100" height="20"  />
+				<text><![CDATA[MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="20"  />
+				<text><![CDATA[SERIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="20"  />
+				<text><![CDATA[FECHA ADQUISICION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="20"  />
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="100" height="20"  />
+				<text><![CDATA[No FACTURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="100" height="20"  />
+				<text><![CDATA[FINANCIAMIENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1000" y="0" width="100" height="20" />
+				<text><![CDATA[OBSERVACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1100" y="0" width="100" height="20" />
+				<text><![CDATA[VALOR EN LIBROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="100" height="20"  />
+				<text><![CDATA[FECHA GARANTIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1300" y="0" width="100" height="20" />
+				<text><![CDATA[REGION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="100" height="20"  />
+				<text><![CDATA[UBICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="100" height="20" />
+				<text><![CDATA[EN CUSTODIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="1600" y="0" width="100" height="20" />
+				<text><![CDATA[ASIGNADO A]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBC_CLASE_ACTIVO_NOMBRE_CLASE}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_MARCA}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_MODELO}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="500" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_SERIE}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="600" y="0" width="100" height="20" />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_FECHA_ADQUISICION}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="700" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_VALOR}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="800" y="0" width="100" height="20" />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_N_FACTURA}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="900" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_FINANCIAMIENTO}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="1000" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_OBSERVACION}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="1100" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_VALOR_LIBRO}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="1200" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_FECHA_GARANTIA}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="1300" y="0" width="100" height="20" />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_REGION}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="1400" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBC_UBICACION_NOMBRE_UBICACION}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="1500" y="0" width="100" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBC_PERSONA_NOMBRE_PERSONA}]]></textFieldExpression>
+			</textField>
+			 <textField isStretchWithOverflow="true" >
+				<reportElement stretchType="RelativeToTallestObject" x="1600" y="0" width="100" height="20" />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asignado_NOMBRE_PERSONA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -26,6 +26,7 @@ import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Localizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
 import com.isdemu.service.TBC_Poliza_Service;
+import com.isdemu.service.TBC_Proveedor_Service;
 import com.isdemu.service.TBC_Ubicacion_Service;
 import com.isdemu.service.TBR_MovimientoInventario_Service;
 
@@ -85,12 +86,15 @@ public class TB_InventarioController {
        
        @Autowired
         private TBR_MovimientoInventario_Service tbrMovInvService; 
+       
+        @Autowired
+	private TBC_Proveedor_Service tbcProveedorService;
      
      
      
     
     @RequestMapping(value="/list")
-	public ModelAndView listOfPaises() {
+	public ModelAndView listActivos() {
 		ModelAndView modelAndView = new ModelAndView("consultar_inventario");
 
 		List inventario = tbInventarioService.getAll();
@@ -175,27 +179,35 @@ public class TB_InventarioController {
         
         
         @RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addPaisPage() {
+	public ModelAndView insertarInventario(String b) {
              
 		//ModelAndView modelAndView = new ModelAndView("inventario");
                  Map<String, Object> myModel = new HashMap<String, Object>();
 		 List ClasAct = tbClasActService.getAll();
                  List persona=tbcPersonaService.getAll();
-             
+             System.out.println("antesss");
                  List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
-                
                  //List ClaseActivo=tbcClaseActivoService.getAll();
-                 
-                 
+                 String message = "0";
+                 if(b!=null){
+                 message = "1";
+                 }
+                  
+                  String codigoIngresado = b;
+                  myModel.put("message", message); 
+                  
                  List ClaseActivo=tbcClaseActivoService.getTop();
                  
+                 List proveedor=tbcProveedorService.getAll();
+                 
                  myModel.put("inventario", new TbInventario());
-                
+                  myModel.put("codigoIngresado",codigoIngresado);
                  myModel.put("clasificacionA",ClasAct );
                  myModel.put("claseActivo",ClaseActivo );
                  myModel.put("persona",persona);
                 
                  myModel.put("clasiLocalizacion",clasiLocalizacion);
+                  myModel.put("proveedor",proveedor);
                 
                
                 
@@ -204,7 +216,7 @@ public class TB_InventarioController {
         
         
         @RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addingPais(@ModelAttribute TbInventario inventario) {
+	public ModelAndView insertandoInventario(@ModelAttribute TbInventario inventario) {
 		ModelAndView modelAndView = new ModelAndView("home");
 		
                 inventario.setValorLibro(BigDecimal.ZERO);
@@ -212,6 +224,8 @@ public class TB_InventarioController {
                 //obtener el codigo de la clase seleccionada para armar el codigo de inventario
                 TbcClaseActivo codigoClaseA = (TbcClaseActivo)tbcClaseActivoService.findByKey(inventario.getTbcClaseActivo().getIdClaseActivo());
                 String CodigoClase=codigoClaseA.getCodigoClase();
+                System.out.println("El codigo de la clase para general el codigo inventario:"+CodigoClase+"tamanio:"+CodigoClase.length());
+                
                 //ir a inventario y consultar el ultimo codigo con la clase que se ingreso devolver el codigo, convertilo a int y sumarle uno
                 List<TbInventario> LastInv=tbInventarioService.LastCodInventario(inventario.getTbcClaseActivo().getIdClaseActivo());
                 String Correlativo="";
@@ -219,7 +233,17 @@ public class TB_InventarioController {
                     //extraer los ultimos digitos convertitlo a int, sumarle uno y luego concatenarlo con CodigoInventario
                     String LastCodInv=LastInv.get(0).getCodigoInventario();
                     int LongLastCod=LastCodInv.length();
-                    String CodIncrement=LastCodInv.substring(7,LongLastCod);
+                   //hacer la comparacion para determinar el tamano de la clase si tiene  2 digitos extraer del 7 si tiene 3 extraer de 8
+                    String CodIncrement="";
+                    if(CodigoClase.length()==2){
+                         CodIncrement=LastCodInv.substring(7,LongLastCod);
+                    }
+                    if(CodigoClase.length()==3){
+                         CodIncrement=LastCodInv.substring(8,LongLastCod);
+                    
+                    }
+                    
+                    
                     System.out.println("ULTIMOS DIGITOS DEL CODIGO;"+CodIncrement);
                     int CodIncrementInt=Integer.parseInt(CodIncrement);
                     int Increment=CodIncrementInt+1;
@@ -248,14 +272,14 @@ public class TB_InventarioController {
                 inventario.setCodigoInventario(CodigoInventario);
                 
                  //crear obj estado para set el id estado
-                    TbcEstadoInventario estado=new TbcEstadoInventario();
-                    estado.setIdEstado(1);
-                    inventario.setTbcEstadoInventario(estado);
+                 TbcEstadoInventario estado=new TbcEstadoInventario();
+                 estado.setIdEstado(1);
+                 inventario.setTbcEstadoInventario(estado);
                     
                 tbInventarioService.save(inventario);
                 String message = "Pais was successfully added.";
                 modelAndView.addObject("message", message);
-                return modelAndView;
+                return insertarInventario(CodigoInventario);
 	}
         
         
@@ -270,6 +294,8 @@ public class TB_InventarioController {
                 //obtener el codigo de la clase seleccionada para armar el codigo de inventario
                 TbcClaseActivo codigoClaseA = (TbcClaseActivo)tbcClaseActivoService.findByKey(inventario.getTbcClaseActivo().getIdClaseActivo());
                 String CodigoClase=codigoClaseA.getCodigoClase();
+                System.out.println("El codigo de la clase para general el codigo inventario:"+CodigoClase+"tamanio:"+CodigoClase.length());
+                
                 //ir a inventario y consultar el ultimo codigo con la clase que se ingreso devolver el codigo, convertilo a int y sumarle uno
                 List<TbInventario> LastInv=tbInventarioService.LastCodInventario(inventario.getTbcClaseActivo().getIdClaseActivo());
                 String Correlativo="";
@@ -277,7 +303,16 @@ public class TB_InventarioController {
                     //extraer los ultimos digitos convertitlo a int, sumarle uno y luego concatenarlo con CodigoInventario
                     String LastCodInv=LastInv.get(0).getCodigoInventario();
                     int LongLastCod=LastCodInv.length();
-                    String CodIncrement=LastCodInv.substring(7,LongLastCod);
+                    
+                   //hacer la comparacion para determinar el tamano de la clase si tiene  2 digitos extraer del 7 si tiene 3 extraer de 8
+                    String CodIncrement="";
+                    if(CodigoClase.length()==2){
+                         CodIncrement=LastCodInv.substring(7,LongLastCod);
+                    }
+                    if(CodigoClase.length()==3){
+                         CodIncrement=LastCodInv.substring(8,LongLastCod);
+                    
+                    }
                 
                     int CodIncrementInt=Integer.parseInt(CodIncrement);
                     int Increment=CodIncrementInt+1;
@@ -333,7 +368,7 @@ public class TB_InventarioController {
                
                 String message = "Pais was successfully added.";
                 modelAndView.addObject("message", message);
-                return modelAndView;
+                return insertarInventario("1");
 	}
         
         //Agregar varios activos que pertenecesn al mismo codigo
@@ -366,7 +401,15 @@ public class TB_InventarioController {
                     //extraer los ultimos digitos convertitlo a int, sumarle uno y luego concatenarlo con CodigoInventario
                     String LastCodInv=LastInv.get(0).getCodigoInventario();
                     int LongLastCod=LastCodInv.length();
-                    String CodIncrement=LastCodInv.substring(7,LongLastCod);
+                    //hacer la comparacion para determinar el tamano de la clase si tiene  2 digitos extraer del 7 si tiene 3 extraer de 8
+                    String CodIncrement="";
+                    if(CodigoClase.length()==2){
+                         CodIncrement=LastCodInv.substring(7,LongLastCod);
+                    }
+                    if(CodigoClase.length()==3){
+                         CodIncrement=LastCodInv.substring(8,LongLastCod);
+                    
+                    }
                     System.out.println("ULTIMOS DIGITOS DEL CODIGO;"+CodIncrement);
                     int CodIncrementInt=Integer.parseInt(CodIncrement);
                     int Increment=CodIncrementInt+1;
@@ -490,7 +533,30 @@ public class TB_InventarioController {
 		tbInventarioService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
+		return listActivos();
+	}
+        
+        
+        //CARGAR LA VISTA PARA EL BOTON DE ETL
+        @RequestMapping(value="/ETLVISTA")
+	public ModelAndView ETLVISTA() {
+		ModelAndView modelAndView = new ModelAndView("ETLExito");
+
+		//List inventario = tbInventarioService.getAll();
+		//modelAndView.addObject("inventario", inventario);
+
 		return modelAndView;
+	}
+        
+        //para hacer el ETL de base intranet a base local
+           @RequestMapping(value="/ETLInv/{id}", method=RequestMethod.GET)
+	public ModelAndView ETLInventario(@PathVariable Integer id) {
+		ModelAndView modelAndView = new ModelAndView("ETLExito");
+                System.out.println("ingresacontroller");
+               tbInventarioService.ETLInv();
+               String message = "Pais was successfully deleted.";
+		modelAndView.addObject("message", message);
+	 return ETLVISTA();
 	}
         
         
@@ -504,12 +570,13 @@ public class TB_InventarioController {
                    List ClasAct = tbClasActService.getAll();  
                    List persona=tbcPersonaService.getAll();
                    List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                     List proveedor=tbcProveedorService.getAll();
                    myModel.put("inventario",inventario ); 
             
                    myModel.put("persona",persona);
                   myModel.put("clasiLocalizacion",clasiLocalizacion);
                   myModel.put("AllclasificacionA",ClasAct );
-                
+                 myModel.put("proveedor",proveedor);
                 //System.out.println("A ver el combo:"+inventario.getTbcClasificacionActivo().getIdClasificacionActivo()+activo.getNombreClasificacion());
 		//modelAndView.addObject("inventario",inventario);
 		return new ModelAndView("actualizar_inventario",myModel);
@@ -519,20 +586,26 @@ public class TB_InventarioController {
 	public ModelAndView edditingPais(@ModelAttribute TbInventario inventario, @PathVariable Integer id) {
 		TbInventario ActivoActual = (TbInventario) tbInventarioService.findByKey(id);
 		ModelAndView modelAndView = new ModelAndView("home");
+                
                 ActivoActual.setMarca(inventario.getMarca());
 		ActivoActual.setDescripcionEquipo(inventario.getDescripcionEquipo());
                 ActivoActual.setFechaAdquisicion(inventario.getFechaAdquisicion());
                 ActivoActual.setModelo(inventario.getModelo());
                 ActivoActual.setNFactura(inventario.getNFactura());
                 ActivoActual.setSerie(inventario.getSerie());
-                ActivoActual.setIdPersonaAsignado(inventario.getTbcPersona().getIdPersona());
+               
+                ActivoActual.setTbcPersona(inventario.getTbcPersona());
                 
+                ActivoActual.setIdLocalizacion(inventario.getIdLocalizacion());
+                ActivoActual.setValor(inventario.getValor());
+                 ActivoActual.setFinanciamiento(inventario.getFinanciamiento());
+                ActivoActual.setTbcProveedor(inventario.getTbcProveedor());
 		tbInventarioService.update(ActivoActual);
 
 		String message = "Pais was successfully edited.";
 		modelAndView.addObject("message", message);
 
-		return modelAndView;
+		return listActivos();
 	}
     
 }

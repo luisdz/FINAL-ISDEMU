@@ -56,7 +56,7 @@
             <div class="panel-body">
                 <h2><i class="fa fa-pencil-square"></i> Descargo</h2>
                 <p>
-                    Esta es la seccion de Ingreso de Activos Fijos
+                    Esta es la seccion de Descargo de Activos Fijos
                 </p>
                 <hr>
 

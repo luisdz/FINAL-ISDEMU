@@ -42,12 +42,13 @@ public class TBC_PolizaController {
     
     //************consultar*********************
     @RequestMapping(value="/consultarPoli")
-	public ModelAndView consultarPolizas() 
+	public ModelAndView consultarPolizas(String b) 
         {
 		ModelAndView modelAndView = new ModelAndView("consultar_poliza");
 
 		List poliza = tbPolizaService.getAll();
 		modelAndView.addObject("poliza", poliza);
+                modelAndView.addObject("msj",b);
 
 		return modelAndView;
 	}
@@ -87,7 +88,7 @@ public class TBC_PolizaController {
 		tbPolizaService.delete(id);
 		String message = "poliza was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return consultarPolizas("1");
 	}
         
         @RequestMapping(value="/editPoliza/{id}", method=RequestMethod.GET)
@@ -114,7 +115,7 @@ public class TBC_PolizaController {
 		tbPolizaService.update(polizaActual); 
 		String message = "poliza was successfully edited.";
 		modelAndView.addObject("message", message); 
-		return modelAndView;
+		return consultarPolizas("2");
 	}
         
         

@@ -141,34 +141,44 @@
                 
                <div class="row">
 
-                            <div class="row">
-                                
-                                <div class="col-md-4">
-                                        <button class="btn btn-yellow btn-block" type="button" onclick="enviar();">
-                                                Actualizar <i class="fa fa-arrow-circle-right"></i>
-                                        </button>
-                                </div>
-                            </div>
+                           
                 </div>
-                  </form:form>
+                <div class="col-md-12 text-center">            
+                                <div class="form-group" align="center">
+                                    <label class="control-label">
+                                        Codigo Inventario<span class="symbol "></span>
+                                    </label>
+                                    <form:input path=""  type="text" placeholder="Ingrese un codigo" class="form-control" id="codigo" name="codigo" style="width:50%" />
+                                    <span for="codigo" class="help-block  no-display" id="span_codigoE">El codigo es invalido o ya esta agreagado</span>  
+                                    <span for="codigo" class="help-block  no-display" id="span_codigoE2">El inventario con ese codigo esta descargado</span>  
 
+                                 </div> 
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-default" onclick="enviarCodeM();" >Agregar</button>  
+                                &nbsp;<br/><br/>
+                            </div>   
+                
                        <div class="table-responsive">
                         <table class="table table-striped table-hover" id="tabla_prueba">
                                 <thead>
                                         <tr>
-                                             <th>id control inv</th>
-                                               <th>ID control</th>
-                                                <th>Delete</th>
+                                            <th class="no-display">id</th>
+                                            <th>Codigo Inv</th>                                             
+                                            <th>Clase Activo</th>
+                                            <th>Descripcion</th>
+                                            <th>Eliminar</th>
                                         </tr>
                                 </thead>
                                 <tbody id="tablabody" name="tablabody">
 
                                 <c:forEach var="con" items="${controlInv}">
-                                            <tr id="${con.idControlSalidaInventario}">
-                                                <td>${con.idControlSalidaInventario}</td>
-                                                <td>${con.tbControlSalida.idControlSalida}</td>                                               
-                                                <td><a href="" onclick="return deleteElement('${con.idControlSalidaInventario}');"> Eliminar</a></td>
-
+                                            <tr id="${con[0]}">
+                                                <td class="no-display">${con[0]}</td>
+                                                <td>${con[1]}</td>
+                                                <td>${con[2]}</td>
+                                                <td>${con[3]}</td>
+                                                <td><a href="" onclick="return deleteElement('${con[0]}');"><span class="glyphicon glyphicon-remove"></span></a></td>
                                             </tr>
                                         </c:forEach>	
                                           
@@ -176,8 +186,17 @@
                                 </tbody>
                         </table>
                 </div>
-
- 
+                            <div class="row">
+                                <div class="col-md-12">
+                                     &nbsp;<br/>  
+                                </div>
+                                <div class="col-md-4">
+                                        <button class="btn btn-yellow btn-block" type="button" onclick="enviar();">
+                                                Actualizar <i class="fa fa-arrow-circle-right"></i>
+                                        </button>
+                                </div>
+                            </div>
+        </form:form>
             </div>
                             </div>
                             <!-- end: FORM VALIDATION 1 PANEL -->
@@ -240,9 +259,9 @@ function enviar()
            type: "POST",
            url: "${pageContext.request.contextPath}/Control/editControl1/${control.idControlSalida}",
            dataType: "json",
-           contentType: 'application/json',
+           contentType: 'application/json; charset=utf-8',
            success: function (msg) {
-               alert("Almacenado con Exito");
+               alert("Actualizado con Exito");
                location.reload();
            },
            data: jsonArray

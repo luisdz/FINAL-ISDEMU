@@ -58,6 +58,12 @@ public class TB_Control_ServiceImpl implements TB_Control_Service {
    }
    
    @Override
+         public List getInvControl(Serializable id){
+             System.out.println("service impl getconinv");
+         return tbControlDao.getInvControl(id);
+         }
+   
+   @Override
 	public void update(Object obj) {
 		// TODO Auto-generated method stub
 		tbControlDao.update(obj);

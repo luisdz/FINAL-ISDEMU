@@ -62,7 +62,7 @@ public class TBT_VerificarInventarioDaoImpl implements TBT_VerificarInventarioDa
             System.out.println("ingresa al inventario sobrante");
             Session session = null;
             session = sessionFactory.getCurrentSession();
-            SQLQuery query = session.createSQLQuery("SELECT TBT_VERIFICAR_INVENTARIO.CODIGO_INVENTARIO FROM TBT_VERIFICAR_INVENTARIO EXCEPT SELECT TB_INVENTARIO.CODIGO_INVENTARIO FROM TB_INVENTARIO");
+            SQLQuery query = session.createSQLQuery(" SELECT TBT_VERIFICAR_INVENTARIO.ID_INVENTARIO, TBT_VERIFICAR_INVENTARIO.CODIGO_INVENTARIO,TB_INVENTARIO.[DESCRIPCION_EQUIPO],TB_INVENTARIO.[VALOR] FROM TBT_VERIFICAR_INVENTARIO inner join tb_inventario on tb_inventario.id_inventario=tbt_verificar_inventario.id_inventario EXCEPT SELECT TB_INVENTARIO.ID_INVENTARIO,TB_INVENTARIO.CODIGO_INVENTARIO, TB_INVENTARIO.[DESCRIPCION_EQUIPO],TB_INVENTARIO.[VALOR] FROM TB_INVENTARIO WHERE ID_LOCALIZACION='"+id+"'");
             List<TbtVerificarInventario> Vinventario = query.list();
             
             return Vinventario;
@@ -74,7 +74,7 @@ public class TBT_VerificarInventarioDaoImpl implements TBT_VerificarInventarioDa
                System.out.println("ingresa al inventario faltante");
             Session session = null;
             session = sessionFactory.getCurrentSession();
-            SQLQuery query = session.createSQLQuery("SELECT TB_INVENTARIO.ID_INVENTARIO,TB_INVENTARIO.CODIGO_INVENTARIO FROM TB_INVENTARIO WHERE ID_LOCALIZACION='"+id+"'EXCEPT SELECT TBT_VERIFICAR_INVENTARIO.ID_INVENTARIO, TBT_VERIFICAR_INVENTARIO.CODIGO_INVENTARIO FROM TBT_VERIFICAR_INVENTARIO");
+            SQLQuery query = session.createSQLQuery("SELECT TB_INVENTARIO.ID_INVENTARIO,TB_INVENTARIO.CODIGO_INVENTARIO, TB_INVENTARIO.DESCRIPCION_EQUIPO,TB_INVENTARIO.[VALOR] FROM TB_INVENTARIO WHERE ID_LOCALIZACION='"+id+"' EXCEPT SELECT TBT_VERIFICAR_INVENTARIO.ID_INVENTARIO, TBT_VERIFICAR_INVENTARIO.CODIGO_INVENTARIO,TB_INVENTARIO.[DESCRIPCION_EQUIPO],TB_INVENTARIO.[VALOR] FROM TBT_VERIFICAR_INVENTARIO inner join tb_inventario on tb_inventario.id_inventario=tbt_verificar_inventario.id_inventario");
             System.out.println("la query"+query);
             List<TbtVerificarInventario> Vinventario = query.list();
             

@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <h2><i class="fa fa-pencil-square"></i> Unidad</h2>
+                <h2><i class="fa fa-pencil-square"></i> Proveedor</h2>
                 <p>
                     Esta es la seccion de Ingreso de Unidades
                 </p>

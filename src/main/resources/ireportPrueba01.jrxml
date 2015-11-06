@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ireportPrueba01" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c403a094-d1c5-422a-b9e5-8e2273193841">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idMov" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     TB_MOVIMIENTO."ID_MOVIMIENTO" AS TB_MOVIMIENTO_ID_MOVIMIENTO,
+     TB_MOVIMIENTO."N_MOVIMIENTO" AS TB_MOVIMIENTO_N_MOVIMIENTO,
+     TB_MOVIMIENTO."FECHA_MOVIMIENTO" AS TB_MOVIMIENTO_FECHA_MOVIMIENTO,
+     TB_MOVIMIENTO."RAZON_CAMBIO" AS TB_MOVIMIENTO_RAZON_CAMBIO,
+     TB_MOVIMIENTO."USER_INSERT" AS TB_MOVIMIENTO_USER_INSERT,
+     TB_MOVIMIENTO."FECHA_INSERT" AS TB_MOVIMIENTO_FECHA_INSERT,
+     TB_MOVIMIENTO."USER_UPDATE" AS TB_MOVIMIENTO_USER_UPDATE,
+     TB_MOVIMIENTO."FECHA_UPDATE" AS TB_MOVIMIENTO_FECHA_UPDATE,
+     TB_MOVIMIENTO."ID_PERSONA_NUEVA" AS TB_MOVIMIENTO_ID_PERSONA_NUEVA
+FROM
+     "dbo"."TB_MOVIMIENTO" TB_MOVIMIENTO
+
+where TB_MOVIMIENTO."ID_MOVIMIENTO" = $P{idMov}
+
+]]>
+	</queryString>
+	<field name="TB_MOVIMIENTO_ID_MOVIMIENTO" class="java.lang.Integer"/>
+	<field name="TB_MOVIMIENTO_N_MOVIMIENTO" class="java.lang.Integer"/>
+	<field name="TB_MOVIMIENTO_FECHA_MOVIMIENTO" class="java.sql.Date"/>
+	<field name="TB_MOVIMIENTO_RAZON_CAMBIO" class="java.lang.String"/>
+	<field name="TB_MOVIMIENTO_USER_INSERT" class="java.lang.Integer"/>
+	<field name="TB_MOVIMIENTO_FECHA_INSERT" class="java.sql.Date"/>
+	<field name="TB_MOVIMIENTO_USER_UPDATE" class="java.lang.Integer"/>
+	<field name="TB_MOVIMIENTO_FECHA_UPDATE" class="java.sql.Date"/>
+	<field name="TB_MOVIMIENTO_ID_PERSONA_NUEVA" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="91" y="2" width="100" height="20" uuid="63b5da24-6894-490c-843f-4cc6dff3d9b6"/>
+				<text><![CDATA[TB_MOVIMIENTO_ID_MOVIMIENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="2" width="100" height="20" uuid="a9652ae4-06af-413a-851f-c7ac12ce62d5"/>
+				<text><![CDATA[TB_MOVIMIENTO_N_MOVIMIENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="2" width="100" height="20" uuid="5627b796-ee6b-4ad7-b90e-505ddc2aefa9"/>
+				<text><![CDATA[TB_MOVIMIENTO_FECHA_MOVIMIENTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="91" y="35" width="100" height="20" uuid="3491dc44-5c29-4168-9858-5483134955fc"/>
+				<textFieldExpression><![CDATA[$F{TB_MOVIMIENTO_ID_MOVIMIENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="35" width="100" height="20" uuid="571081ed-07bd-4613-a451-68ef9f715666"/>
+				<textFieldExpression><![CDATA[$F{TB_MOVIMIENTO_N_MOVIMIENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="39" width="100" height="20" uuid="6919dc39-2efa-4b04-9f71-c7d39e1b5d91"/>
+				<textFieldExpression><![CDATA[$F{TB_MOVIMIENTO_FECHA_MOVIMIENTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

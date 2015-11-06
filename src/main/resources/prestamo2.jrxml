@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prestamo2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7818882b-b0d4-4ba7-bd31-111bb64eee7d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_prestamo_equi" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+I.DESCRIPCION_EQUIPO,
+I.MARCA,
+I.CODIGO_INVENTARIO
+from
+TB_INVENTARIO I inner join
+TBR_PRESTAMO_EQUIPO_INVENTARIO CI on I.ID_INVENTARIO = CI.ID_INVENTARIO inner join
+TB_PRESTAMO_EQUIPO C on CI.ID_PRESTAMO_EQUIPO = C.ID_PRESTAMO_EQUIPO
+where C.ID_PRESTAMO_EQUIPO = $P{id_prestamo_equi}]]>
+	</queryString>
+	<field name="DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<field name="MARCA" class="java.lang.String"/>
+	<field name="CODIGO_INVENTARIO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="111" y="0" width="362" height="40" uuid="5bd4c905-3ba3-4d94-bdd8-e9df088825d2"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO SALVADOREÑO PARA EL DESARROLLO DE LA MUJER
+UNIDAD DE APOYO INSTITUCIONAL/INFORMÁTICA
+SOLICITUD DE PRESTAMO DE EQUIPO MULTIMEDIA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="29" y="0" width="82" height="43" uuid="f9879926-3801-45ae-be58-42bdec267abf"/>
+				<imageExpression><![CDATA["C:\\Users\\Walter\\Pictures\\isdemu.JPG"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="105" splitType="Stretch">
+			<staticText>
+				<reportElement x="66" y="20" width="446" height="66" uuid="61d3fadf-c060-487b-9c40-1ec1841ef727"/>
+				<text><![CDATA[Fecha de solicitud: ___________________ Fecha de reservación:____________________
+Hora Desde: ________________ Hasta: ________________
+A quién se impartirá la actividad:______________________________________________
+________________________________________________________________________
+Destino:__________________________________________________________________
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="111" y="2" width="100" height="20" uuid="553a073d-3ba3-47a1-991c-689d827ef54a"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="2" width="100" height="20" uuid="8651a6d0-c9a3-4651-a665-39292119749b"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inventario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="111" y="0" width="100" height="20" uuid="5a480a79-dfa1-4971-8a64-a8cc3e6e217c"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="0" width="100" height="20" uuid="fcdb67bb-81c0-41ef-bb6f-3a81c5cf7df6"/>
+				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="134" splitType="Stretch">
+			<staticText>
+				<reportElement x="77" y="0" width="446" height="27" uuid="76448a4d-838b-462f-a542-f151d7e45a51"/>
+				<text><![CDATA[Nota: La persona que solicita el equipo es responsable de él desde el momento en que se le Entrega. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="27" width="145" height="20" uuid="051f9ef6-71d3-48d1-a1c1-0b99ec552de9"/>
+				<text><![CDATA[________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="41" width="125" height="20" uuid="cd0b6cae-fa88-4a61-a6af-ee1a12c2070a"/>
+				<text><![CDATA[Nombre del/a Solicitante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="41" width="125" height="20" uuid="b220f49c-c772-4e46-95a1-531327a08e68"/>
+				<text><![CDATA[Firma del/a Solicitante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="27" width="145" height="20" uuid="aa8d13d2-bcd5-4f30-99a7-729db8c367a3"/>
+				<text><![CDATA[________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="73" width="179" height="20" uuid="6081ca9f-5d0c-4a73-b874-d571d807c6ec"/>
+				<text><![CDATA[Nombre de quien devuelve el equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="58" width="179" height="20" uuid="2a57bb98-8498-472a-aa8c-03af81959181"/>
+				<text><![CDATA[_______________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="73" width="179" height="20" uuid="ab0069b5-a457-44ca-99b1-2cc346fc4fc0"/>
+				<text><![CDATA[Nombre de quien devuelve el equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="58" width="179" height="20" uuid="d1ff2902-f1a0-42dc-909a-7548138933ec"/>
+				<text><![CDATA[_______________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="93" width="100" height="20" uuid="2b4f976b-94fe-4cda-81e1-cf243670fb30"/>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="68" y="101" width="455" height="20" uuid="b2f5a240-0818-4894-bfa8-f6ed7e3ab4f1"/>
+				<text><![CDATA[__________________________________________________________________________]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="275" y="0" width="100" height="20" uuid="115d9232-3f41-4eff-a9b7-024d59f5f920"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -98,8 +98,8 @@
                                                         Observacion<span id="span_observacion" class="symbol"></span>
                                                 </label>
 <!--                                                <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">-->
-                                                <form:input path="observacion" type="text" class="form-control" id="observacion" name="observacion" onblur="return validaObservacion(event);"/>
-                                                <span for="observacion" class="help-block  no-display" id="span_observacionT">Ingrese una Observacion</span>                   
+                                                <form:input path="observacion" type="text" class="form-control" id="observacion" name="observacion"/>
+                                                <span for="observacion" class="help-block  no-display" >Ingrese una Observacion</span>                   
                 
                                     </div>
                                     <div class="form-group">
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-yellow btn-block" type="button" onclick="enviar();">
-                                                Guardar1 <i class="fa fa-arrow-circle-right"></i>
+                                                Guardar <i class="fa fa-arrow-circle-right"></i>
                                         </button>
                                 </div>
                         </div>
@@ -250,10 +250,17 @@
            type: "POST",
            url: "${pageContext.request.contextPath}/Control/add",
            dataType: "json",
-           contentType: 'application/json',
+           contentType: 'application/json; charset=utf-8',
            success: function (msg) {
                alert("Almacenado con Exito");
-               location.reload();
+               window.location="../Reporte/ReporteControl/"+msg;
+               document.getElementById('solicitante').value="";
+               document.getElementById('observacion').value="";
+               document.getElementById('destino').value="";
+               document.getElementById('fecha_sal').value="";
+               document.getElementById('fecha_devolucion').value="";
+               document.getElementById('codigo').value="";
+               $("#tablabody").empty();
            },
            data: jsonArray
        });

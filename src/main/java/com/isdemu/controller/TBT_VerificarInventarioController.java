@@ -9,6 +9,7 @@ import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbtVerificarInventario;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBT_VerificarInventario_Service;
+import com.isdemu.service.TB_Inventario_Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +33,9 @@ import org.springframework.web.servlet.ModelAndView;
  @RequestMapping(value="/VerificarInventario")
 public class TBT_VerificarInventarioController {
      @Autowired
+	private TB_Inventario_Service tbInventarioService;
+    
+    @Autowired
         private TBC_ClasificacionLocalizacion_Service tbcClasificacionLocalizacionService;
      
      @Autowired
@@ -90,6 +95,7 @@ public class TBT_VerificarInventarioController {
                 
                List<TbtVerificarInventario> InventarioFaltante= tbcVerificarInventarioService.getInventarioFaltante(idLocalizacionInt);
                List<TbtVerificarInventario> InventarioSobrante= tbcVerificarInventarioService.getInventarioSobrante(idLocalizacionInt);
+               
                tbcVerificarInventarioService.delete(1);
                // tbInventarioService.save(inventario);
                 String message = "Pais was successfully added.";
@@ -102,6 +108,28 @@ public class TBT_VerificarInventarioController {
                 System.out.println("la 2 listas en una"+newList);
                 modelAndView.addObject("message", message);
                 return newList;
+	}
+        
+        
+              @RequestMapping(value="/consultar/{id}", method=RequestMethod.GET)
+	public ModelAndView consultarVerificarInventario(@PathVariable Integer id) {
+		//ModelAndView modelAndView = new ModelAndView("actualizar_inventario");
+		TbInventario inventario = (TbInventario) tbInventarioService.findByKey(id);
+              //  TbcClasificacionActivo activo = (TbcClasificacionActivo) tbClasActService.findByKey(inventario.getTbcClasificacionActivo().getIdClasificacionActivo());
+                
+                  Map<String, Object> myModel = new HashMap<String, Object>();
+                 //  List ClasAct = tbClasActService.getAll();  
+                 //  List persona=tbcPersonaService.getAll();
+                //   List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                   myModel.put("inventario",inventario ); 
+            
+                  // myModel.put("persona",persona);
+               //   myModel.put("clasiLocalizacion",clasiLocalizacion);
+               //   myModel.put("AllclasificacionA",ClasAct );
+                
+                //System.out.println("A ver el combo:"+inventario.getTbcClasificacionActivo().getIdClasificacionActivo()+activo.getNombreClasificacion());
+		//modelAndView.addObject("inventario",inventario);
+		return new ModelAndView("consultar_verificar_inventario",myModel);
 	}
         
 }

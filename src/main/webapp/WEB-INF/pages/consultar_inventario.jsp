@@ -131,10 +131,10 @@
                                 <th>codigoInventario</th>
                                 <th>Marca</th>
                                 <th>Modelo</th>
-                                <th>serie</th> 
+                                <th>Ubicacion</th> 
                                 <th>fechaAdquisicion</th>
                                 <th>valor</th>
-                                <th>NFactura</th> 
+                            
                                 
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -151,14 +151,14 @@
                                     <td>${inv.codigoInventario}</td>
                                     <td>${inv.marca}</td>
                                     <td>${inv.modelo}</td>
-                                    <td>${inv.serie}</td>
+                                    <td>${inv.tbcPersona.tbcUbicacion.nombreUbicacion}</td>
                                     <td>${inv.fechaAdquisicion}</td>
                                     <td>${inv.valor}</td>
-                                    <td>${inv.NFactura}</td>
+                                   
                                     
                                     <td><a href="${pageContext.request.contextPath}/Inventario/edit/${inv.idInventario}">
                                             Editar</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/Inventario/delete/${inv.idInventario}">
+                                    <td><a href="${pageContext.request.contextPath}/Inventario/delete/${inv.idInventario}" onclick="return confirmar('¿Está seguro que desea eliminar el registro?')">
                                             Eliminar</a></td>
 
                                 </tr>
@@ -175,5 +175,10 @@
 </div>
 <!-- end: PAGE CONTENT-->
 
-
+<script  language="JavaScript">
+    function confirmar( mensaje ) 
+    { 
+        return confirm(mensaje); 
+    } 
+</script>
 <%@include file="footer.jsp"%>

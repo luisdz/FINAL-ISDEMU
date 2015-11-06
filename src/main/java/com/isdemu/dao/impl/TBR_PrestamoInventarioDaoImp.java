@@ -8,6 +8,7 @@ package com.isdemu.dao.impl;
 import com.isdemu.dao.TBR_PrestamoInventarioDao;
 import com.isdemu.model.TbrPrestamoEquipoInventario;
 import java.io.Serializable;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -44,4 +45,14 @@ public class TBR_PrestamoInventarioDaoImp implements TBR_PrestamoInventarioDao  
 		return prestamo;
         
     }
+    
+    @Override
+	public void delete(Serializable id) {
+		 System.out.println("ingresa al ELIMINAR");
+            Session session = null;
+            session = sessionFactory.getCurrentSession();
+            SQLQuery query = session.createSQLQuery("DELETE FROM TBR_PRESTAMO_EQUIPO_INVENTARIO WHERE ID_PRESTAMO_EQUIPO='"+id+"'");
+            System.out.println("DELETE FROM TBR_PRESTAMO_EQUIPO_INVENTARIO WHERE ID_PRESTAMO_EQUIPO='"+id+"'");
+            query.executeUpdate();
+	}
 }

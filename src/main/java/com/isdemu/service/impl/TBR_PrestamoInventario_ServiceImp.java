@@ -34,4 +34,10 @@ public class TBR_PrestamoInventario_ServiceImp implements TBR_PrestamoInventario
         return tbrrestamoInventarioDao.findByKey(id);
     }
     
+    @Override
+   public void delete(Serializable id) {
+           // TODO Auto-generated method stub
+           tbrrestamoInventarioDao.delete(id);
+   }
+    
 }

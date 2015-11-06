@@ -15,6 +15,7 @@ import java.util.List;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -92,6 +93,21 @@ public class TB_ControlDaoImpl implements TB_ControlDao{
            return  dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
           
             	}
+        
+       
+	   @Override
+	public List getInvControl(Serializable id) {
+		// TODO Auto-generated method stub
+               System.out.println("ingresa al inventario faltante");
+            Session session = null;
+            session = sessionFactory.getCurrentSession();
+            SQLQuery query = session.createSQLQuery("SELECT  CI.ID_INVENTARIO, I.CODIGO_INVENTARIO,CA.NOMBRE_CLASE ,I.DESCRIPCION_EQUIPO FROM TBR_CONTROL_SALIDA_INVENTARIO CI INNER JOIN TB_INVENTARIO I ON CI.ID_INVENTARIO=I.ID_INVENTARIO INNER JOIN TBC_CLASE_ACTIVO CA ON CA.ID_CLASE_ACTIVO = I.ID_CLASE_ACTIVO WHERE CI.ID_CONTROL_SALIDA ='"+id+"'");
+            System.out.println("la query"+query);
+            List Vinventario = query.list();
+            
+            return Vinventario;
+	}
+        
         
         @Override
         public List LastIdControl() {

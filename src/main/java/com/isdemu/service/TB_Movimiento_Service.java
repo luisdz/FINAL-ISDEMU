@@ -14,7 +14,8 @@ import java.util.List;
  */
 public interface TB_Movimiento_Service {
     public void save(Object obj);
-     public List getAll();
+     public List getAll();     
+     public List getAllInvPer();
      public List getTop();
      public List getMovInv(Serializable id);
       public void delete(Serializable id);

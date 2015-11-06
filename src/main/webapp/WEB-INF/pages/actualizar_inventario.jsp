@@ -85,8 +85,11 @@
                                 </label>
 
                                 <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" >
-                                    <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
-                                    <c:forEach var="clasiL" items="${clasiLocalizacion}">
+                                   
+                                     <form:option value="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.idClasificacionLocalizacion}"  label="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.nombreClasificacion}"/>
+                                     <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
+                                     <c:forEach var="clasiL" items="${clasiLocalizacion}">
+                                       
                                         <form:option value="${clasiL.idClasificacionLocalizacion}"  label="${clasiL.nombreClasificacion}"/>
                                     </c:forEach>
                                 </form:select>
@@ -98,9 +101,10 @@
                                     Localizacion<span id="span_clasi" class="symbol "></span>
                                 </label>
 
-                                <form:select path="" class="form-control" id="localizacion" name="localizacion" >
-                                    <form:option value="0"  label="Selecciona una localizacion"/>
+                                <form:select path="idLocalizacion" class="form-control" id="localizacion" name="localizacion" >
                                     
+                                     <form:option value="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.idLocalizacion}"  label="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.nombreLocalizacion}"/>
+                                    <form:option value="0"  label="Selecciona una localizacion"/>
                                 </form:select>
                                 <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione una localizacion</span>
                             </div>
@@ -109,8 +113,9 @@
                                 <label for="form-field-select-3">
                                     Ubicacion<span id="span_clasi" class="symbol "></span>
                                 </label>
-
+                                      
                                 <form:select path="" class="form-control" id="ubicacion" name="ubicacion" >
+                                    <form:option value="${inventario.tbcPersona.tbcUbicacion.idUbicacion}"  label="${inventario.tbcPersona.tbcUbicacion.nombreUbicacion}"/> 
                                     <form:option value="0"  label="Selecciona una Ubicacion"/>
                                    
                                 </form:select>
@@ -151,21 +156,14 @@
                                 <form:input path="modelo" type="text" placeholder="Ingrese el modelo del equipo" class="form-control" id="modelo" name="modelo" onblur="return validaModelo(event);"/>
                                 <span for="modelo" class="help-block  no-display" id="span_modeloT">Ingrese un Modelo</span> 
                             </div>
-                                
-                                
-                        </div>  
-                        <!--     Cierre div izquiero-->
-                        <div class="col-md-6">
-                            
-
-                            <div class="form-group">
+                                <div class="form-group">
                                 <label class="control-label">
                                     Serie<span id="span_serie" class="symbol"></span>
                                 </label>
                                 <form:input path="serie" type="text" placeholder="Ingrese el numero de serie" class="form-control" id="serie" name="serie" onblur="return validaSerie(event);"/>
                                 <span for="serie" class="help-block  no-display" id="span_serieT">Ingrese el numero de Serie</span> 
-                            </div>
-                                
+                            </div>  
+                          
                              <div class="form-group">
                                 <label class="control-label">
                                     Descripcion<span id="span_serie" class="symbol"></span>
@@ -173,8 +171,13 @@
                                 <form:input path="descripcionEquipo" type="text" placeholder="Ingrese una descripcion del equipo" class="form-control" id="descripcionEquipo" name="descripcionEquipo" />
                                 <span for="descripcionEquipo" class="help-block  no-display" id="span_serieT">Ingrese el numero de Serie</span> 
                             </div>
+                                
+                        </div>  
+                        <!--     Cierre div izquiero-->
+                        <div class="col-md-6">
+                            
 
-
+                                
                             <div class="form-group">
                                 <label class="control-label">
                                     Fecha Adquisicion<span id="span_adq" class="symbol"></span>
@@ -185,7 +188,21 @@
                                    </div> <span for="fecha_adq" class="help-block  no-display" id="span_fechaAdq">Ingrese Fecha Adquisicion</span>
                                 
                             </div>
+                            
+                                    
+                                      <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Proveedor<span id="span_clasi" class="symbol "></span>
+                                </label>
 
+                                <form:select path="tbcProveedor.idProveedor" class="form-control" id="proveedor" name="proveedor">
+                                    <form:option value="0"  label="Seleccion un proveedor"/>
+                                    <c:forEach var="proveedor" items="${proveedor}">
+                                        <form:option value="${proveedor.idProveedor}"  label="${proveedor.nombreProveedor}"/>
+                                    </c:forEach>
+                                </form:select>
+                                <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione un Proveedor</span>
+                            </div>
 
 
 
@@ -219,15 +236,15 @@
                                 <span for="financiamiento" class="help-block  no-display" id="span_financiamientoT">Ingrese un Financiamiento</span> 
                             </div>
                         
-                                
+                             <div class="form-group">
+                                <label class="control-label">
+                                    Observacion<span id="span_finan" class="symbol"></span>
+                                </label>
+                                <form:textarea path="observacion" type="text"  placeholder="Ingrese Una Observacion" class="form-control" id="observacion" name="observacion" />
+                                <span for="observacion" class="help-block  no-display" id="span_financiamientoT">Ingrese una Observacion</span> 
+                            </div>
+                                   
                          
-
-
-
-
-
-
-
                         </div>
                                 
                               

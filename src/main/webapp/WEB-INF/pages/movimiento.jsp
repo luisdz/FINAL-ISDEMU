@@ -63,121 +63,121 @@
                     Esta es la seccion de Ingreso de Activos Fijos
                 </p>
                 <hr>
-                <form:form method="POST"  action="${pageContext.request.contextPath}/Movimiento/insertarMovimiento" modelAttribute="movimiento" id="movF" >
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
-                                <i class="fa fa-times-sign"></i> No se puede realizar la accion, existen errores en la informacion.
+                    <form:form method="POST"  action="${pageContext.request.contextPath}/Movimiento/insertarMovimiento" modelAttribute="movimiento" id="movF" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
+                                    <i class="fa fa-times-sign"></i> No se puede realizar la accion, existen errores en la informacion.
+                                </div>
+                                <div id="mensajeExitoFormM" class="successHandler alert alert-success no-display">
+                                    <i class="fa fa-ok"></i> Guardado con Exito!
+                                </div>
                             </div>
-                            <div id="mensajeExitoFormM" class="successHandler alert alert-success no-display">
-                                <i class="fa fa-ok"></i> Guardado con Exito!
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            
+                            <div class="col-md-6">
+
+                                    <div class="form-group">
+                                    <label for="form-field-select-3">
+                                        Tipo Localizacion<span id="span_clasi" class="symbol "></span>
+                                    </label>
+
+                                    <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" >
+                                        <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
+                                        <c:forEach var="clasiL" items="${clasiLocalizacion}">
+                                            <form:option value="${clasiL.idClasificacionLocalizacion}"  label="${clasiL.nombreClasificacion}"/>
+                                        </c:forEach>
+                                    </form:select>
+                                    <span for="clasiL" class="help-block  no-display" id="span_dropdownT">Seleccione un Tipo de Localizacion</span>
+                                </div>
+
+                                  <div class="form-group">
+                                    <label for="form-field-select-3">
+                                        Localizacion<span id="span_clasi" class="symbol "></span>
+                                    </label>
+
+                                    <form:select path="" class="form-control" id="localizacion" name="localizacion" >
+                                        <form:option value="0"  label="Selecciona una localizacion"/>
+
+                                    </form:select>
+                                    <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione una Clasificacion</span>
+                                </div>
+
+                                   <div class="form-group">
+                                    <label for="form-field-select-3">
+                                        Ubicacion<span id="span_clasi" class="symbol "></span>
+                                    </label>
+
+                                    <form:select path="" class="form-control" id="ubicacion" name="ubicacion" >
+                                        <form:option value="0"  label="Selecciona una Ubicacion"/>
+
+                                    </form:select>
+                                    <span for="ubicacion" class="help-block  no-display" id="span_dropdownT">Seleccione una Ubicacion</span>
+                                </div>
                                 <div class="form-group">
-                                <label for="form-field-select-3">
-                                    Tipo Localizacion<span id="span_clasi" class="symbol "></span>
-                                </label>
+                                    <label class="control-label">
+                                        Nuevo Responsable<span class="symbol"></span>
+                                    </label>
+                                    <form:select  multiple="single" path="" cssStyle="width: 100%" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
+                                        <form:option value="0" label="Seleccione responsable"/>                                                   
+                                    </form:select>
+                                    <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>  
 
-                                <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" >
-                                    <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
-                                    <c:forEach var="clasiL" items="${clasiLocalizacion}">
-                                        <form:option value="${clasiL.idClasificacionLocalizacion}"  label="${clasiL.nombreClasificacion}"/>
-                                    </c:forEach>
-                                </form:select>
-                                <span for="clasiL" class="help-block  no-display" id="span_dropdownT">Seleccione un Tipo de Localizacion</span>
+                                </div>
+                                <br>
                             </div>
-                            
-                              <div class="form-group">
-                                <label for="form-field-select-3">
-                                    Localizacion<span id="span_clasi" class="symbol "></span>
-                                </label>
+                            <div class="col-md-6">
 
-                                <form:select path="" class="form-control" id="localizacion" name="localizacion" >
-                                    <form:option value="0"  label="Selecciona una localizacion"/>
-                                    
-                                </form:select>
-                                <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione una Clasificacion</span>
-                            </div>
-                            
-                               <div class="form-group">
-                                <label for="form-field-select-3">
-                                    Ubicacion<span id="span_clasi" class="symbol "></span>
-                                </label>
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Fecha<span class="symbol "></span>
+                                    </label>
+                                    <div class="input-group">
+                                        <form:input path="fechaMovimiento" type="text" data-date-format="dd-mm-yyyy" id="fechaMov" data-date-viewmode="years" onchange="return validaFechaMov(event);" onblur="return validaFechaMov(event);" class="form-control date-picker"/>
+                                        <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+                                    </div>  <span for="fechaMov" class="help-block  no-display" id="span_fecha">Ingrese una fecha</span>    
 
-                                <form:select path="" class="form-control" id="ubicacion" name="ubicacion" >
-                                    <form:option value="0"  label="Selecciona una Ubicacion"/>
-                                   
-                                </form:select>
-                                <span for="ubicacion" class="help-block  no-display" id="span_dropdownT">Seleccione una Ubicacion</span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Nuevo Responsable<span class="symbol"></span>
-                                </label>
-                                <form:select  multiple="single" path="" cssStyle="width: 100%" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
-                                    <form:option value="0" label="Seleccione responsable"/>                                                   
-                                </form:select>
-                                <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>  
-                            
-                            </div>
-                            <br>
-                        </div>
-                        <div class="col-md-6">
+                                </div> 
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Razon de cambio<span class="symbol "></span>
+                                    </label>
+                                    <form:input path="razonCambio" type="text" placeholder="Ingrese el nombre" class="form-control" id="razon" name="lastname"/>
 
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Fecha<span class="symbol "></span>
-                                </label>
-                                <div class="input-group">
-                                    <form:input path="fechaMovimiento" type="text" data-date-format="dd-mm-yyyy" id="fechaMov" data-date-viewmode="years" onchange="return validaFechaMov(event);" onblur="return validaFechaMov(event);" class="form-control date-picker"/>
-                                    <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
-                                </div>  <span for="fechaMov" class="help-block  no-display" id="span_fecha">Ingrese una fecha</span>    
-                   
-                            </div> 
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Razon de cambio<span class="symbol "></span>
-                                </label>
-                                <form:input path="razonCambio" type="text" placeholder="Ingrese el nombre" class="form-control" id="razon" name="lastname"/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Codigo Inventario<span class="symbol "></span>
+                                    </label>
+                                    <form:input path=""  type="text" placeholder="Ingrese un codigo" class="form-control" id="codigo" name="codigo" />
+                                    <span for="codigo" class="help-block  no-display" id="span_codigoE">El codigo es invalido o ya esta agreagado</span>  
+                                    <span for="codigo" class="help-block  no-display" id="span_codigoE2">El inventario con ese codigo esta descargado</span>  
+
+                                </div>
+
+
+
+                                <br>
+                            </div>
+
+                            <div class="col-md-6">
+
+
+
+
+
 
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Codigo Inventario<span class="symbol "></span>
-                                </label>
-                                <form:input path=""  type="text" placeholder="Ingrese un codigo" class="form-control" id="codigo" name="codigo" />
-                                <span for="codigo" class="help-block  no-display" id="span_codigoE">El codigo es invalido o ya esta agreagado</span>  
-                                <span for="codigo" class="help-block  no-display" id="span_codigoE2">El inventario con ese codigo esta descargado</span>  
-                            
-                            </div>
-                                
-                            
-
-                            <br>
-                        </div>
-
-                        <div class="col-md-6">
-
-
-
-
-
 
                         </div>
-
-                    </div>
-                    <div class="row  no-display">
-                        <div class="col-md-12">
-                            <div>
-                                <span class="symbol required"></span>Campos Requeridos
-                                <hr>
+                        <div class="row  no-display">
+                            <div class="col-md-12">
+                                <div>
+                                    <span class="symbol required"></span>Campos Requeridos
+                                    <hr>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </form:form>
+                    </form:form>
                 <div class="col-md-12 text-center">
                     <button type="button" class="btn btn-default" onclick="enviarCodeM();" >Agregar</button>     
                 </div>
@@ -237,20 +237,6 @@
 
 
 
-    function agregarInventario() {
-
-        // alert("entra "+ $("#dropdown").inv.marca);               
-        if ($("#dropdown").val() != 0)
-        {
-            var id = $("#dropdown").val();
-            var codigo = $('#dropdown option:selected').text();
-            var idInv = id.toString();
-            $('#tabla_prueba').append('<tr  id="' + idInv + '">' + '<td class=\"no-display\" >' + idInv + '</td>' + '<td>' + codigo + '</td><td class="eliminar"><a href="" onclick="return deleteElement(' + "'" + idInv + "'" + ');"><span class="glyphicon glyphicon-remove"></span></a></td></tr>');
-        }
-    }
-    ;
-
-
 
     function deleteElement(id)
     {
@@ -300,17 +286,20 @@
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/Movimiento/insertarMovimiento",
-                dataType: "json",
                 contentType: 'application/json',
                 success: function (msg) {
                     //alert("entra");
-                    $('#movF').each(function () {
+                    $('#movF').each(function () 
+                    {
                         this.reset();
                         $('.help-block').closest("div").removeClass("has-success");
                         $('.help-block').closest("div").removeClass("has-error");
                     }); 
                     $('#mensajeExitoFormM').removeClass("no-display");
                     $('#tablabody').empty();
+                    
+                    window.location.href='./editMovimientoI/'+msg;                   
+                    
                 },
                 data: jsonArray
             });
@@ -349,9 +338,11 @@
                        
                         listaInv.forEach(function (entry)
                         {
+                            alert(" estado " + entry.tbcEstadoInventario.idEstado);
+                            
                              if(entry.tbcEstadoInventario.idEstado === 2)
                             {
-                                
+                                alert("entra");
                             } 
                             else
                             {
@@ -549,6 +540,8 @@ $("#dropdown1").change(function () {
                 });
                 $('#responsable').append(html);
                 // alert("devuelve algo: "+data);
+                
+                
             },
             error: function (data, status, er) {
                 alert("error: " + data + " status: " + status + " er:" + er);

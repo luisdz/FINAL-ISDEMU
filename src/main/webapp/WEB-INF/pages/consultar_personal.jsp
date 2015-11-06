@@ -93,8 +93,8 @@
                                             <table class="table table-hover" id="sample-table-2">
                                                     <thead>
                                                             <tr>
-                                                                    <th>IdPersona</th>
                                                                     <th>Persona</th>
+                                                                    <th>Ubicacion</th>
                                                                     <th>Jefe</th>
                                                                     <th>Encargado</th>
                                                                     <th>Eliminar</th>
@@ -104,11 +104,11 @@
                                                     <tbody>
                                                      <c:forEach var="per" items="${persona}">
                                                             <tr >
-                                                                    <td>${per.idPersona}</td>
                                                                     <td>${per.nombrePersona}</td>
+                                                                    <td>${per.tbcUbicacion.nombreUbicacion}</td>
                                                                     <td>${per.jefatura}</td>
                                                                     <td>${per.encargadoAfijo}</td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Persona/delete/${per.idPersona}">
+                                                                    <td><a href="#" onclick="eliminar(${per.idPersona});">
                                                                     Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Persona/edit/${per.idPersona}">
                                                                     Actualizar</a></td>
@@ -124,3 +124,19 @@
             </div>
     </div>
 <%@include file="footer.jsp"%>
+<script>
+    
+    function eliminar(id){
+          confirmar=confirm("¿Seguro que desea eliminar?"); 
+                if (confirmar) {
+                // si pulsamos en aceptar
+                    window.location="${pageContext.request.contextPath}/Persona/delete/"+id;}
+                else {
+                // si pulsamos en cancelar
+                alert('Se cancelo la eliminacion'); 
+                } 
+        
+    }
+  
+    
+</script>

@@ -93,25 +93,25 @@
                                             <table class="table table-hover" id="sample-table-2">
                                                     <thead>
                                                             <tr>
-                                                                    <th>idPrestamo</th>
-                                                                    <th>Nprestamo</th>
-                                                                    <th>fecha solicitu</th>
-                                                                    <th>hora inicio</th>
+                                                                   
+                                                                    <th>N prestamo</th>
+                                                                    <th>Fecha Solicitu</th>
+                                                                    <th>Hora Inicio</th>
                                                                     <th>Eliminar</th>
                                                                     <th>Actualizar</th>
-                                                            </tr>
+                                                                    <th>Imprimir</th>
+                                                            </tr>   
                                                     </thead>
                                                     <tbody>
                                                      <c:forEach var="pres" items="${prestamo}">
                                                             <tr >
-                                                                    <td>${pres.idPrestamoEquipo}</td>
+                                                                   
                                                                     <td>${pres.NPrestamo}</td>
                                                                     <td>${pres.fechaSolicitud}</td>
                                                                     <td>${pres.horaInicio}</td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Prestamo/delete/${pres.idPrestamoEquipo}">
-                                                                    Eliminar</a></td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Prestamo/editPrestamo2/${pres.idPrestamoEquipo}">
-                                                                    Actualizar</a></td>
+                                                                    <td><a href="${pageContext.request.contextPath}/Prestamo/delete/${pres.idPrestamoEquipo}">Eliminar</a></td>
+                                                                    <td><a href="${pageContext.request.contextPath}/Prestamo/editPrestamo2/${pres.idPrestamoEquipo}">Actualizar</a></td>
+                                                                    <td><a href="${pageContext.request.contextPath}/Reporte/ReportePrestamo/${pres.idPrestamoEquipo}">Imprimir</a></td>
                                                                     
                                                             </tr>
                                                         </c:forEach>
