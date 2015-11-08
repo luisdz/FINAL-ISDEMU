@@ -16,6 +16,7 @@ import com.isdemu.service.TBH_Movimiento_Service;
 import com.isdemu.service.TBR_MovimientoInventario_Service;
 import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.service.TB_Movimiento_Service; 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -29,6 +30,14 @@ import java.util.HashMap;
 import java.util.List; 
 import java.util.Map; 
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
 //import net.sf.jasperreports.engine.JRException;
 //import net.sf.jasperreports.engine.JRExporterParameter;
 //import net.sf.jasperreports.engine.JasperCompileManager;
@@ -381,64 +390,65 @@ public class TB_MovimientoController {
     
     //---------------Reportes-------------------
     
-//    @RequestMapping(value = "/ReporteMovimiento/{id}", method = RequestMethod.GET)
-//        @ResponseBody
-//     
-//  public void getRptMov(HttpServletResponse response, @PathVariable Integer id) throws JRException, IOException, SQLException, ClassNotFoundException 
-//  {      
-//    String userName = "sa";
-//    String password = "admin123";
-//
-//    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
-//
-//    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//    Connection conn = DriverManager.getConnection(url, userName, password);
-//      
-//    InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml"); 
-//    //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
-//    
-//    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
-//    //System.out.println("report entra url:"+this.getClass().getResource("/ireportPrueba04.jrxml"));      
-//    //InputStream jasperStream = this.getClass().getResourceAsStream("/ireportPrueba03.jrxml");    
-//    //System.out.println("report2 :" + jasperStream);
-//    Map<String,Object> params = new HashMap<>();
-//    
-//    TbMovimiento movi =(TbMovimiento) tbMovimientoService.findByKey(id);
-//    
-//    Date fecha=movi.getFechaMovimiento(); 
-//    
-//    String razon = movi.getRazonCambio();
-//    int b = id;
-//    params.put("fecha", fecha);
-//    params.put("razon", razon);
-//    params.put("idmov", b);
-//     
-//    
-//    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-//    System.out.println("report3 :" + jasperReport);
-//    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
-//    //System.out.println("report4 :");
-//    //response.setContentType("application/x-pdf");
-//    response.setContentType("application/vnd.ms-excel");
-//     
-//   response.setHeader("Content-disposition", "inline; filename=movimiento.xlsx");
-//
-//   final OutputStream outStream = response.getOutputStream();
-//    //JasperExportManager.(jasperPrint, outStream);
-//            //exportReportToPdfStream(jasperPrint, outStream);
-//     
-//       JRXlsxExporter exporter = new JRXlsxExporter();
-//    
-//       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
-//       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
-//      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
-//       
-//       exporter.exportReport();
-//       
-//       
-//       
-//       
-// }
+    @RequestMapping(value = "/ReporteMovimiento/{id}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptMov(HttpServletResponse response, @PathVariable Integer id) throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+    String userName = "sa";
+    String password = "admin123";
+
+    String url = "jdbc:sqlserver://ALEJANDRO:1433;databaseName=ActivosFijosISDEMU";
+
+    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    Connection conn = DriverManager.getConnection(url, userName, password);
+      
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml"); 
+    //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
+    
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+    //System.out.println("report entra url:"+this.getClass().getResource("/ireportPrueba04.jrxml"));      
+    //InputStream jasperStream = this.getClass().getResourceAsStream("/ireportPrueba03.jrxml");    
+    //System.out.println("report2 :" + jasperStream);
+    Map<String,Object> params = new HashMap<>();
+    
+    TbMovimiento movi =(TbMovimiento) tbMovimientoService.findByKey(id);
+    
+    Date fecha=movi.getFechaMovimiento(); 
+    
+    String razon = movi.getRazonCambio();
+    int b = id;
+    params.put("fecha", fecha);
+    params.put("razon", razon);
+    params.put("idmov", b);
+   File file = new File("resources/formatoMov.jrxml");
+   String absolutePath = file.getAbsolutePath();
+   System.out.println("reportURL :" + absolutePath); 
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+     
+   response.setHeader("Content-disposition", "inline; filename=movimiento.xlsx");
+
+   final OutputStream outStream = response.getOutputStream();
+    //JasperExportManager.(jasperPrint, outStream);
+            //exportReportToPdfStream(jasperPrint, outStream);
+     
+       JRXlsxExporter exporter = new JRXlsxExporter();
+    
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
+      exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
+       
+       exporter.exportReport();
+       
+       
+       
+       
+ }
     
 
 }
