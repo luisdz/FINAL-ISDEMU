@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
  *
  * @author Walter
@@ -101,8 +102,13 @@ public class TBS_UsuarioController {
 	public ModelAndView addingPais(@ModelAttribute TbsUsuario usuario) {
 		ModelAndView modelAndView = new ModelAndView("home");
 		 System.out.println("entra aqui POST persona"+usuario);
+                 
+                String password = "123456";
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(password);
+
                 
-                usuario.setClave("$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.");
+                usuario.setClave(hashedPassword);
                 usuario.setEstado(1);
                  
                 tbsUsuarioService.save(usuario);
@@ -130,6 +136,33 @@ public class TBS_UsuarioController {
              myModel.put("rol",rol ); 
              myModel.put("usuario",usuario);            
              return new ModelAndView("actualizar_usuario",myModel);
+	}
+        
+             
+         @RequestMapping(value="/update_clave/{id}", method=RequestMethod.GET)
+	public ModelAndView editClave(@PathVariable Integer id) {
+
+             TbsUsuario usuario = (TbsUsuario) tbsUsuarioService.findByKey(id);
+
+             Map<String, Object> myModel = new HashMap<String, Object>();
+
+             myModel.put("usuario",usuario);            
+             return new ModelAndView("actualizar_contrasena",myModel);
+	}
+        
+         @RequestMapping(value="/update_clave/{id}", method=RequestMethod.POST)
+	public ModelAndView edditingClaves(@ModelAttribute TbsUsuario usuario, @PathVariable Integer id) {
+            TbsUsuario Usuario = (TbsUsuario) tbsUsuarioService.findByKey(id);
+           ModelAndView modelAndView = new ModelAndView("home");
+
+           
+           Usuario.setClave(usuario.getClave());
+           
+           tbsUsuarioService.update(Usuario);
+           String message = "Persona was successfully edited.";
+           modelAndView.addObject("message", message);
+
+           return modelAndView;
 	}
         
 //        @RequestMapping(value="/edit/{id}", method=RequestMethod.POST)

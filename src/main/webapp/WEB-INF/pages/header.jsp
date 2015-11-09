@@ -482,6 +482,9 @@
 													<li>
 														<a href="${pageContext.request.contextPath}/Usuario/list"><i class="fa fa-pencil"></i> Consultar</a>
 													</li>
+                                                                                                        <li>
+														<a href="${pageContext.request.contextPath}/Usuario/update_clave"><i class="fa fa-pencil"></i>Cambiar Clave</a>
+													</li>
 													
                                                                                 </ul>
 									</li>
