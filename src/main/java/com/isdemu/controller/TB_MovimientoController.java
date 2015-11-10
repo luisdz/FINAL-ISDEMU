@@ -424,6 +424,7 @@ public class TB_MovimientoController    {
     params.put("idmov", b);
    //File file = new File("resources/Logo.jpg");
     File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
    String absolutePath = file.getAbsolutePath(); 
    //absolutePath =  servletContext.getRealPath();
    //absolutePath =  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/assets/images/Logo.jpg");
