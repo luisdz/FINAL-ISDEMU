@@ -15,6 +15,9 @@
 	<parameter name="razon" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="realpath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      UANTES."NOMBRE_UBICACION" as ubi_ini,
@@ -92,7 +95,7 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 			</textField>
 			<image>
 				<reportElement x="11" y="11" width="105" height="62"  />
-				<imageExpression><![CDATA["E:\\ISDEMU\\Ireport Templates\\formato movimiento\\Logo.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realpath}]]></imageExpression>
 			</image>
 		</band>
 	</title>
