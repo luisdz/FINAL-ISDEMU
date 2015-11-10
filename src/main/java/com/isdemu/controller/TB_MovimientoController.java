@@ -58,14 +58,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
+ import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 /**
  *
  * @author AlejandroPC
  */
 @Controller
 @RequestMapping(value = "/Movimiento")
-public class TB_MovimientoController {
+public class TB_MovimientoController    {
 
     @Autowired
     private TB_Movimiento_Service tbMovimientoService;
@@ -393,12 +394,12 @@ public class TB_MovimientoController {
     @RequestMapping(value = "/ReporteMovimiento/{id}", method = RequestMethod.GET)
         @ResponseBody
      
-  public void getRptMov(HttpServletResponse response, @PathVariable Integer id) throws JRException, IOException, SQLException, ClassNotFoundException 
+  public void getRptMov (HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
     String userName = "sa";
     String password = "admin123";
 
-    String url = "jdbc:sqlserver://ALEJANDRO:1433;databaseName=ActivosFijosISDEMU";
+    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
 
     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     Connection conn = DriverManager.getConnection(url, userName, password);
@@ -421,8 +422,12 @@ public class TB_MovimientoController {
     params.put("fecha", fecha);
     params.put("razon", razon);
     params.put("idmov", b);
-   File file = new File("resources/formatoMov.jrxml");
-   String absolutePath = file.getAbsolutePath();
+   //File file = new File("resources/Logo.jpg");
+    File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+   String absolutePath = file.getAbsolutePath(); 
+   //absolutePath =  servletContext.getRealPath();
+   //absolutePath =  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/assets/images/Logo.jpg");
+    params.put("realpath", absolutePath);
    System.out.println("reportURL :" + absolutePath); 
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);
