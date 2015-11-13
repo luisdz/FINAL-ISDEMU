@@ -151,7 +151,7 @@
                                     <td>${inv.codigoInventario}</td>
                                     <td>${inv.marca}</td>
                                     <td>${inv.modelo}</td>
-                                    <td>${inv.tbcPersona.tbcUbicacion.nombreUbicacion}</td>
+                                    <td>${inv.tbcUbicacion.nombreUbicacion}</td>
                                     <td>${inv.fechaAdquisicion}</td>
                                     <td>${inv.valor}</td>
                                    

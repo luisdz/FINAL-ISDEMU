@@ -17,6 +17,7 @@ import com.isdemu.model.TbcEstadoInventario;
 import com.isdemu.model.TbcLocalizacion;
 import com.isdemu.model.TbcPersona;
 import com.isdemu.model.TbcPoliza;
+import com.isdemu.model.TbcProveedor;
 import com.isdemu.model.TbcUbicacion;
 import com.isdemu.model.TbrMovimientoInventario;
 
@@ -472,12 +473,32 @@ public class TB_InventarioController {
                     inv.setDescripcionEquipo(descripcion);
                     
                     
-                    String idAsignado=ObjInv.getString("idCustodiade");
+                    String idAsignado=ObjInv.getString("asignadoa");
                     int idAsignadoInt=Integer.parseInt(idAsignado);
-                 //   inv.setIdPersonaAsignado(idAsignadoInt);
+                     TbcPersona per2=new TbcPersona();
+                     per2.setIdPersona(idAsignadoInt);
+                    inv.setTbcPersonaAsignada(per2);
+                    
+                    //ingresar ubicacion
+                      String idUbicacion=ObjInv.getString("idubicacion");
+                    int idUbicacionInt=Integer.parseInt(idUbicacion);
+                     TbcUbicacion ubicacion=new TbcUbicacion();
+                     ubicacion.setIdUbicacion(idUbicacionInt);
+                    inv.setTbcUbicacion(ubicacion);
+                    
+                     //ingresar proveedor
+                      String idProveedor=ObjInv.getString("idproveedor");
+                    int idProveedorInt=Integer.parseInt(idProveedor);
+                     TbcProveedor proveedor=new TbcProveedor();
+                     proveedor.setIdProveedor(idProveedorInt);
+                    inv.setTbcProveedor(proveedor);
+                    
                     
                     String marca=ObjInv.getString("marca");
                     inv.setMarca(marca);
+                    
+                      String observacion=ObjInv.getString("observacion");
+                    inv.setObservacion(observacion);
                     
                     String modelo=ObjInv.getString("modelo");
                     inv.setModelo(modelo);
@@ -595,11 +616,15 @@ public class TB_InventarioController {
                 ActivoActual.setSerie(inventario.getSerie());
                
                 ActivoActual.setTbcPersona(inventario.getTbcPersona());
+                ActivoActual.setTbcPersonaAsignada(inventario.getTbcPersonaAsignada());
                 
                 ActivoActual.setIdLocalizacion(inventario.getIdLocalizacion());
                 ActivoActual.setValor(inventario.getValor());
                  ActivoActual.setFinanciamiento(inventario.getFinanciamiento());
                 ActivoActual.setTbcProveedor(inventario.getTbcProveedor());
+                ActivoActual.setObservacion(inventario.getObservacion());
+                
+                
 		tbInventarioService.update(ActivoActual);
 
 		String message = "Pais was successfully edited.";

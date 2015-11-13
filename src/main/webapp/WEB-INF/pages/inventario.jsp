@@ -148,28 +148,28 @@
 
                             <div class="form-group">
                                 <label for="form-field-select-3">
-                                    En custodia de<span id="span_persona" class="symbol "></span>
+                                    Asignado A<span id="span_persona" class="symbol "></span>
                                 </label>
-                                <form:select path="tbcPersona.idPersona" class="form-control" id="persona" name="persona" onchange="return validaCustodia(event);">
-                                    <form:option value="0"  label="Selecciona la persona encargada del Activo"/>       
+                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control" id="personaasig" name="personaasig" >
+                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>       
                                     
                                 </form:select>
-                                <span for="clasifi" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
+                                
                             </div>
                             
                            
                              <div class="form-group">
                                 <label for="form-field-select-3">
-                                    asignado<span id="span_clasi" class="symbol "></span>
+                                    En custodia de<span id="span_clasi" class="symbol "></span>
                                 </label>
 
-                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control search-select" id="persona" name="persona">
-                                    <form:option value="0"  label="Seleccion un proveedor"/>
+                                <form:select path="tbcPersona.idPersona" class="form-control search-select" id="persona" name="persona" onchange="return validaCustodia(event);">
+                                    <form:option value="0"  label="Seleccion una persona"/>
                                     <c:forEach var="persona" items="${persona}">
                                         <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
                                     </c:forEach>
                                 </form:select>
-                                
+                                <span for="clasifi" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
                             </div>
 
 
@@ -279,7 +279,7 @@
                                     Tipo de Ingreso<span id="span_persona" class="symbol "></span>
                                 </label>
                                 <form:select path="" class="form-control" id="cmb_tipoingreso" name="dropdown" >
-                                    <form:option value="0"  label="Selecciona el tipo de ingreso "/>       
+                                    <form:option value="0"  label="Solamente un activo"/>       
                                        <form:option value="1"  label="Por lotes"/>
                                        <form:option value="2"  label="Por un mismo codigo"/>
                                          
@@ -515,7 +515,7 @@
                 var html = '';
                 var len = data.length;
                 //alert("devuelve algo"+data);
-                $('#persona').empty();
+                $('#personaasig').empty();
                 html = '<option value="0"  label="Selecciona una persona"/>';
                 data.forEach(function (entry)
                 {
@@ -523,7 +523,7 @@
                     // alert("foreach :"+entry.nombreClase );
                     html += '<option value="' + entry.idPersona + '">' + entry.nombrePersona + '</option>';
                 });
-                $('#persona').append(html);
+                $('#personaasig').append(html);
                 // alert("devuelve algo: "+data);
             },
             error: function (data, status, er) {
@@ -586,6 +586,7 @@
                   var descripcion = $('#descripcionEquipo').val();
                   var custodiad = $('#persona option:selected').text();
                   var idcustodiad = $('#persona option:selected').val();
+                
                   var marca = $('#marca').val();
                   var modelo = $('#modelo').val();
                   var serie = $('#serie').val();
@@ -594,6 +595,10 @@
                   var factura= $('#factura').val();
                   var financiamiento=$('#financiamiento').val();
                   var idInv=i.toString();
+                  var idasignadoa = $('#personaasig option:selected').val();
+                   var idubicacion=$('#ubicacion option:selected').val();
+                   var idproveedor=$('#proveedor option:selected').val();
+                   var observacion= $('#observacion').val();
                  
                   $('#tabla_inventario').append('<tr  id="' + idInv + '">'+'\
                             <td class=\"no-display\" >' +idInv + '</td>'+'\
@@ -601,8 +606,8 @@
                             <td>' + clase + '</td>\n\\n\\n\
                             <td class=\"no-display\">' + idclase + '</td>\n\\n\\n\
                             <td>' + descripcion + '</td>\n\\n\
-                            <td>' + custodiad + '</td>\n\\n\\n\
-                            <td class=\"no-display\">' + idcustodiad + '</td>\n\\n\\n\
+                            <td>' + custodiad + '</td>\n\\n\\n\\n\
+                            <td class=\"no-display\">' + idcustodiad + '</td>\n\\n\\n\\n\
                             <td>' + marca + '</td>\n\\n\
                             <td>' + modelo + '</td>\n\\n\
                             <td>' + serie + '</td>\n\\n\
@@ -611,7 +616,11 @@
                             <td>' + factura + '</td>\n\
                             <td>' + financiamiento + '</td>\n\\n\\n\\n\
                             <td class=\"no-display\">' + idLocalizacion + '</td>\n\\n\\n\
-                            <td>' + ubicacion + '</td>\n\\n\
+                            <td>' + ubicacion + '</td>\n\\n\\n\
+                            <td class=\"no-display\">' + idasignadoa + '</td>\n\\n\\n\\n\
+                            <td class=\"no-display\">' + idubicacion + '</td>\n\\n\\n\\n\
+                            <td class=\"no-display\">' + idproveedor + '</td>\n\\n\\n\\n\
+                             <td class=\"no-display\">' + observacion + '</td>\n\\n\\n\
                             <td class="eliminar">\n\
                               <a href="" onclick="return deleteElement('+"'"+ idInv +"'"+ ');">\
                                 <span class="glyphicon glyphicon-remove"></span>\n\
@@ -647,10 +656,14 @@
         var nfactura = $(element).find("td").eq(12).html();
         var financiamiento = $(element).find("td").eq(13).html();
         var idLocalizacion = $(element).find("td").eq(14).html();
+        var asignadoa = $(element).find("td").eq(16).html();
+        var idubicacion = $(element).find("td").eq(17).html();
+         var idproveedor = $(element).find("td").eq(18).html();
+          var observacion = $(element).find("td").eq(19).html();
       
         if(l!=0)
         {
-            jsonArray=jsonArray+"{\"clasi\":"+'"'+clasificacion+'"'+",\"idClase\":"+'"'+idclase+'"'+",\"descripcion\":"+'"'+descripcion+'"'+",\"idCustodiade\":"+'"'+custodiade+'"'+",\"marca\":"+'"'+marca+'"'+",\"modelo\":"+'"'+modelo+'"'+",\"serie\":"+'"'+serie+'"'+",\"fechaA\":"+'"'+fechaAd+'"'+",\"valor\":"+'"'+valor+'"'+",\"factura\":"+'"'+nfactura+'"'+",\"financiamiento\":"+'"'+financiamiento+'"'+",\"idLocalizacion\":"+'"'+idLocalizacion+'"'+"},";
+            jsonArray=jsonArray+"{\"clasi\":"+'"'+clasificacion+'"'+",\"idClase\":"+'"'+idclase+'"'+",\"descripcion\":"+'"'+descripcion+'"'+",\"idCustodiade\":"+'"'+custodiade+'"'+",\"marca\":"+'"'+marca+'"'+",\"modelo\":"+'"'+modelo+'"'+",\"serie\":"+'"'+serie+'"'+",\"fechaA\":"+'"'+fechaAd+'"'+",\"valor\":"+'"'+valor+'"'+",\"factura\":"+'"'+nfactura+'"'+",\"financiamiento\":"+'"'+financiamiento+'"'+",\"idLocalizacion\":"+'"'+idLocalizacion+'"'+",\"idubicacion\":"+'"'+idubicacion+'"'+",\"idproveedor\":"+'"'+idproveedor+'"'+",\"observacion\":"+'"'+observacion+'"'+",\"asignadoa\":"+'"'+asignadoa+'"'+"},";
                     
           }
 

@@ -11,7 +11,7 @@
 										</a>
 									</li>
 									<li class="active">
-										Ingreso de Activos
+										Actualizar Activo
 									</li>
 								</ol>
 							</div>
@@ -24,7 +24,7 @@
 								<!-- start: FORM VALIDATION 1 PANEL -->
 								<div class="panel panel-white">
 								<div class="panel-heading">
-										<h4 class="panel-title">Formulario de <span class="text-bold">Ingreso</span></h4>
+										<h4 class="panel-title">Formulario de <span class="text-bold">Actualizacion</span></h4>
 										<div class="panel-tools">
 											<div class="dropdown">
 												<a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -59,7 +59,7 @@
 										<div class="panel-body">
 										<h2><i class="fa fa-pencil-square"></i> INVENTARIO</h2>
 										<p>
-											Esta es la seccion de Ingreso de Activos Fijos
+											Esta es la seccion de Edicion de Activos Fijos
 										</p>
 									<hr>
 
@@ -86,7 +86,7 @@
 
                                 <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" >
                                    
-                                     <form:option value="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.idClasificacionLocalizacion}"  label="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.nombreClasificacion}"/>
+                                     <form:option value="${inventario.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.idClasificacionLocalizacion}"  label="${inventario.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.nombreClasificacion}"/>
                                      <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
                                      <c:forEach var="clasiL" items="${clasiLocalizacion}">
                                        
@@ -103,7 +103,7 @@
 
                                 <form:select path="idLocalizacion" class="form-control" id="localizacion" name="localizacion" >
                                     
-                                     <form:option value="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.idLocalizacion}"  label="${inventario.tbcPersona.tbcUbicacion.tbcLocalizacion.nombreLocalizacion}"/>
+                                     <form:option value="${inventario.tbcUbicacion.tbcLocalizacion.idLocalizacion}"  label="${inventario.tbcUbicacion.tbcLocalizacion.nombreLocalizacion}"/>
                                     <form:option value="0"  label="Selecciona una localizacion"/>
                                 </form:select>
                                 <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione una localizacion</span>
@@ -115,7 +115,7 @@
                                 </label>
                                       
                                 <form:select path="" class="form-control" id="ubicacion" name="ubicacion" >
-                                    <form:option value="${inventario.tbcPersona.tbcUbicacion.idUbicacion}"  label="${inventario.tbcPersona.tbcUbicacion.nombreUbicacion}"/> 
+                                    <form:option value="${inventario.tbcUbicacion.idUbicacion}"  label="${inventario.tbcUbicacion.nombreUbicacion}"/> 
                                     <form:option value="0"  label="Selecciona una Ubicacion"/>
                                    
                                 </form:select>
@@ -137,6 +137,21 @@
                                 </form:select>
                                 <span for="persona" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
                             </div>
+                            
+                             <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Asignado A<span id="span_persona" class="symbol "></span>
+                                </label>
+                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control" id="persona" name="persona" onchange="return validaCustodia(event);">
+                                 <form:option value="${pers.idPersona}"  label="${pers.nombrePersona}"/>    
+                                   <c:forEach var="pers" items="${persona}">
+                                    <form:option value="${pers.idPersona}"  label="${pers.nombrePersona}"/>
+                                 </c:forEach> 
+                                </form:select>
+                                <span for="persona" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
+                            </div>
+                            
+                            
 
 
 
@@ -255,7 +270,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <button id="btn_guardar" class="btn btn-yellow btn-block" type="submit" >
-                                        Guardar Activo <i class="fa fa-arrow-circle-right"></i>
+                                        Actualizar Activo <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </div>
                             
