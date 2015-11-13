@@ -427,7 +427,7 @@ public class TB_MovimientoController    {
     
    String absolutePath = file.getAbsolutePath(); 
    
-   absolutePath.replaceAll("%20","   ");
+   absolutePath = absolutePath.replaceAll("%20"," ");
    
    //absolutePath =  servletContext.getRealPath();
    //absolutePath =  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/assets/images/Logo.jpg");
