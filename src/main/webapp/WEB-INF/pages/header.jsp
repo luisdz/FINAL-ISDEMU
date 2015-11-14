@@ -498,6 +498,9 @@
 									<li>
 										<a href="${pageContext.request.contextPath}/Reportes/reporteAsignadoa"><i class="fa fa-times"></i> Reporte por Asignado</a>
 									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/ReportesL/reporteLocalizacion"><i class="fa fa-times"></i> Reporte Inventario</a>
+									</li>
 									
 								</ul>
 							</li>

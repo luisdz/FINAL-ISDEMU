@@ -8,6 +8,7 @@ package com.isdemu.controller;
 import com.isdemu.service.TBR_PrestamoInventario_Service;
 //import static com.lowagie.text.Annotation.URL;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -115,6 +116,16 @@ public class ReportesPrestamo {
     //System.out.println("report2 :" + jasperStream);
     Map<String,Object> params = new HashMap<>();
     int b = id;
+    
+    File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
+   String absolutePath = file.getAbsolutePath(); 
+   
+   absolutePath.replaceAll("%20"," ");
+   
+   
+    params.put("realpath",absolutePath);
+    
     params.put("id_prestamo_equi", b);
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);
