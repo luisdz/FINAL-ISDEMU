@@ -93,27 +93,17 @@
                             
                               <div class="form-group">
                                 <label for="form-field-select-3">
-                                    Localizacion<span id="span_clasi" class="symbol "></span>
+                                    Localizacion<span id="span_local" class="symbol "></span>
                                 </label>
 
                                 <form:select path="" class="form-control" id="localizacion" name="localizacion" >
                                     <form:option value="0"  label="Selecciona una localizacion"/>
                                     
                                 </form:select>
-                                <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione una Clasificacion</span>
+                                <span for="local" class="help-block  no-display" id="span_local">Seleccione una Clasificacion</span>
                             </div>
                             
-                             <div class="form-group">
-                                <label for="form-field-select-3">
-                                    Ubicacion<span id="span_clasi" class="symbol "></span>
-                                </label>
-
-                                <form:select path="" class="form-control" id="ubicacion" name="ubicacion"  >
-                                    <form:option value="0"  label="Selecciona una Ubicacion"/>
-                                   
-                                </form:select>
-                                <span for="ubicacion" class="help-block  no-display" id="span_dropdownT">Seleccione una Ubicacion</span>
-                            </div>  
+                             
                             <br>
                         </div>
                         
@@ -121,17 +111,7 @@
 
                         <div class="col-md-6">
 
-                           
-                            <div class="form-group">
-                                <label class="control-label">
-                                    Asignado<span class="symbol"></span>
-                                </label>
-                                <form:select  multiple="single" path="" cssStyle="width: 100%" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
-                                    <form:option value="0" label="Seleccione responsable"/>                                                   
-                                </form:select>
-                                <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione una persona</span>  
-                            
-                            </div>
+                          
                             <div class="form-group">
                                 <label for="form-field-select-3">
                                     Mayor o menor de 600<span id="span_clasi" class="symbol "></span>
@@ -293,7 +273,7 @@ $("#dropdown1").change(function () {
     
     //index change de localizacion para cargar ubicacion
     
-     $("#localizacion").change(function () {
+     $("#localizacion1").change(function () {
         var idLocalizacion = $('#localizacion :selected').val(); // define the variable
       // alert(idLocalizacion);
 
@@ -330,7 +310,7 @@ $("#dropdown1").change(function () {
 
 
     });
-    $("#ubicacion").change(function () {
+    $("#ubicacion1").change(function () {
         var idLocalizacion = $('#ubicacion :selected').val(); // define the variable
        //alert(idLocalizacion);
 
@@ -374,7 +354,8 @@ $("#dropdown1").change(function () {
      validaRespRepAsign();
      if(validaRespRepAsign()==true)
      {
-     window.location.href='${pageContext.request.contextPath}/ReportesL/getReporteLocalizacion/'+ $('#responsable option:selected').val() + '/'+$('#mayor option:selected').val() ;
+      
+     window.location.href='${pageContext.request.contextPath}/ReportesL/getReporteLocalizacion/'+ $('#localizacion option:selected').val() + '/'+$('#mayor option:selected').val() ;
     
         };
         

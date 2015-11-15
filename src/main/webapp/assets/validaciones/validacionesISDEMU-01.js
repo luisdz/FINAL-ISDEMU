@@ -438,15 +438,15 @@ function validaFechaMov()
 //reporte asignado a
  function validaRespRepAsign()
     {
-        var x = document.forms["repAsign"]["responsable"].value;
+        var x = document.forms["repAsign"]["localizacion"].value;
         //alert(x);
         if (x === "0")
         {
             //alert("error");
             //$('#span_nombre').addClass("symbol required");
-            $('#span_resp').removeClass("no-display");            
-            $('#span_resp').closest("div").addClass("has-error");            
-             $('#span_resp').closest("div").removeClass("has-success");
+            $('#span_local').removeClass("no-display");            
+            $('#span_local').closest("div").addClass("has-error");            
+             $('#span_local').closest("div").removeClass("has-success");
 
             return false;
         }
@@ -454,9 +454,9 @@ function validaFechaMov()
         {
            // alert("valido");
             //$('#span_nombre').to("required");
-            $('#span_resp').addClass("no-display");
-             $('#span_resp').closest("div").removeClass("has-error");
-             $('#span_resp').closest("div").addClass("has-success");
+            $('#span_local').addClass("no-display");
+             $('#span_local').closest("div").removeClass("has-error");
+             $('#span_local').closest("div").addClass("has-success");
               return true;
         }
 

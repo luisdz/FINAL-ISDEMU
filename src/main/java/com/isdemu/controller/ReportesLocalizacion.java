@@ -109,7 +109,7 @@ public class ReportesLocalizacion
         String userName = "sa";
         String password = "admin123";
 
-        String url = "jdbc:sqlserver://TURBONETT:1433;databaseName=ActivosFijosISDEMU";
+        String url = "jdbc:sqlserver://Miranda-PC:1433;databaseName=ActivosFijosISDEMU";
 
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         Connection conn = DriverManager.getConnection(url, userName, password);
@@ -176,7 +176,7 @@ public class ReportesLocalizacion
     String userName = "sa";
     String password = "admin123";
 
-    String url = "jdbc:sqlserver://TURBONETT:1433;databaseName=ActivosFijosISDEMU";
+    String url = "jdbc:sqlserver://Miranda-PC:1433;databaseName=ActivosFijosISDEMU";
 
     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     Connection conn = DriverManager.getConnection(url, userName, password);
