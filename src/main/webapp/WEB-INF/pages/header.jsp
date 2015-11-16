@@ -105,6 +105,7 @@
 									<li>
 										<a href="pages_user_profile.html">
 											<%=SecurityContextHolder.getContext().getAuthentication().getName()%>
+                                                                                       
 										</a>
 									</li>
 									<li>

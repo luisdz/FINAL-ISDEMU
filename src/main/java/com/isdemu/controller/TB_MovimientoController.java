@@ -399,7 +399,7 @@ public class TB_MovimientoController    {
     String userName = "sa";
     String password = "admin123";
 
-    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
+    String url = "jdbc:sqlserver://EDU:1433;databaseName=ActivosFijosISDEMU";
 
     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     Connection conn = DriverManager.getConnection(url, userName, password);

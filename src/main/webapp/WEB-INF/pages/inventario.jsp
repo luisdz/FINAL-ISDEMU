@@ -69,7 +69,7 @@
 
 
 
-                <form:form method="POST" action="${pageContext.request.contextPath}/Inventario/add" modelAttribute="inventario" id="inventarioF" name="inventarioF">
+                <form:form method="POST" action="${pageContext.request.contextPath}/Inventario/add"  onsubmit="return valida_envio();" modelAttribute="inventario" id="inventarioF" name="inventarioF">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -150,10 +150,11 @@
                                 <label for="form-field-select-3">
                                     Asignado A<span id="span_persona" class="symbol "></span>
                                 </label>
-                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control" id="personaasig" name="personaasig" >
+                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control" id="personaasig" name="personaasig" onchange="return validaAsignadoA(event);">
                                     <form:option value="0"  label="Selecciona la persona asignada del Activo"/>       
                                     
                                 </form:select>
+                                 <span for="asigna" class="help-block  no-display" id="span_personaA">Seleccione una Persona</span>
                                 
                             </div>
                             
@@ -227,13 +228,13 @@
                                     Proveedor<span id="span_clasi" class="symbol "></span>
                                 </label>
 
-                                <form:select path="tbcProveedor.idProveedor" class="form-control" id="proveedor" name="proveedor">
+                                <form:select path="tbcProveedor.idProveedor" class="form-control" id="proveedor" name="proveedor" onchange="return validaProveedor(event);">
                                     <form:option value="0"  label="Seleccion un proveedor"/>
                                     <c:forEach var="proveedor" items="${proveedor}">
                                         <form:option value="${proveedor.idProveedor}"  label="${proveedor.nombreProveedor}"/>
                                     </c:forEach>
                                 </form:select>
-                                <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione un Proveedor</span>
+                                <span for="proveedor" class="help-block  no-display" id="span_proveedorT">Seleccione un Proveedor</span>
                             </div>
 
 
@@ -284,14 +285,14 @@
                                        <form:option value="2"  label="Por un mismo codigo"/>
                                          
                                 </form:select>
-                                <span for="clasifi" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
+                                <span for="tipo" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
                             </div>
                                 
                             <div class="form-group">
                                 <label class="control-label">
                                     Cantidad<span id="span_valor" class="symbol"></span>
                                 </label>
-                                <form:input path="valorLibro" type="text" placeholder="Ingrese la cantidad de activos a ingresar" class="form-control" readonly="true" id="cantidadl" name="cantidadl" onkeypress="return valideKey(event);" onblur="return validaValor(event);"/>
+                                <form:input path="valorLibro" type="text" placeholder="Ingrese la cantidad de activos a ingresar" class="form-control" readonly="true" id="cantidadl" name="cantidadl" onkeypress="return valideKey(event);" />
                                 <span for="cantidadl" class="help-block  no-display" id="span_valorCT">Ingrese Cantidad</span> 
                             </div>
 
@@ -634,7 +635,11 @@
     function enviarInventarioU()
     {
        //alert("enviar");
-        
+         if (valida_envio()){      
+           
+            
+        return 0; 
+         }
         if($('#tabla_inventario tr').size()>1)
         {
         
