@@ -44,7 +44,7 @@
 		<script src="${pageContext.request.contextPath}/assets/plugins/moment/min/moment.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/plugins/perfect-scrollbar/src/jquery.mousewheel.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/plugins/perfect-scrollbar/src/perfect-scrollbar.js"></script>
-		<script src="${pageContext.request.contextPath}/assets/plugins/bootbox/bootbox.min.js"></script>
+		<!--<script src="${pageContext.request.contextPath}/assets/plugins/bootbox/bootbox.min.js"></script>-->
 		<script src="${pageContext.request.contextPath}/assets/plugins/jquery.scrollTo/jquery.scrollTo.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/plugins/ScrollToFixed/jquery-scrolltofixed-min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/plugins/jquery.appear/jquery.appear.js"></script>
@@ -117,12 +117,29 @@
 		<!-- end: CORE JAVASCRIPTS  -->
 		<script>
 			jQuery(document).ready(function() {
+                                buscar_nombre();
 				Main.init();
                                 FormValidator.init();
                                 TableExport.init();
                                 FormElements.init();
-			});
+                               });
 		</script>
+                
+                        <script>                                           
+                                                function buscar_nombre()
+                                                {    
+    
+                                                $.ajax({
+                                                        type: "GET",
+                                                        url: "${pageContext.request.contextPath}/Usuario/username",
+                                                        success: function (msg) {
+                                                            document.getElementById("user_name").innerHTML = msg;
+                                                      
+                                                        }
+                                                       
+                                                    });
+                                                 }
+                                                </script>
 	</body>
 	<!-- end: BODY -->
 </html>

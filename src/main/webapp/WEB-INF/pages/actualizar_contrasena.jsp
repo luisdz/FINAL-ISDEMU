@@ -65,7 +65,7 @@
                 
                 <hr>
 
-                <form:form method="POST" action="${pageContext.request.contextPath}/Usuario/update_clave/1" onsubmit="return valida_envio();" modelAttribute="usuario" id="personaF">
+                <form:form method="POST" action="${pageContext.request.contextPath}/Usuario/update_clave/${usuario.idUsuario}" onsubmit="return valida_envio();" modelAttribute="usuario" id="claveF">
 
                     <div class="row">
                                 <div class="col-md-12">
@@ -90,23 +90,24 @@
                                     
                                     <div class="form-group">
                                                 <label class="control-label">
-                                                        Contraseña<span id="span_jefe" class="symbol"></span>
+                                                        Contraseña<span id="span_jefe1" class="symbol"></span>
                                                 </label>
 <!--                                                <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">-->
-                                                <form:input path="clave" type="password" class="form-control" id="jefe" name="jefe" onblur="return validaJefe(event);"/>
-                                                <span for="jefe" class="help-block  no-display" id="span_jefeT">Ingrese un Jefe</span> 
+                                                <form:input path="clave" type="password" class="form-control" id="jefe" name="jefe"/>
+                                                <span for="jefe1" class="help-block  no-display" id="span_jefeT1">Contraseñas no coinciden</span> 
                 
                                     </div> 
                                                 
                                     <div class="form-group">
                                                 <label class="control-label">
-                                                        Re-Contraseña<span id="span_jefe" class="symbol"></span>
+                                                        Re-Contraseña
                                                 </label>
 <!--                                                <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">-->
-                                                <form:input path="clave" type="password" class="form-control" id="jefe" name="jefe" onblur="return validaJefe(event);"/>
-                                                <span for="jefe" class="help-block  no-display" id="span_jefeT">Ingrese un Jefe</span> 
+                                                <input type="password" class="form-control" id="jefe2" name="jefe2"/>
+                                               
                 
-                                    </div> 
+                                    </div>
+                                                 <span for="jefe" class="help-block  no-display" id="span_jefeT">Contraseñas no coinciden</span> 
                                     
                                    
                                 </div>
@@ -141,3 +142,10 @@
 
 <!-- end: PAGE CONTENT-->
 <%@include file="footer.jsp" %>	
+<script src="${pageContext.request.contextPath}/assets/validaciones/validacionesClave.js"></script>
+<script>
+    
+    
+    $('#jefe').attr({ value: '' }); 
+    
+</script>

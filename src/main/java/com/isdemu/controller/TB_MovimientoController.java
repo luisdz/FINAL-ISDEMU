@@ -424,10 +424,14 @@ public class TB_MovimientoController    {
     params.put("idmov", b);
    //File file = new File("resources/Logo.jpg");
     File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
    String absolutePath = file.getAbsolutePath(); 
+   
+   absolutePath = absolutePath.replaceAll("%20"," ");
+   
    //absolutePath =  servletContext.getRealPath();
    //absolutePath =  FacesContext.getCurrentInstance().getExternalContext().getRealPath("/assets/images/Logo.jpg");
-    params.put("realpath", absolutePath);
+    params.put("realpath",absolutePath);
    System.out.println("reportURL :" + absolutePath); 
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);

@@ -33,6 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired 
     private TBS_Rol_Service rolService;
     
+    public int id;
+    
     @Transactional(readOnly=true)
     @SuppressWarnings("empty-statement")
     public UserDetails loadUserByUsername(String username) 
@@ -44,6 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 try {
                     
                     user = (TbsUsuario)(userService.findByNick(username).get(0));
+                    
                 }
                 catch(Exception e) 
                 {
@@ -51,11 +54,12 @@ public class CustomUserDetailsService implements UserDetailsService {
                 };
                   //TbsUsuario user = new TbsUsuario();
 		System.out.println("User : "+user);
+                id = user.getIdUsuario();
 		if(username==null){
 			System.out.println("User not found");
 			throw new UsernameNotFoundException("Username not found");
 		}
-			return new org.springframework.security.core.userdetails.User(user.getNombreUsuario(), user.getClave(), 
+			return new org.springframework.security.core.userdetails.User(user.getUsuario(), user.getClave(), 
 				 true, true, true, true, getGrantedAuthorities(user));
 	}
     
@@ -68,5 +72,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return authorities;
     }
     
+    public int getID(){
+    
+        return id;
+      }
     
 }

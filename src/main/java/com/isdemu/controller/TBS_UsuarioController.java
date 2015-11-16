@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.ResponseBody;
 /**
  *
  * @author Walter
@@ -46,7 +50,7 @@ public class TBS_UsuarioController {
    
      @Autowired
         private TBS_Usuario_Service tbsUsuarioService;
-    
+
      
      @RequestMapping(value="/list")
 	public ModelAndView listOfPaises() {
@@ -56,6 +60,17 @@ public class TBS_UsuarioController {
 		modelAndView.addObject("usuario", usuario);
 
 		return modelAndView;
+	}
+        
+      @RequestMapping(value="/username", method=RequestMethod.GET)
+	public @ResponseBody String listusername() {
+		
+            User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = user.getUsername();
+            
+             TbsUsuario usuario_id = (TbsUsuario) tbsUsuarioService.findByNick(name).get(0);
+
+            return usuario_id.getNombreUsuario();
 	}
         @RequestMapping(value="/consultarPass/{usuario}", method=RequestMethod.GET)
 	public ModelAndView consultarPassword(@PathVariable String usuario) {
@@ -139,24 +154,32 @@ public class TBS_UsuarioController {
 	}
         
              
-         @RequestMapping(value="/update_clave/{id}", method=RequestMethod.GET)
-	public ModelAndView editClave(@PathVariable Integer id) {
+         @RequestMapping(value="/update_clave")
+	public ModelAndView editClave() {
+            
+            User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String name = user.getUsername();
+            
+             TbsUsuario usuario_id = (TbsUsuario) tbsUsuarioService.findByNick(name).get(0);
+                
+            TbsUsuario usuario = (TbsUsuario) tbsUsuarioService.findByKey(usuario_id.getIdUsuario());
 
-             TbsUsuario usuario = (TbsUsuario) tbsUsuarioService.findByKey(id);
+            Map<String, Object> myModel = new HashMap<String, Object>();
 
-             Map<String, Object> myModel = new HashMap<String, Object>();
-
-             myModel.put("usuario",usuario);            
-             return new ModelAndView("actualizar_contrasena",myModel);
+            myModel.put("usuario",usuario);            
+            return new ModelAndView("actualizar_contrasena",myModel);
 	}
         
          @RequestMapping(value="/update_clave/{id}", method=RequestMethod.POST)
-	public ModelAndView edditingClaves(@ModelAttribute TbsUsuario usuario, @PathVariable Integer id) {
-            TbsUsuario Usuario = (TbsUsuario) tbsUsuarioService.findByKey(id);
-           ModelAndView modelAndView = new ModelAndView("home");
+	 public ModelAndView edditingClaves(@ModelAttribute TbsUsuario usuario, @PathVariable Integer id) {
+         TbsUsuario Usuario = (TbsUsuario) tbsUsuarioService.findByKey(id);
+         ModelAndView modelAndView = new ModelAndView("home");
 
+           String password = usuario.getClave();
+           BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+           String hashedPassword = passwordEncoder.encode(password);
            
-           Usuario.setClave(usuario.getClave());
+           Usuario.setClave(hashedPassword);
            
            tbsUsuarioService.update(Usuario);
            String message = "Persona was successfully edited.";
@@ -164,6 +187,8 @@ public class TBS_UsuarioController {
 
            return modelAndView;
 	}
+         
+        
         
 //        @RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
 //	public ModelAndView edditingPais(@ModelAttribute TbsUsuario usuario, @PathVariable Integer id) {

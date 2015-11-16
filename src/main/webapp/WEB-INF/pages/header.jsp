@@ -152,7 +152,7 @@
 							</div>
 							<div class="inline-block">
 								<h5 class="no-margin"> Bienvenido</h5>
-                                                                <h4 class="no-margin"> <%=SecurityContextHolder.getContext().getAuthentication().getName()%> </h4>
+                                                                <h4 class="no-margin"><label id="user_name"></label></h4>
 								<a class="btn user-options sb_toggle">
 									<i class="fa fa-cog"></i>
 								</a>
@@ -484,7 +484,7 @@
 														<a href="${pageContext.request.contextPath}/Usuario/list"><i class="fa fa-pencil"></i> Consultar</a>
 													</li>
                                                                                                         <li>
-														<a href="${pageContext.request.contextPath}/Usuario/update_clave"><i class="fa fa-pencil"></i>Cambiar Clave</a>
+														<a href="${pageContext.request.contextPath}/Usuario/update_clave/"><i class="fa fa-pencil"></i>Cambiar Clave</a>
 													</li>
 													
                                                                                 </ul>
@@ -492,7 +492,20 @@
 									
 								</ul>
 							</li>
-							 
+							
+                                                        <li>
+								<a href="javascript:void(0)"><i class="fa fa-user"></i> <span class="title">Reportes</span><i class="icon-arrow"></i> </a>
+								<ul class="sub-menu">
+									<li>
+										<a href="${pageContext.request.contextPath}/Reportes/reporteAsignadoa"><i class="fa fa-times"></i> Reporte por Asignado</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/ReportesL/reporteLocalizacion"><i class="fa fa-times"></i> Reporte Inventario</a>
+									</li>
+									
+								</ul>
+							</li>
+                                                        
                                                         <li>
 								<a href="javascript:void(0)"><i class="fa fa-user"></i> <span class="title">ETL Inventario</span><i class="icon-arrow"></i> </a>
 								<ul class="sub-menu">
@@ -588,3 +601,4 @@
 						<!-- end: TOOLBAR -->
 						<!-- end: PAGE HEADER -->
 						
+                                        

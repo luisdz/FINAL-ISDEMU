@@ -8,6 +8,7 @@ package com.isdemu.controller;
 import com.isdemu.service.TBR_ControlInventario_Service;
 //import static com.lowagie.text.Annotation.URL;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -115,6 +116,8 @@ public class ReportesControl {
     //System.out.println("report2 :" + jasperStream);
     Map<String,Object> params = new HashMap<>();
     int b = id;
+    
+   
     params.put("id_control_sal", b);
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);

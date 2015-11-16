@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="formatoMovimiento" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="117"/>
+	<parameter name="idmov" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\ISDEMU\\Ireport Templates\\formato movimiento\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[01/01/1990]]></defaultValueExpression>
+	</parameter>
+	<parameter name="razon" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="realpath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     a."FECHA_MOVIMIENTO",
+     a."RAZON_CAMBIO"
+FROM
+     "TB_MOVIMIENTO" a where a."ID_MOVIMIENTO" = $P{idmov}]]>
+	</queryString>
+	<field name="FECHA_MOVIMIENTO" class="java.sql.Date"/>
+	<field name="RAZON_CAMBIO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="285" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="11" width="459" height="20" />
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO SALVADOREÑO PARA EL DESARROLLO DE LA MUJER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="42" width="286" height="20" />
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOVIMIENTOS DE MOBILIARIO Y EQUIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="81" width="45" height="20" />
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="112" width="237" height="20" />
+				<text><![CDATA[SEÑOR (A) ENCARGADO (A) DE ACTIVO FIJO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="147" width="709" height="20" />
+				<text><![CDATA[ATENTAMENTE SE LE SOLICITA AUTORIZAR LOS SIGUIENTES CAMBIOS EN LA ASIGNACIÓN DE MOBILIARIO Y EQUIPO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="194" width="368" height="20" />
+				<text><![CDATA[LAS RAZONES PARA EFECTUAR LOS CAMBIOS SON LAS SIGUIENTES:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="80" y="81" width="100" height="20" />
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="230" width="702" height="45" />
+				<textFieldExpression><![CDATA[$P{razon}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="11" y="11" width="105" height="62"  />
+				<imageExpression><![CDATA[$P{realpath}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<elementGroup>
+				<subreport>
+					<reportElement x="0" y="0" width="802" height="125" uuid="be46dc75-f691-43b0-ad01-f82b3b60fc53"/>
+					<subreportParameter name="idmovi">
+						<subreportParameterExpression><![CDATA[$P{idmov}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "formatoMovimiento_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</elementGroup>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="formatoMovimiento" language="groovy" pageWidth="1500" pageHeight="595" orientation="Landscape" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"  >
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="formatoMovimiento" language="groovy" pageWidth="1500" pageHeight="595" orientation="Landscape" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
 	<property name="ireport.zoom" value="0.9090909090909091"/>
-	<property name="ireport.x" value="18"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="idmov" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -56,7 +56,7 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 	<title>
 		<band height="213" splitType="Stretch">
 			<staticText>
-				<reportElement x="116" y="11" width="1344" height="20"  />
+				<reportElement x="116" y="11" width="1344" height="20" />
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -74,7 +74,7 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="93" width="237" height="20"  />
+				<reportElement x="11" y="93" width="237" height="20" />
 				<text><![CDATA[SEÑOR (A) ENCARGADO (A) DE ACTIVO FIJO:]]></text>
 			</staticText>
 			<staticText>
@@ -82,23 +82,28 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				<text><![CDATA[ATENTAMENTE SE LE SOLICITA AUTORIZAR LOS SIGUIENTES CAMBIOS EN LA ASIGNACIÓN DE MOBILIARIO Y EQUIPO.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="133" width="368" height="20"  />
+				<reportElement x="11" y="133" width="368" height="20" />
 				<text><![CDATA[LAS RAZONES PARA EFECTUAR LOS CAMBIOS SON LAS SIGUIENTES:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="56" y="73" width="104" height="20"  />
+				<reportElement x="56" y="73" width="100" height="20" />
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="11" y="153" width="1460" height="40"  />
+				<reportElement x="11" y="153" width="1449" height="60"  />
 				<textFieldExpression><![CDATA[$P{razon}]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="11" y="11" width="105" height="62"  />
 				<imageExpression><![CDATA[$P{realpath}]]></imageExpression>
 			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<elementGroup/>
 			<staticText>
-				<reportElement x="0" y="193" width="205" height="20"  />
+				<reportElement x="0" y="1" width="205" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -107,93 +112,8 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<text><![CDATA[Ubicacion Inicial]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="205" y="193" width="198" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[Responsable del Activo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="403" y="193" width="207" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[Descripcion del Activo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="610" y="193" width="100" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[No Inventario]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="710" y="193" width="100" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[Marca]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="810" y="193" width="100" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[Modelo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="910" y="193" width="116" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[No de Serie]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="1026" y="193" width="214" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[Ubicacion Final]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="1240" y="193" width="220" height="20"  />
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<text><![CDATA[Nuevo Responsable]]></text>
-			</staticText>
-		</band>
-	</title>
-	<detail>
-		<band height="20" splitType="Stretch">
-			<elementGroup/>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="205" height="20" uuid="6f898760-1e52-4bfd-9537-9eca38584fe2"/>
+				<reportElement mode="Transparent" x="0" y="21" width="205" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -202,8 +122,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{ubi_ini}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="205" y="1" width="198" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Responsable del Activo]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="205" y="0" width="198" height="20" uuid="0d505431-9405-4b4e-99d5-7158ebd36a2a"/>
+				<reportElement x="205" y="21" width="198" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -212,8 +142,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{resp}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="403" y="1" width="207" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Descripcion del Activo]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="403" y="0" width="207" height="20" uuid="38571b55-57ad-4ba6-8664-31214745f22f"/>
+				<reportElement x="403" y="21" width="207" height="20" />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -222,8 +162,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="610" y="1" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No Inventario]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="610" y="0" width="100" height="20" uuid="8ef52493-da5d-4fd6-9924-818606f7a5ec"/>
+				<reportElement x="610" y="21" width="100" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -232,8 +182,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="710" y="1" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="710" y="0" width="100" height="20" uuid="1206d2ff-8f75-4d36-ab3f-e3b79bf9dedc"/>
+				<reportElement x="710" y="21" width="100" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -242,8 +202,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="810" y="1" width="100" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="810" y="0" width="100" height="20" uuid="2011287e-a4fe-48c7-83b9-387adf4573ab"/>
+				<reportElement x="810" y="21" width="100" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -252,8 +222,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{MODELO}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="910" y="1" width="116" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No de Serie]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="910" y="0" width="116" height="20" uuid="0f2c1426-8e32-4274-8a50-ee78cb5766a4"/>
+				<reportElement mode="Transparent" x="910" y="21" width="116" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -262,8 +242,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{SERIE}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="1026" y="1" width="214" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Ubicacion Final]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="1026" y="0" width="214" height="20" uuid="8e71c1e3-a2e6-45ab-8e17-5d2832500111"/>
+				<reportElement x="1026" y="21" width="214" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -272,8 +262,18 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 				</box>
 				<textFieldExpression><![CDATA[$F{ubi_fin}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="1240" y="1" width="220" height="20"  />
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Nuevo Responsable]]></text>
+			</staticText>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="1240" y="0" width="220" height="20" uuid="223cc2db-6306-4a64-9ad7-10fbd35a7cd7"/>
+				<reportElement x="1240" y="21" width="220" height="20"  />
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -284,4 +284,7 @@ where a."ID_MOVIMIENTO" = $P{idmov}]]>
 			</textField>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
 </jasperReport>
