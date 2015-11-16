@@ -153,6 +153,45 @@ public class TBS_UsuarioController {
              return new ModelAndView("actualizar_usuario",myModel);
 	}
         
+             @RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
+	public ModelAndView edditingPais(@ModelAttribute TbsUsuario usuario, @PathVariable Integer id) {
+            TbsUsuario Usuario = (TbsUsuario) tbsUsuarioService.findByKey(id);
+           ModelAndView modelAndView = new ModelAndView("home");
+
+           Usuario.setNombreUsuario(usuario.getNombreUsuario());           
+           Usuario.setApellidoUsuario(usuario.getApellidoUsuario());
+           Usuario.setTbsRol(usuario.getTbsRol());
+           
+           tbsUsuarioService.update(Usuario);
+           String message = "Persona was successfully edited.";
+           modelAndView.addObject("message", message);
+
+           return modelAndView;
+	}
+        
+        //       @RequestMapping(value="/codigo_barra")
+//        public void codigo() throws FileNotFoundException, DocumentException {       
+//       
+//       Document document = new Document(new Rectangle(PageSize.A4));    
+//    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/codigoBarraIsdemu.pdf"));    
+//
+//    document.open();
+//	    document.add(new Paragraph("ISDEMU"));
+//
+//		    Barcode128 code128 = new Barcode128();
+//		    code128.setGenerateChecksum(true);
+//		    code128.setCode("61563333333");    
+//
+//	    document.add(code128.createImageWithBarcode(writer.getDirectContent(), null, null));
+//            
+//            code128.setCode("4545454545");  
+//            document.add(code128.createImageWithBarcode(writer.getDirectContent(), null, null));
+//    document.close();
+//
+//    System.out.println("Document Generated...!!!!!!");
+//  
+//       }
+        
              
          @RequestMapping(value="/update_clave")
 	public ModelAndView editClave() {
