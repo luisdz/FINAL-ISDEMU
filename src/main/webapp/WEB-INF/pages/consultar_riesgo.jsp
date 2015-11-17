@@ -132,8 +132,8 @@
                                             <tr>
                                                    <th class="no-display">id</th>
                                                     <th>Nombre</th> 
-                                                    <th>Edit</th>
-                                                    <th>Delete</th>
+                                                    <th>Actualizar</th>
+                                                    <th>Eliminar</th>
                                             </tr>
                                     </thead>
                                     <tbody>

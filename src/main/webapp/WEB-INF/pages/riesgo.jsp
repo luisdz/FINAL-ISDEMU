@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="mensajeErrorForm" class="errorHandler alert alert-danger no-display">
-                                <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                                <i class="fa fa-times-sign"></i> No se puede realizar la accion, existen errores en la informacion.
                             </div>
                             <div class="successHandler alert alert-success no-display" id="mensajeExitoFormM">
                                 <i class="fa fa-ok"></i> Guardado con exito!
