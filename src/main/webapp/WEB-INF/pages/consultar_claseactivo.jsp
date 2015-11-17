@@ -133,7 +133,7 @@
                                 <th>Nombre Clase</th>
                                 <th>Codigo Clase</th> 
                                 <th>Clasificacio que Pertenece</th> 
-                                <th>Editar</th>
+                                <th>Actualizar</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -147,7 +147,7 @@
                                     <td>${clase.tbcClasificacionActivo.nombreClasificacion}</td>
                                     
                                     <td><a href="${pageContext.request.contextPath}/ClaseActivo/actualizar/${clase.idClaseActivo}">
-                                            Editar</a></td>
+                                            Actualizar</a></td>
                                     <td><a href="${pageContext.request.contextPath}/ClaseActivo/eliminarClase/${clase.idClaseActivo}" onclick="return confirmar('¿Está seguro que desea eliminar el registro?')">
                                             Eliminar</a></td>
 

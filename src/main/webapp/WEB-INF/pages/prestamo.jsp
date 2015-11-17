@@ -73,12 +73,11 @@
               <form:form method="POST" action="${pageContext.request.contextPath}/Prestamo/add" modelAttribute="prestamo" id="prestamoE" name="prestamoE">
                         <div class="row">
                                 <div class="col-md-12">
-                                    <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForm">
-
-                                        <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                                    <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
+                                        <i class="fa fa-times-sign"></i> No se puede realizar la accion, existen errores en la informacion.
                                     </div>
-                                    <div class="successHandler alert alert-success no-display">
-                                        <i class="fa fa-ok"></i> Your form validation is successful!
+                                    <div id="mensajeExitoFormM" class="successHandler alert alert-success no-display">
+                                        <i class="fa fa-ok"></i> Guardado con Exito!
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -286,8 +285,16 @@
            dataType: "json",
            contentType: 'application/json',
            success: function (msg) {
-               alert("Almacenado con Exito");
-               location.reload();
+               $('#mensajeExitoFormM').removeClass("no-display");
+               document.getElementById('numero').value="";
+               document.getElementById('tema').value="";
+               document.getElementById('persona').value="";
+               document.getElementById('destino').value="";
+               document.getElementById('fecha_sol').value="";
+               document.getElementById('fecha_pres').value="";
+               document.getElementById('hora_inicio').value="";
+               document.getElementById('hora_fin').value="";
+               
            },
            data: jsonArray
        });

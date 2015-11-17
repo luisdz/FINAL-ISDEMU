@@ -73,12 +73,11 @@
               <form:form method="POST" action="${pageContext.request.contextPath}/Control/add" modelAttribute="control" id="controlE" name="controlE">
                         <div class="row">
                                 <div class="col-md-12">
-                                    <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForm">
-
-                                        <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                                    <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
+                                        <i class="fa fa-times-sign"></i> No se puede realizar la accion, existen errores en la informacion.
                                     </div>
-                                    <div class="successHandler alert alert-success no-display">
-                                        <i class="fa fa-ok"></i> Your form validation is successful!
+                                    <div id="mensajeExitoFormM" class="successHandler alert alert-success no-display">
+                                        <i class="fa fa-ok"></i> Guardado con Exito!
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -252,7 +251,7 @@
            dataType: "json",
            contentType: 'application/json; charset=utf-8',
            success: function (msg) {
-               alert("Almacenado con Exito");
+               $('#mensajeExitoFormM').removeClass("no-display");
                window.location="../Reporte/ReporteControl/"+msg;
                document.getElementById('solicitante').value="";
                document.getElementById('observacion').value="";

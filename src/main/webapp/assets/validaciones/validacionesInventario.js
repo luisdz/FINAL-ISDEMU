@@ -401,48 +401,48 @@ function validaClase()
     function valida_envio()
     {
          
-        flag=false;        
+        flag=true;        
         
         
         if(validaClasificacion()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         }
         
          if(validaClase()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         }
         
          if(validatipoLocalizacion()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         }
         
           if(validaLocalizacion()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         }
          if(validaUbicacion()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         } 
         
           if(validaAsignadoA()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         } 
         
           if(validaCustodia()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         }
         
                
@@ -450,13 +450,13 @@ function validaClase()
         if(validaFechaAdq()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         }
         
             if(validaProveedor()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
-            flag = true;
+            flag = false;
         }
         
        return flag;

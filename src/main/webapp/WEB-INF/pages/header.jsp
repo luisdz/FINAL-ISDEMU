@@ -215,12 +215,6 @@
 										</a>
 										
 									</li>
-									<li>
-										<a href="javascript:;">
-											Consultar Verificaciones<i class="icon-arrow"></i>
-										</a>
-										
-									</li>
 								
 								</ul>
 							</li>	

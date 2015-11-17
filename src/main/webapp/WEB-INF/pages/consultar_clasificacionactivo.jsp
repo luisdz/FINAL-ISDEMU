@@ -133,7 +133,7 @@
                                 <th>Nombre Clasificacion</th>
                                 <th>Codigo Clasificacion</th> 
                                 <th>Poloza a la que Pertenece</th> 
-                                <th>Editar</th>
+                                <th>Actualizar</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -147,7 +147,7 @@
                                     <td>${clasi.tbcPoliza.nombrePoliza}</td>
                                     
                                     <td><a href="${pageContext.request.contextPath}/ClasificacionActivo/actualizarClasificacion/${clasi.idClasificacionActivo}">
-                                            Editar</a></td>
+                                            Actualizar</a></td>
                                     <td><a href="${pageContext.request.contextPath}/ClasificacionActivo/eliminarClasificacion/${clasi.idClasificacionActivo}">
                                             Eliminar</a></td>
 

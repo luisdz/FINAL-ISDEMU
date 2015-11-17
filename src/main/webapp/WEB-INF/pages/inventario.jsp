@@ -69,7 +69,7 @@
 
 
 
-                <form:form method="POST" action="${pageContext.request.contextPath}/Inventario/add"   modelAttribute="inventario" id="inventarioF" name="inventarioF">
+                <form:form method="POST" action="${pageContext.request.contextPath}/Inventario/add" onsubmit="return valida_envio();"  modelAttribute="inventario" id="inventarioF" name="inventarioF">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -571,7 +571,7 @@
     //funcion para agregar los activos a la tabla
     function agregarInventario(){ 
          //alert("valida");
-        if (valida_envio()){      
+        if (!valida_envio()){      
            
             
         return 0; 
