@@ -110,7 +110,7 @@
                                                                     <td>${usu.nombreUsuario}</td>
                                                                     <td>${usu.apellidoUsuario}</td>
                                                                     <td>${usu.usuario}</td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Usuario/delete/${usu.idUsuario}">
+                                                                    <td><a href="${pageContext.request.contextPath}/Usuario/delete/${usu.idUsuario}" onclick="if(!confirm('¿Desea borrar Usuario?'))return false">
                                                                     Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Usuario/edit/${usu.idUsuario}">
                                                                     Actualizar</a></td>

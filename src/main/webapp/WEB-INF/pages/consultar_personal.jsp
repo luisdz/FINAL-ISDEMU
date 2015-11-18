@@ -108,7 +108,7 @@
                                                                     <td>${per.tbcUbicacion.nombreUbicacion}</td>
                                                                     <td>${per.jefatura}</td>
                                                                     <td>${per.encargadoAfijo}</td>
-                                                                    <td><a href="#" onclick="eliminar(${per.idPersona});">
+                                                                    <td><a href="#" onclick="eliminar(${per.idPersona});" onclick="if(!confirm('¿Desea borrar la Persona?'))return false">
                                                                     Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Persona/edit/${per.idPersona}">
                                                                     Actualizar</a></td>

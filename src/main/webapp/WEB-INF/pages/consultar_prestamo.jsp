@@ -109,7 +109,7 @@
                                                                     <td>${pres.NPrestamo}</td>
                                                                     <td>${pres.fechaSolicitud}</td>
                                                                     <td>${pres.horaInicio}</td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Prestamo/delete/${pres.idPrestamoEquipo}">Eliminar</a></td>
+                                                                    <td><a href="${pageContext.request.contextPath}/Prestamo/delete/${pres.idPrestamoEquipo}" onclick="if(!confirm('Se borrará el prestamo de equipo'))return false">Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Prestamo/editPrestamo2/${pres.idPrestamoEquipo}">Actualizar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Reporte/ReportePrestamo/${pres.idPrestamoEquipo}">Imprimir</a></td>
                                                                     

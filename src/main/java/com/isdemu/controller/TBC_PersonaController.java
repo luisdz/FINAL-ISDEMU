@@ -52,29 +52,29 @@ public class TBC_PersonaController {
         private TBC_Ubicacion_Service tbcUbicacionService;
       
      @RequestMapping(value="/list")
-	public ModelAndView listOfPaises() {
+	public ModelAndView listOfPaises(String b) {
 		ModelAndView modelAndView = new ModelAndView("consultar_personal");
 
 		List personal = tbcPersonaService.getAll();
 		modelAndView.addObject("persona", personal);
-
+                modelAndView.addObject("msj",b);
 		return modelAndView;
 	}
         
               
         @RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addPaisPage() {
+	public ModelAndView addPaisPage(String p) {
               System.out.println("esntra aqui GET persona");
 		//ModelAndView modelAndView = new ModelAndView("inventario");
                Map<String, Object> myModel = new HashMap<String, Object>();
 		
-                 
+                 String message = p;
                  //List ClasAct = tbClasActService.getAll();
                List ubicacion = tbcUbicacionService.getAll();
                
                  //List region=tbcRegionService.getAll();
                  myModel.put("persona", new TbcPersona());
-             
+                 myModel.put("message", message); 
                 myModel.put("ubicacion",ubicacion);
                 // myModel.put("clasificacionA",ClasAct );
                 // myModel.put("persona",persona);
@@ -92,7 +92,7 @@ public class TBC_PersonaController {
                 tbcPersonaService.save(persona);
 		String message = "Persona was successfully added.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return addPaisPage("1");
 	}
         
         @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
@@ -101,7 +101,7 @@ public class TBC_PersonaController {
 		tbcPersonaService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return listOfPaises("1");
 	}   
         
         
@@ -131,7 +131,7 @@ public class TBC_PersonaController {
            String message = "Persona was successfully edited.";
            modelAndView.addObject("message", message);
 
-           return modelAndView;
+           return listOfPaises("2");
 	}
     
 }

@@ -64,7 +64,7 @@
 									<hr>
 
 
-<form:form method="POST" action="${pageContext.request.contextPath}/Inventario/edit/${inventario.idInventario}" modelAttribute="inventario" >
+<form:form method="POST" action="${pageContext.request.contextPath}/Inventario/edit/${inventario.idInventario}" onsubmit="return valida_envio2();" modelAttribute="inventario" id="inventarioF" name="inventarioF">
     
         <div class="row">
                         <div class="col-md-12">
@@ -84,7 +84,7 @@
                                     Tipo Localizacion<span id="span_clasi" class="symbol "></span>
                                 </label>
 
-                                <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" >
+                                <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" onchange="return validatipoLocalizacion(event);">
                                    
                                      <form:option value="${inventario.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.idClasificacionLocalizacion}"  label="${inventario.tbcUbicacion.tbcLocalizacion.tbcClasificacionLocalizacion.nombreClasificacion}"/>
                                      <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
@@ -93,7 +93,7 @@
                                         <form:option value="${clasiL.idClasificacionLocalizacion}"  label="${clasiL.nombreClasificacion}"/>
                                     </c:forEach>
                                 </form:select>
-                                <span for="clasiL" class="help-block  no-display" id="span_dropdownT">Seleccione un Tipo de Localizacion</span>
+                                <span for="clasiL" class="help-block  no-display" id="span_localizaciontipoT">Seleccione un Tipo de Localizacion</span>
                             </div>
                             
                               <div class="form-group">
@@ -101,12 +101,12 @@
                                     Localizacion<span id="span_clasi" class="symbol "></span>
                                 </label>
 
-                                <form:select path="idLocalizacion" class="form-control" id="localizacion" name="localizacion" >
+                                <form:select path="idLocalizacion" class="form-control" id="localizacion" name="localizacion" onchange="return validaLocalizacion(event);">
                                     
                                      <form:option value="${inventario.tbcUbicacion.tbcLocalizacion.idLocalizacion}"  label="${inventario.tbcUbicacion.tbcLocalizacion.nombreLocalizacion}"/>
                                     <form:option value="0"  label="Selecciona una localizacion"/>
                                 </form:select>
-                                <span for="clasifi" class="help-block  no-display" id="span_dropdownT">Seleccione una localizacion</span>
+                                <span for="clasifi" class="help-block  no-display" id="span_localizacionT">Seleccione una localizacion</span>
                             </div>
                             
                                <div class="form-group">
@@ -114,12 +114,12 @@
                                     Ubicacion<span id="span_clasi" class="symbol "></span>
                                 </label>
                                       
-                                <form:select path="" class="form-control" id="ubicacion" name="ubicacion" >
+                                <form:select path="" class="form-control" id="ubicacion" name="ubicacion" onchange="return validaUbicacion(event);">
                                     <form:option value="${inventario.tbcUbicacion.idUbicacion}"  label="${inventario.tbcUbicacion.nombreUbicacion}"/> 
                                     <form:option value="0"  label="Selecciona una Ubicacion"/>
                                    
                                 </form:select>
-                                <span for="ubicacion" class="help-block  no-display" id="span_dropdownT">Seleccione una Ubicacion</span>
+                                <span for="ubicacion" class="help-block  no-display" id="span_ubicacionT">Seleccione una Ubicacion</span>
                             </div>
 
 
@@ -142,13 +142,13 @@
                                 <label for="form-field-select-3">
                                     Asignado A<span id="span_persona" class="symbol "></span>
                                 </label>
-                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control" id="persona" name="persona" onchange="return validaCustodia(event);">
+                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control" id="personaasig" name="personaasig" onchange="return validaAsignadoA(event);">
                                  <form:option value="${pers.idPersona}"  label="${pers.nombrePersona}"/>    
                                    <c:forEach var="pers" items="${persona}">
                                     <form:option value="${pers.idPersona}"  label="${pers.nombrePersona}"/>
                                  </c:forEach> 
                                 </form:select>
-                                <span for="persona" class="help-block  no-display" id="span_personaT">Seleccione una Persona</span>
+                                <span for="persona" class="help-block  no-display" id="span_personaA">Seleccione una Persona</span>
                             </div>
                             
                             
@@ -291,7 +291,8 @@
 						</div>
 						
 						<!-- end: PAGE CONTENT-->
-				<%@include file="footer.jsp" %>		
+				<%@include file="footer.jsp" %>	
+                                <script src="${pageContext.request.contextPath}/assets/validaciones/validacionesInventario.js"></script>
 <script>
      
     

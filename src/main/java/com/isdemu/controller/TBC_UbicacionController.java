@@ -39,28 +39,29 @@ public class TBC_UbicacionController {
         private TBC_Ubicacion_Service tbcUbicacionService;
     
     @RequestMapping(value="/list")
-	public ModelAndView listOfPaises() {
+	public ModelAndView listOfPaises(String b) {
 		ModelAndView modelAndView = new ModelAndView("consultar_ubicacion");
 
 		List ubicacion = tbcUbicacionService.getAll();
 		modelAndView.addObject("ubicacion", ubicacion);
-
+                modelAndView.addObject("msj",b);
 		return modelAndView;
 	}
         
         @RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addPaisPage() {
+	public ModelAndView addPaisPage(String p) {
               System.out.println("esntra aqui GET persona");
 		//ModelAndView modelAndView = new ModelAndView("inventario");
                Map<String, Object> myModel = new HashMap<String, Object>();
 		
-                 
+                 String message = p;
                  //List ClasAct = tbClasActService.getAll();
                List localizacion = tbcLocalizacionService.getAll();
                
                  //List region=tbcRegionService.getAll();
                 myModel.put("ubicacion", new TbcUbicacion());             
                 myModel.put("localizacion",localizacion);
+                 myModel.put("message", message); 
                 // myModel.put("clasificacionA",ClasAct );
                 // myModel.put("persona",persona);
                 // myModel.put("region",region);
@@ -77,7 +78,7 @@ public class TBC_UbicacionController {
                 tbcUbicacionService.save(ubicacion);
 		String message = "Persona was successfully added.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return addPaisPage("1");
 	}
         
         @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
@@ -86,7 +87,7 @@ public class TBC_UbicacionController {
 		tbcUbicacionService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return listOfPaises("1");
 	}
         
         
@@ -113,6 +114,6 @@ public class TBC_UbicacionController {
            String message = "Ubicacion was successfully edited.";
            modelAndView.addObject("message", message);
 
-           return modelAndView;
+           return listOfPaises("2");
 	}
 }

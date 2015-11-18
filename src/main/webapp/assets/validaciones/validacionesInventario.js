@@ -453,12 +453,55 @@ function validaClase()
             flag = false;
         }
         
-            if(validaProveedor()===false)
+      
+
+       return flag;
+       
+    };
+    
+     function valida_envio2()
+    {
+         
+        flag=true;        
+        
+         
+         if(validatipoLocalizacion()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
             flag = false;
         }
         
+          if(validaLocalizacion()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = false;
+        }
+         if(validaUbicacion()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = false;
+        } 
+        
+          if(validaAsignadoA()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = false;
+        } 
+        
+          if(validaCustodia()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = false;
+        }
+        
+               
+       
+        if(validaFechaAdq()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = false;
+        }
+
        return flag;
        
     };

@@ -109,7 +109,7 @@
                                                                     <td>${con.solicitante}</td>
                                                                     <td>${con.fechaSalida}</td>
                                                                     <td><a href="${pageContext.request.contextPath}/Control/detalle/${con.idControlSalida}">Detalle</a></td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Control/delete/${con.idControlSalida}">Eliminar</a></td>
+                                                                    <td><a href="${pageContext.request.contextPath}/Control/delete/${con.idControlSalida}" onclick="if(!confirm('Se borrará el control de salida'))return false">Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Control/editControl1/${con.idControlSalida}">Actualizar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Reporte/ReporteControl/${con.idControlSalida}">Imprimir</a></td>
                                                             </tr>
