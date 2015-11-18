@@ -140,7 +140,7 @@
                                     <label class="control-label">
                                         Razon de cambio<span class="symbol "></span>
                                     </label>
-                                    <form:input path="razonCambio" type="text" placeholder="Ingrese el nombre" class="form-control" id="razon" name="lastname"/>
+                                    <form:input path="razonCambio" type="text" placeholder="Ingrese la razon" class="form-control" id="razon" name="lastname"/>
 
                                 </div>
                                 <div class="form-group">
@@ -338,11 +338,11 @@
                        
                         listaInv.forEach(function (entry)
                         {
-                            alert(" estado " + entry.tbcEstadoInventario.idEstado);
+                            
                             
                              if(entry.tbcEstadoInventario.idEstado === 2)
                             {
-                                alert("entra");
+                                
                             } 
                             else
                             {
