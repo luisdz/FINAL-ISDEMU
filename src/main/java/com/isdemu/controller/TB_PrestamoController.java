@@ -192,6 +192,7 @@ public class TB_PrestamoController {
 	public ModelAndView deletePais(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("home");
                 System.out.println(id);
+                tbrPrestamoInvService.delete(id);
 		tbPrestamoService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);

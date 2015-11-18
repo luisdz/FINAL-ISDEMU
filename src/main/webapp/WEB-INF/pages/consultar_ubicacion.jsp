@@ -90,11 +90,20 @@
                                                     </div>
                                             </div>
                                     </div>
+                                <div class="col-md-12">
+                            <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForm">
+
+                                <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                            </div>
+                            <div class="successHandler alert alert-success no-display" id="mensajeExitoFormM">
+                                <i class="fa fa-ok"></i> Eliminado con exito!
+                            </div>
+                        </div>
                                     <div class="table-responsive">
                                             <table class="table table-hover" id="sample-table-2">
                                                     <thead>
                                                             <tr>
-                                                                    <th>IdUbicacion</th>
+                                                             
                                                                     <th>Nombre Ubicacion</th>
                                                                     <th>Eliminar</th>
                                                                     <th>Actualizar</th>
@@ -103,9 +112,9 @@
                                                     <tbody>
                                                      <c:forEach var="ubi" items="${ubicacion}">
                                                             <tr >
-                                                                    <td>${ubi.idUbicacion}</td>
+                                                                
                                                                     <td>${ubi.nombreUbicacion}</td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Ubicacion/delete/${ubi.idUbicacion}">
+                                                                    <td><a href="${pageContext.request.contextPath}/Ubicacion/delete/${ubi.idUbicacion}" onclick="if(!confirm('¿Desea borrar la Ubicacion?'))return false">
                                                                     Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Ubicacion/edit/${ubi.idUbicacion}">
                                                                     Actualizar</a></td>

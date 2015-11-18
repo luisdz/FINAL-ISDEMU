@@ -227,14 +227,14 @@
          jsonArray+="\"Inventario\":[";
         
         var l=0;
-    
+        var bandera = 0;
         $('#tabla_prueba tr').each(function(index, element){
 
         var id = $(element).find("td").eq(0).html();
       
         if(l!=0){
             jsonArray=jsonArray+"{\"idInv\":"+'"'+id+'"'+"},";
-
+            bandera=1;
           }
 
         l=1;
@@ -245,6 +245,11 @@
     jsonArray=jsonArray.substring(0,jsonArray.length-1);
     jsonArray=jsonArray+"]}";
     //alert(jsonArray);
+    if(bandera==0)
+    {
+        alert("Debe ingresar al menos un activo");
+        return 0;
+    }
          $.ajax({
            type: "POST",
            url: "${pageContext.request.contextPath}/Control/add",
@@ -269,6 +274,10 @@
     function enviarCodeM()
     {
         var codigoI = $("#codigo").val(); 
+        if (codigoI=="")
+        {
+            return 0;
+        }
         if (condigoYaAgregado(codigoI) === true)
         {
 

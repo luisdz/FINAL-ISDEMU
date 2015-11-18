@@ -89,11 +89,20 @@
                                                     </div>
                                             </div>
                                     </div>
+                                <div class="col-md-12">
+                            <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForm">
+
+                                <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                            </div>
+                            <div class="successHandler alert alert-success no-display" id="mensajeExitoFormM">
+                                <i class="fa fa-ok"></i> Eliminado con exito!
+                            </div>
+                        </div>
                                     <div class="table-responsive">
                                             <table class="table table-hover" id="sample-table-2">
                                                     <thead>
                                                             <tr>
-                                                                    <th>IdLocalizacion</th>
+                                                                   
                                                                     <th>Nombre</th>
                                                                     <th>Eliminar</th>
                                                                     <th>Actualizar</th>
@@ -102,9 +111,9 @@
                                                     <tbody>
                                                      <c:forEach var="loc" items="${localizacion}">
                                                             <tr >
-                                                                    <td>${loc.idLocalizacion}</td>
+                                                                    
                                                                     <td>${loc.nombreLocalizacion}</td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Localizacion/delete/${loc.idLocalizacion}">
+                                                                    <td><a href="${pageContext.request.contextPath}/Localizacion/delete/${loc.idLocalizacion}" onclick="if(!confirm('¿Desea borrar la Localizacion?'))return false">
                                                                     Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Localizacion/edit/${loc.idLocalizacion}">
                                                                     Actualizar</a></td>
@@ -120,3 +129,4 @@
             </div>
     </div>
 <%@include file="footer.jsp"%>
+
