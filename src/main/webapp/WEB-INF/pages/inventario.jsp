@@ -228,7 +228,7 @@
                                     Proveedor<span id="span_clasi" class="symbol "></span>
                                 </label>
 
-                                <form:select path="tbcProveedor.idProveedor" class="form-control" id="proveedor" name="proveedor" onchange="return validaProveedor(event);">
+                                <form:select path="tbcProveedor.idProveedor" class="form-control" id="proveedor" name="proveedor">
                                     <form:option value="0"  label="Seleccion un proveedor"/>
                                     <c:forEach var="proveedor" items="${proveedor}">
                                         <form:option value="${proveedor.idProveedor}"  label="${proveedor.nombreProveedor}"/>
