@@ -177,7 +177,7 @@
 										
 									</li>
 									<li>
-										<a href="${pageContext.request.contextPath}/Inventario/list.html">
+										<a href="${pageContext.request.contextPath}/Inventario/ListInventario.html">
 											Consultar Inventario<i class="icon-arrow"></i>
 										</a>
 										

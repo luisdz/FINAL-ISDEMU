@@ -39,6 +39,15 @@ public class TB_InventarioServiceImpl implements TB_Inventario_Service {
 		return tbInventarioDao.getAll();
 	}
         
+         @Override
+	public List<TbInventario> getAllFiltro(Serializable id) {
+             System.out.println("service impl filtro inv");
+		// TODO Auto-generated method stub
+		return tbInventarioDao.getAllFiltro(id);
+	}
+        
+         
+        
         @Override
          public List getTop(){
          return tbInventarioDao.getTop();

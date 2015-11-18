@@ -13,6 +13,7 @@ import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbcClaseActivo;
 import com.isdemu.model.TbcClasificacionActivo;
+import com.isdemu.model.TbcClasificacionLocalizacion;
 import com.isdemu.model.TbcEstadoInventario;
 import com.isdemu.model.TbcLocalizacion;
 import com.isdemu.model.TbcPersona;
@@ -34,7 +35,9 @@ import com.isdemu.service.TBR_MovimientoInventario_Service;
 import com.isdemu.service.TB_Descargo_Service;
 import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.service.TB_Movimiento_Service;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,6 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.json.Json;
+import net.sf.jasperreports.engine.JRException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +103,36 @@ public class TB_InventarioController {
 		ModelAndView modelAndView = new ModelAndView("consultar_inventario");
 
 		List inventario = tbInventarioService.getAll();
+		modelAndView.addObject("inventario", inventario);
+
+		return modelAndView;
+	}
+        
+        
+          @RequestMapping(value = "/ListInventario",method=RequestMethod.GET)
+            public ModelAndView ListaInventario()  
+            {
+                ModelAndView modelAndView = new ModelAndView("consultar_inventario");        
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll(); 
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+               // myModel.put("localizacion",new TbcLocalizacion());
+                // myModel.put("inventario", new TbInventario());
+               // myModel.put("persona", persona);        
+               // myModel.put("movimiento", new TbMovimiento());        
+                 return new ModelAndView("consultar_inventario", myModel);
+            }
+            
+            @RequestMapping(value="/listInvFiltro", method=RequestMethod.POST) 
+	public ModelAndView listInvFilto(@ModelAttribute TbcClasificacionLocalizacion clasilocalizacion) {
+		ModelAndView modelAndView = new ModelAndView("mostrar_inventario_filtro");
+                int IdLocalizacion=clasilocalizacion.getIdClasificacionLocalizacion();
+		//List inventario = tbInventarioService.getAll();
+                List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
 		modelAndView.addObject("inventario", inventario);
 
 		return modelAndView;
