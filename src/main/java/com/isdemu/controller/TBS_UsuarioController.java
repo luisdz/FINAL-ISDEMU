@@ -53,12 +53,12 @@ public class TBS_UsuarioController {
 
      
      @RequestMapping(value="/list")
-	public ModelAndView listOfPaises() {
+	public ModelAndView listOfPaises(String b) {
 		ModelAndView modelAndView = new ModelAndView("consultar_usuario");
 
 		List usuario = tbsUsuarioService.getAll();
 		modelAndView.addObject("usuario", usuario);
-
+                modelAndView.addObject("msj",b);
 		return modelAndView;
 	}
         
@@ -92,18 +92,18 @@ public class TBS_UsuarioController {
       
         
     @RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addPaisPage() {
+	public ModelAndView addPaisPage(String p) {
               System.out.println("esntra aqui GET usuario");
 		//ModelAndView modelAndView = new ModelAndView("inventario");
                Map<String, Object> myModel = new HashMap<String, Object>();
-		
+		String message = p;
                  
                  //List ClasAct = tbClasActService.getAll();
                List rol = tbsRolService.getAll();
                
                  //List region=tbcRegionService.getAll();
                  myModel.put("usuario", new TbsUsuario());
-             
+                myModel.put("message", message);
                 myModel.put("rol",rol);
                 // myModel.put("clasificacionA",ClasAct );
                 // myModel.put("persona",persona);
@@ -129,7 +129,7 @@ public class TBS_UsuarioController {
                 tbsUsuarioService.save(usuario);
 		String message = "Usuario was successfully added.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return addPaisPage("1");
 	}
         
         @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
@@ -138,7 +138,7 @@ public class TBS_UsuarioController {
 		tbsUsuarioService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return listOfPaises("1");
 	}   
         
          @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
@@ -166,7 +166,7 @@ public class TBS_UsuarioController {
            String message = "Persona was successfully edited.";
            modelAndView.addObject("message", message);
 
-           return modelAndView;
+           return listOfPaises("2");
 	}
         
         //       @RequestMapping(value="/codigo_barra")

@@ -46,28 +46,28 @@ public class TBC_LocalizacionController {
     
       
      @RequestMapping(value="/list")
-	public ModelAndView listOfPaises() {
+	public ModelAndView listOfPaises(String b) {
 		ModelAndView modelAndView = new ModelAndView("consultar_localizacion");
 
 		List localizacion = tbcLocalizacionService.getAll();
 		modelAndView.addObject("localizacion", localizacion);
-
+                modelAndView.addObject("msj",b);
 		return modelAndView;
 	}
         
         @RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addPaisPage() {
+	public ModelAndView addPaisPage(String p) {
               System.out.println("esntra aqui GET persona");
 		//ModelAndView modelAndView = new ModelAndView("inventario");
                Map<String, Object> myModel = new HashMap<String, Object>();
 		
-                 
+                 String message = p;
                List clasificacion_localizacion = tbcClasLocalizacionService.getAll();
                List riesgo = tbcRiesgoService.getAll();
                
                  //List region=tbcRegionService.getAll();
                 myModel.put("localizacion", new TbcLocalizacion());
-             
+                myModel.put("message", message);
                 myModel.put("riesgo",riesgo);
                 myModel.put("clasificacion_localizacion",clasificacion_localizacion );
                 // myModel.put("persona",persona);
@@ -85,7 +85,7 @@ public class TBC_LocalizacionController {
                 tbcLocalizacionService.save(localizacion);
 		String message = "Localizacion was successfully added.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return addPaisPage("1");
 	}
                     
         @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
@@ -94,7 +94,7 @@ public class TBC_LocalizacionController {
 		tbcLocalizacionService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return listOfPaises("1");
 	}
         
           @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
@@ -123,7 +123,7 @@ public class TBC_LocalizacionController {
                 String message = "Localuizacion was successfully edited.";
 		modelAndView.addObject("message", message);
 
-		return modelAndView;
+		return listOfPaises("2");
 	}
         
         

@@ -89,11 +89,20 @@
                                                     </div>
                                             </div>
                                     </div>
+                                <div class="col-md-12">
+                            <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForm">
+
+                                <i class="fa fa-times-sign"></i> You have some form errors. Please check below.
+                            </div>
+                            <div class="successHandler alert alert-success no-display" id="mensajeExitoFormM">
+                                <i class="fa fa-ok"></i> Eliminado con exito!
+                            </div>
+                        </div>
                                     <div class="table-responsive">
                                             <table class="table table-hover" id="sample-table-2">
                                                     <thead>
                                                             <tr>
-                                                                    <th>IdEstadoInventario</th>
+                                                                
                                                                     <th>Estado Inventario</th>
                                                                     <th>Descripcion</th>
                                                                     <th>Eliminar</th>
@@ -103,10 +112,10 @@
                                                     <tbody>
                                                      <c:forEach var="ein" items="${estadoinventario}">
                                                             <tr >
-                                                                    <td>${ein.idEstado}</td>
+                                                                  
                                                                     <td>${ein.nombreEstado}</td>
                                                                     <td>${ein.descripcion}</td>
-                                                                    <td><a href="${pageContext.request.contextPath}/EstadoInventario/delete/${ein.idEstado}">
+                                                                    <td><a href="${pageContext.request.contextPath}/EstadoInventario/delete/${ein.idEstado}" onclick="if(!confirm('¿Desea borrar Estado Inventario?'))return false">
                                                                     Eliminar</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/EstadoInventario/edit/${ein.idEstado}">
                                                                     Actualizar</a></td>

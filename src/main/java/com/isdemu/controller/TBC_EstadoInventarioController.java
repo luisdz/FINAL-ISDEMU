@@ -35,25 +35,26 @@ public class TBC_EstadoInventarioController {
     
     
     @RequestMapping(value="/list")
-	public ModelAndView listOfPaises() {
+	public ModelAndView listOfPaises(String b) {
 		ModelAndView modelAndView = new ModelAndView("consultar_estadoinventario");
 
 		List estadoinventario = tbcEstadoInventarioService.getAll();
 		modelAndView.addObject("estadoinventario", estadoinventario);
-
+                modelAndView.addObject("msj",b);
 		return modelAndView;
 	}
         
         @RequestMapping(value="/add", method=RequestMethod.GET)
-	public ModelAndView addPaisPage() {
+	public ModelAndView addPaisPage(String p) {
               System.out.println("esntra aqui GET persona");
 		//ModelAndView modelAndView = new ModelAndView("inventario");
                Map<String, Object> myModel = new HashMap<String, Object>();
 		
-                 
+                 String message = p;
                  //List ClasAct = tbClasActService.getAll();               
                  //List region=tbcRegionService.getAll();
                 myModel.put("estadoinventario", new TbcEstadoInventario());
+                myModel.put("message", message); 
                 // myModel.put("clasificacionA",ClasAct );
                 // myModel.put("persona",persona);
                 // myModel.put("region",region);
@@ -70,7 +71,7 @@ public class TBC_EstadoInventarioController {
                 tbcEstadoInventarioService.save(estadoinventario);
 		String message = "Persona was successfully added.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return addPaisPage("1");
 	}
         
         @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
@@ -79,7 +80,7 @@ public class TBC_EstadoInventarioController {
 		tbcEstadoInventarioService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
-		return modelAndView;
+		return listOfPaises("1");
 	}
         
         @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
@@ -104,7 +105,7 @@ public class TBC_EstadoInventarioController {
 		tbcEstadoInventarioService.update(estadoInventario); 
 		String message = "Estado Inventario was successfully edited.";
 		modelAndView.addObject("message", message); 
-		return modelAndView;
+		return listOfPaises("2");
 	}
     
 }

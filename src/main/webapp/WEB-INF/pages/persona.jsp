@@ -72,14 +72,14 @@
               <form:form method="POST" action="${pageContext.request.contextPath}/Persona/add" onsubmit="return valida_envio();" modelAttribute="persona" id="personaF" >
                         <div class="row">
                                 <div class="col-md-12">
-                                    <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForms">
+                            <div class="errorHandler alert alert-danger no-display" id="mensajeErrorForm">
 
-                                        <i class="fa fa-times-sign"></i> Se encontraron errores, favor verificarlos.
-                                    </div>
-                                    <div class="successHandler alert alert-success no-display">
-                                        <i class="fa fa-ok"></i> Validacion exitosa!
-                                    </div>
+                                    <i class="fa fa-times-sign"></i> Error, debe ingresar todos los elementos requeridos.
                                 </div>
+                                <div class="successHandler alert alert-success no-display" id="mensajeExitoFormM">
+                                    <i class="fa fa-ok"></i> Guardado con exito!
+                                </div>
+                            </div>
                                 <div class="col-md-6">
     
                                     <div class="form-group">
@@ -140,7 +140,9 @@
                                         </button>
                                 </div>
                         </div>
-                   
+                   <form:input class="no-display" path="" type="text" value="${message}"  id="msje"  />
+                                      <input type="hidden"  name="${_csrf.parameterName}" value="${_csrf.token}" />
+                     
                         </form:form>
                    </div>
                 </div>
@@ -150,3 +152,16 @@
 
 <%@include file="footer.jsp" %>	
 <script src="${pageContext.request.contextPath}/assets/validaciones/validacionesPersona.js"></script>
+ <script>
+   $(document).ready(function () 
+   {       
+          
+        if (document.forms["personaF"]["msje"].value==="1")
+        {
+             
+           $('#mensajeExitoFormM').removeClass("no-display"); 
+           document.forms["personaF"]["msje"].value==="0";
+        }
+
+    }); 
+</script>

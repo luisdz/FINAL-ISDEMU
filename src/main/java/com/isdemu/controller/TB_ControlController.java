@@ -167,6 +167,7 @@ public class TB_ControlController {
 	public ModelAndView deletePais(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("home");
                 System.out.println(id);
+                tbrControlInvService.delete(id);
 		tbControlService.delete(id);
 		String message = "Pais was successfully deleted.";
 		modelAndView.addObject("message", message);
