@@ -1,5 +1,6 @@
 <%@include file="header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!-- start: BREADCRUMB -->
 <div class="row">
     <div class="col-md-12">
@@ -56,71 +57,76 @@
                 </div>
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12 space20">
-                        <button class="btn btn-orange add-row">
-                            Add New <i class="fa fa-plus"></i>
-                        </button>
-                        <div class="btn-group pull-right">
-                            <button data-toggle="dropdown" class="btn btn-green dropdown-toggle">
-                                Export <i class="fa fa-angle-down"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-light pull-right">
-                                <li>
-                                    <a href="#" class="export-pdf" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as PDF
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-png" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as PNG
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-csv" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as CSV
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-txt" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as TXT
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-xml" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as XML
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-sql" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as SQL
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-json" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as JSON
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-excel" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Export to Excel
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-doc" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Export to Word
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-powerpoint" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Export to PowerPoint
-                                    </a>
-                                </li>
-                            </ul>
+                
+                
+               <form:form method="POST" action="${pageContext.request.contextPath}/Inventario/listInvFiltro"  modelAttribute="inventario" id="repAsign" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
+                                <i class="fa fa-times-sign"></i> No se puede realizar la accion, existen errores en la informacion.
+                            </div>
+                            <div id="mensajeExitoFormM" class="successHandler alert alert-success no-display">
+                                <i class="fa fa-ok"></i> Guardado con Exito!
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            
+                                <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Tipo Localizacion<span id="span_clasi" class="symbol "></span>
+                                </label>
+
+                                <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" >
+                                    <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
+                                    <c:forEach var="clasiL" items="${clasiLocalizacion}">
+                                        <form:option value="${clasiL.idClasificacionLocalizacion}"  label="${clasiL.nombreClasificacion}"/>
+                                    </c:forEach>
+                                </form:select>
+                                <span for="clasiL" class="help-block  no-display" id="span_dropdownT">Seleccione un Tipo de Localizacion</span>
+                            </div>
+                            
+                              <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Localizacion<span id="span_local" class="symbol "></span>
+                                </label>
+
+                                <form:select path="idLocalizacion" class="form-control" id="localizacion" name="localizacion" >
+                                    <form:option value="0"  label="Selecciona una localizacion"/>
+                                    
+                                </form:select>
+                                <span for="local" class="help-block  no-display" id="span_local">Seleccione una Clasificacion</span>
+                            </div>
+                            
+                             
+                            <br>
+                        </div>
+                        
+                         
+                      
+                    <div class="row">
+                    <div class="col-md-8">
+
+                    </div>
+                    <div class="col-md-2">
+                                    <button id="btn_guardar" class="btn btn-yellow btn-block" type="submit" >
+                                        Consultar Activo <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div>
+                    </div>
+
+                    </div>
+                    <div class="row  no-display">
+                        <div class="col-md-12">
+                            <div>
+                                <span class="symbol required"></span>Campos Requeridos
+                                <hr>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="table-responsive">
+
+                </form:form>
+                
+<!--                <div class="table-responsive">
                     <table class="table table-striped table-hover" id="sample-table-2">
                         <thead>
                             <tr>
@@ -167,7 +173,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div>-->
             </div>
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->
@@ -181,4 +187,108 @@
         return confirm(mensaje); 
     } 
 </script>
+
+
 <%@include file="footer.jsp"%>
+
+
+ <script>
+ 
+    
+    $(document).ready(function () 
+    {
+
+
+        $('#dropdown').select2();
+        $('#dropdown2').select2();
+
+
+    });
+
+//Combos dependientes
+
+$("#dropdown1").change(function () {
+        var conceptName = $('#dropdown1 :selected').val(); // define the variable
+        // alert(conceptName);
+
+
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/Inventario/listaClaseA",
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: conceptName,
+            success: function (data) {
+                var html = '';
+                var len = data.length;
+                //alert("devuelve algo"+data);
+                $('#dropdown2').empty();
+                html = '<option value="0"  label="Selecciona una clasificacion"/>';
+                data.forEach(function (entry)
+                {
+                    console.log(entry);
+                    // alert("foreach :"+entry.nombreClase );
+                    html += '<option value="' + entry.idClaseActivo + '">' + entry.nombreClase + '</option>';
+                });
+                $('#dropdown2').append(html);
+                // alert("devuelve algo: "+data);
+            },
+            error: function (data, status, er) {
+                alert("error: " + data + " status: " + status + " er:" + er);
+
+
+            }
+        });
+
+
+    });
+    
+    
+    //index change de tipo de clasificacion de localizacion para cargar localizacion
+    
+     $("#tipoClasificacion").change(function () {
+        var idTipoClasificacion = $('#tipoClasificacion :selected').val(); // define the variable
+      // alert(idTipoClasificacion);
+
+
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/Inventario/listaLocalizacion",
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: idTipoClasificacion,
+            success: function (data) {
+                var html = '';
+                var len = data.length;
+                //alert("devuelve algo"+data);
+                $('#localizacion').empty();
+                html = '<option value="0"  label="Selecciona una localizacion"/>';
+                data.forEach(function (entry)
+                {
+                    console.log(entry);
+                    // alert("foreach :"+entry.nombreClase );
+                    html += '<option value="' + entry.idLocalizacion + '">' + entry.nombreLocalizacion + '</option>';
+                });
+                $('#localizacion').append(html);
+                // alert("devuelve algo: "+data);
+            },
+            error: function (data, status, er) {
+                alert("error: " + data + " status: " + status + " er:" + er);
+
+
+            }
+        });
+
+
+    });
+    
+   
+      
+     
+        
+    
+</script>

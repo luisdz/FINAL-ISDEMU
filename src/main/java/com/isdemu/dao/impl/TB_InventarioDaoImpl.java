@@ -52,6 +52,16 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
             return inventario;
 	}
         
+        
+        @Override
+	public List<TbInventario> getAllFiltro(Serializable id) {
+	
+            DetachedCriteria dc = DetachedCriteria.forClass(TbInventario.class);
+             dc.add(Restrictions.eq("idLocalizacion",id));
+            List<TbInventario> inventario = dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
+            return inventario;
+	}
+        
          @Override
 	public List getTop() {
 		// TODO Auto-generated method stub
