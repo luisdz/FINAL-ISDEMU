@@ -396,10 +396,14 @@ public class TB_MovimientoController    {
      
   public void getRptMov (HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
-    String userName = "sa";
-    String password = "admin123";
-
-    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
+//    String userName = "sa";
+//    String password = "admin123";
+//
+//    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
+    
+    String userName = "afi";
+    String password = "ActivoFijo$";
+    String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
 
     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     Connection conn = DriverManager.getConnection(url, userName, password);
