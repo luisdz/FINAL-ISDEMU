@@ -148,27 +148,7 @@
                         </thead>
                         <tbody>
 
-                            <c:forEach var="inv" items="${inventario}">
-                                <tr >
-                                    <td class="no-display">${inv.idInventario}</td>
-                                    <td>${inv.tbcClaseActivo.nombreClase}</td>
-                                    <td>${inv.tbcPersona.nombrePersona}</td>
-                                    <td>${inv.descripcionEquipo}</td>
-                                    <td>${inv.codigoInventario}</td>
-                                    <td>${inv.marca}</td>
-                                    <td>${inv.modelo}</td>
-                                    <td>${inv.tbcUbicacion.nombreUbicacion}</td>
-                                    <td>${inv.fechaAdquisicion}</td>
-                                    <td>${inv.valor}</td>
-                                   
-                                    
-                                    <td><a href="${pageContext.request.contextPath}/Inventario/edit/${inv.idInventario}">
-                                            Editar</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/Inventario/delete/${inv.idInventario}" onclick="return confirmar('¿Está seguro que desea eliminar el registro?')">
-                                            Eliminar</a></td>
-
-                                </tr>
-                            </c:forEach>	
+                            	
 
 
                         </tbody>

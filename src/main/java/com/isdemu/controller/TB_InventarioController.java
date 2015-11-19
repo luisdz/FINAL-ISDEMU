@@ -112,26 +112,25 @@ public class TB_InventarioController {
           @RequestMapping(value = "/ListInventario",method=RequestMethod.GET)
             public ModelAndView ListaInventario()  
             {
+               
                 ModelAndView modelAndView = new ModelAndView("consultar_inventario");        
 
                Map<String, Object> myModel = new HashMap<String, Object>();
-
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
                 //List persona = tbcPersonaService.getAll();
                 List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll(); 
                 myModel.put("inventario", new TbInventario());       
-                myModel.put("clasiLocalizacion",clasiLocalizacion);
-               // myModel.put("localizacion",new TbcLocalizacion());
-                // myModel.put("inventario", new TbInventario());
-               // myModel.put("persona", persona);        
-               // myModel.put("movimiento", new TbMovimiento());        
-                 return new ModelAndView("consultar_inventario", myModel);
+                myModel.put("clasiLocalizacion",clasiLocalizacion);        
+                return new ModelAndView("consultar_inventario", myModel);
             }
             
             @RequestMapping(value="/listInvFiltro", method=RequestMethod.POST) 
-	public ModelAndView listInvFilto(@ModelAttribute TbcClasificacionLocalizacion clasilocalizacion) {
+	public ModelAndView listInvFilto(@ModelAttribute TbInventario clasilocalizacion) {
 		ModelAndView modelAndView = new ModelAndView("mostrar_inventario_filtro");
-                int IdLocalizacion=clasilocalizacion.getIdClasificacionLocalizacion();
+                int IdLocalizacion=clasilocalizacion.getIdLocalizacion();
 		//List inventario = tbInventarioService.getAll();
+                
+               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdLocalizacion);
                 List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
 		modelAndView.addObject("inventario", inventario);
 
