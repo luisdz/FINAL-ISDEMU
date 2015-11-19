@@ -139,22 +139,22 @@
                                         <span for="fecha_pres" class="help-block  no-display" id="span_fechaRes">Ingrese una fecha reservacion</span>    
 
                                     </div>
-                                    <div class="form-group">
+                                   <!--  <div class="form-group">
                                         <label class="control-label">
                                                 Hora Inicio<span class="symbol required"></span>
                                         </label>
-    <!--                                                <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">-->
+                                                   <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">
                                         <form:input path="horaInicio" type="text" id="hora_inicio" name="hora_inicio" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker"/>
 
-                                    </div>
-                                    <div class="form-group">
+                                    </div>-->
+                                     <!-- <div class="form-group">
                                         <label class="control-label">
                                                 Hora Fin<span class="symbol required"></span>
                                         </label>
-    <!--                                                <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">-->
+                                                  <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">
                                         <form:input path="horaFin" type="text" id="hora_fin" name="hora_fin" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker"/>
 
-                                    </div> 
+                                    </div> -->
                                     
                                    
                                 </div>                                       
@@ -299,7 +299,7 @@
                document.getElementById('fecha_pres').value="";
                document.getElementById('hora_inicio').value="";
                document.getElementById('hora_fin').value="";
-               
+               $("#tablabody").empty();
            },
            data: jsonArray
        });
