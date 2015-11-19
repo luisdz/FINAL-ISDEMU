@@ -58,9 +58,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 space20">
-                        <button class="btn btn-orange add-row">
-                            Add New <i class="fa fa-plus"></i>
-                        </button>
+                        
                         <div class="btn-group pull-right">
                             <button data-toggle="dropdown" class="btn btn-green dropdown-toggle">
                                 Export <i class="fa fa-angle-down"></i>
