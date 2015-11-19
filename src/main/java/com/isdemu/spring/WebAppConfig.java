@@ -39,15 +39,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                  //jdbc:sqlserver://localhost;database=AdventureWorks;integratedSecurity=true;
-                //dataSource.setUrl("jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU");
-                
-                dataSource.setUrl("jdbc:sqlserver://DESKTOP-78K7A51;databaseName=ActivosFijosISDEMU");
+                dataSource.setUrl("jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU");
+               // coneect edu18-11-15 dataSource.setUrl("jdbc:sqlserver://EDU:1433;databaseName=ActivosFijosISDEMU");
 		//dataSource.setUrl("jdbc:sqlserver://EDU\SQLEXPRESS:1433;databaseName=ActivosFijosISDEMU");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("admin123");
-                
-               // dataSource.setUsername("afi");
-		//dataSource.setPassword("ActivoFijo$");
+		dataSource.setUsername("afi");
+		dataSource.setPassword("ActivoFijo$");
 
 		return dataSource;
 	}
