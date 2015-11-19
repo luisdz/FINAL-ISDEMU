@@ -145,8 +145,8 @@ public class TB_PrestamoController {
                    }
                                
                 prestamoEquipo.setNPrestamo(Integer.parseInt(nPrestamo));
-                prestamoEquipo.setHoraInicio(hora_I);
-                prestamoEquipo.setHoraFin(hora_F);
+                prestamoEquipo.setHoraInicio(fecha_sol);
+                prestamoEquipo.setHoraFin(fecha_sol);
                 prestamoEquipo.setFechaSolicitud(fecha_sol);
                 prestamoEquipo.setFechaReservacion(fecha_res);
                 prestamoEquipo.setTemaImpartir(tema);

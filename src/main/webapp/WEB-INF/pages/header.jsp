@@ -103,26 +103,12 @@
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
 									<li>
-										<a href="pages_user_profile.html">
+										<a href="#">
 											<%=SecurityContextHolder.getContext().getAuthentication().getName()%>
                                                                                        
 										</a>
 									</li>
-									<li>
-										<a href="pages_calendar.html">
-											My Calendar
-										</a>
-									</li>
-									<li>
-										<a href="pages_messages.html">
-											My Messages (3)
-										</a>
-									</li>
-									<li>
-										<a href="login_lock_screen.html">
-											Lock Screen
-										</a>
-									</li>
+									
 									<li>
 										<a href="<c:url value="/logout" />" > Logout</a>
 										
@@ -512,25 +498,9 @@
 							<li>
 								<a href="javascript:void(0)"><i class="fa fa-user"></i> <span class="title">Login</span><i class="icon-arrow"></i> </a>
 								<ul class="sub-menu">
+									
 									<li>
-										<a href="login_login.html">
-											<span class="title"> Login Form </span>
-										</a>
-									</li>
-									<li>
-										<a href="login_login.html?box=register">
-											<span class="title"> Registration Form </span>
-										</a>
-									</li>
-									<li>
-										<a href="login_login.html?box=forgot">
-											<span class="title"> Forgot Password Form </span>
-										</a>
-									</li>
-									<li>
-										<a href="login_lock_screen.html">
-											<span class="title">Lock Screen</span>
-										</a>
+										 <a class="btn btn-sm log-out text-right" href="<c:url value="/logout" />" > <i class="fa fa-power-off"></i>Cerrar Sesion</a>
 									</li>
 								</ul>
 							</li>
@@ -551,9 +521,8 @@
 						</a>
 					</div>
 					<div class="col-xs-6 text-right no-padding">
-						<a class="btn btn-sm log-out text-right" href="login_login.html">
-							<i class="fa fa-power-off"></i> Cerrar Sesion
-						</a>
+                                            <a class="btn btn-sm log-out text-right" href="<c:url value="/logout" />" > <i class="fa fa-power-off"></i>Cerrar Sesion</a>
+						
 					</div>
 				</div>
 			</nav>
