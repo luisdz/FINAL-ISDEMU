@@ -10,6 +10,7 @@ import javax.activation.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("com.isdemu")
 @EnableWebMvc
 @EnableTransactionManagement
+@Import({ AppSecurityConfig.class })
 
 
 public class WebAppConfig extends WebMvcConfigurerAdapter{
@@ -37,10 +39,15 @@ public class WebAppConfig extends WebMvcConfigurerAdapter{
 
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                  //jdbc:sqlserver://localhost;database=AdventureWorks;integratedSecurity=true;
-                dataSource.setUrl("jdbc:sqlserver://EDU:1433;databaseName=ActivosFijosISDEMU");
+                //dataSource.setUrl("jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU");
+                
+                dataSource.setUrl("jdbc:sqlserver://DESKTOP-78K7A51;databaseName=ActivosFijosISDEMU");
 		//dataSource.setUrl("jdbc:sqlserver://EDU\SQLEXPRESS:1433;databaseName=ActivosFijosISDEMU");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("admin123");
+                
+               // dataSource.setUsername("afi");
+		//dataSource.setPassword("ActivoFijo$");
 
 		return dataSource;
 	}
