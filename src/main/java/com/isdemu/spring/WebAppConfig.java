@@ -5,13 +5,15 @@
  */
 package com.isdemu.spring;
 
+import javax.sql.DataSource;
 import java.util.Properties;
-import javax.activation.DataSource;
+//import javax.activation.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -33,19 +35,27 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 
 public class WebAppConfig extends WebMvcConfigurerAdapter{
-    
+ 
     public javax.sql.DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		//DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                 //jdbc:sqlserver://localhost;database=AdventureWorks;integratedSecurity=true;
-                dataSource.setUrl("jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU");
-               // coneect edu18-11-15 dataSource.setUrl("jdbc:sqlserver://EDU:1433;databaseName=ActivosFijosISDEMU");
-		//dataSource.setUrl("jdbc:sqlserver://EDU\SQLEXPRESS:1433;databaseName=ActivosFijosISDEMU");
-		dataSource.setUsername("afi");
-		dataSource.setPassword("ActivoFijo$");
-
-		return dataSource;
+//		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//                 //jdbc:sqlserver://localhost;database=AdventureWorks;integratedSecurity=true;
+//                //dataSource.setUrl("jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU");
+//                //coneect edu18-11-15
+//                dataSource.setUrl("jdbc:sqlserver://EDU:1433;databaseName=ActivosFijosISDEMU");
+//		//dataSource.setUrl("jdbc:sqlserver://EDU\SQLEXPRESS:1433;databaseName=ActivosFijosISDEMU");
+//		dataSource.setUsername("sa");
+//		dataSource.setPassword("admin123");
+//
+//		return dataSource;
+        
+        
+         final JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
+        dsLookup.setResourceRef(true);
+        DataSource dataSource = (DataSource) dsLookup.getDataSource("jdbc/ActivosFijosISDEMU");
+        return (javax.sql.DataSource) dataSource;
+        
 	}
 
 	@Bean
