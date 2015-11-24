@@ -74,9 +74,19 @@ public class TBS_UsuarioDaoImpl implements TBS_UsuarioDao {
 		//TbsUsuario usuario2 = (TbsUsuario) getCurrentSession().get(TbsUsuario.class, usuario);
             
                 DetachedCriteria dc = DetachedCriteria.forClass(TbsUsuario.class);
-                dc.add(Restrictions.eq("usuario",usuario));
-                 
-               System.out.println("User : "+dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list());
+                
+               // dc.createAlias("Usuario.usuario", "user");
+               dc.add(Restrictions.eq("usuario",usuario));   
+                //dc.add(Restrictions.eq("idUsuario",1));
+                 System.out.println("UserD : ");
+                 try{
+               System.out.println("UserD : "+dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list());
+               System.out.println("UserD : "+dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list());
+                 }
+                 catch(Exception e)                 
+                {
+                System.out.println("Error criteria" + e);
+                }
 		return dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
 	}
         

@@ -8,6 +8,7 @@ package com.isdemu.controller;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
+import com.isdemu.spring.WebAppConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -48,8 +49,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping(value = "/Reportes")
-public class ReportesActivos 
+public class ReportesActivos extends WebAppConfig
 {
+    
      @Autowired
     private TBC_Persona_Service tbcPersonaService;
      
@@ -61,6 +63,7 @@ public class ReportesActivos
    @RequestMapping(value = "/reporteAsignadoa")
     public ModelAndView reporteAsignadoaPage()  throws JRException, IOException, SQLException, ClassNotFoundException 
     {
+        
         ModelAndView modelAndView = new ModelAndView("reporte_activo_asignado");        
                
        Map<String, Object> myModel = new HashMap<String, Object>();
@@ -111,14 +114,14 @@ public class ReportesActivos
         //String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
         
         
-        String userName = "afi";
-        String password = "ActivoFijo$";
-        String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
+        //String userName = "afi";
+      //  String password = "ActivoFijo$";
+       // String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
 
         
         
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        Connection conn = DriverManager.getConnection(url, userName, password);
+       // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+       Connection conn = dataSource().getConnection();
 
         InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
         //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
@@ -139,7 +142,7 @@ public class ReportesActivos
         //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
         System.out.println("report3 :" + jasperReport);
         System.out.println("report3 :" + response);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+       JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
         //System.out.println("report4 :");
         //response.setContentType("application/x-pdf");
         //response.setContentType("application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -153,7 +156,7 @@ public class ReportesActivos
      
        JRXlsxExporter exporter = new JRXlsxExporter();
     
-       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+      exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
        //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xlsx"); 
        exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
        System.out.println("parametro: " +  param01 + " persona: " + persona );
@@ -183,12 +186,12 @@ public class ReportesActivos
 //    String password = "admin123";
 //    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
     
-    String userName = "afi";
-    String password = "ActivoFijo$";
-    String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
+   // String userName = "afi";
+  //  String password = "ActivoFijo$";
+  //  String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
 
-    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    Connection conn = DriverManager.getConnection(url, userName, password);
+   // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    Connection conn = dataSource().getConnection();
       
     //InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml");
     InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
@@ -227,7 +230,7 @@ public class ReportesActivos
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);    
         System.out.println("report3 :" + response);
-    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+//    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
     //System.out.println("report4 :");
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
@@ -240,7 +243,7 @@ public class ReportesActivos
      
        JRXlsxExporter exporter = new JRXlsxExporter();
     
-       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+//       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
        //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
       exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
        
