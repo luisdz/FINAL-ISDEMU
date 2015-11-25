@@ -16,6 +16,7 @@ import com.isdemu.service.TBH_Movimiento_Service;
 import com.isdemu.service.TBR_MovimientoInventario_Service;
 import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.service.TB_Movimiento_Service; 
+import com.isdemu.spring.WebAppConfig;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,7 +67,7 @@ import javax.servlet.http.HttpServlet;
  */
 @Controller
 @RequestMapping(value = "/Movimiento")
-public class TB_MovimientoController    {
+public class TB_MovimientoController  extends WebAppConfig  {
 
     @Autowired
     private TB_Movimiento_Service tbMovimientoService;
@@ -401,12 +402,12 @@ public class TB_MovimientoController    {
 //
 //    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
     
-    String userName = "afi";
-    String password = "ActivoFijo$";
-    String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
+   // String userName = "afi";
+    //String password = "ActivoFijo$";
+   // String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
 
-    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    Connection conn = DriverManager.getConnection(url, userName, password);
+  //  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    Connection conn = dataSource().getConnection();
       
     InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml"); 
     //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );

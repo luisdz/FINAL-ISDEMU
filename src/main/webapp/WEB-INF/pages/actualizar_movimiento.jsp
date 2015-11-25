@@ -65,7 +65,7 @@
             <div class="panel-body">
                 <h2><i class="fa fa-pencil-square"></i> Movimientos</h2>
                 <p>
-                    Esta es la seccion de Ingreso de Activos Fijos
+                    Esta es la seccion de Movimientos
                 </p>
                 <hr>
                  <div class="col-md-12">
@@ -92,7 +92,10 @@
                         <label class="control-label">
                             Fecha movimiento<span class="symbol "></span>
                         </label>
-                        <form:input path="fechaMovimiento" type="text" placeholder="${movimiento.fechaMovimiento}" class="form-control" id="fechaMov" name="lastname"/>
+                        <div class="input-group">
+                        <form:input path="fechaMovimiento" type="text" placeholder="${movimiento.fechaMovimiento}" data-date-format="dd-mm-yyyy" data-date-viewmode="years"  class="form-control date-picker" id="fechaMov" name="lastname"/>
+                        <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+                        </div>
                     </div>
 
                        
