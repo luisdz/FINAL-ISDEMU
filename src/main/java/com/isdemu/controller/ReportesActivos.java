@@ -121,7 +121,8 @@ public class ReportesActivos extends WebAppConfig
         
         
        // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-       Connection conn = dataSource().getConnection();
+       Connection conn = dataSource().getConnection("sa","admin123");
+       System.out.println(conn);
 
         InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
         //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
@@ -177,21 +178,20 @@ public class ReportesActivos extends WebAppConfig
        // return 1;
     }
     
-     @RequestMapping(value = "/getReporteAsignado/{id}/{param}", method = RequestMethod.GET)
+       @RequestMapping(value = "/getReporteAsignado/{id}/{param}", method = RequestMethod.GET)
         @ResponseBody
      
   public void getRptAsig(HttpServletResponse response, @PathVariable Integer id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
-//    String userName = "sa";
-//    String password = "admin123";
-//    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
-    
-   // String userName = "afi";
-  //  String password = "ActivoFijo$";
-  //  String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
+   // String userName = "sa";
+   // String password = "admin123";
 
-   // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    Connection conn = dataSource().getConnection();
+   // String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
+
+    //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+   // Connection conn = DriverManager.getConnection(url, userName, password);
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
       
     //InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml");
     InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
@@ -230,7 +230,7 @@ public class ReportesActivos extends WebAppConfig
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);    
         System.out.println("report3 :" + response);
-//    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
     //System.out.println("report4 :");
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
@@ -243,7 +243,7 @@ public class ReportesActivos extends WebAppConfig
      
        JRXlsxExporter exporter = new JRXlsxExporter();
     
-//       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
        //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
       exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
        
