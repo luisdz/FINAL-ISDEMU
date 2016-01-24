@@ -6,6 +6,7 @@
 package com.isdemu.controller;
 
 import com.isdemu.service.TBR_PrestamoInventario_Service;
+import com.isdemu.spring.WebAppConfig;
 //import static com.lowagie.text.Annotation.URL;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.io.File;
@@ -49,7 +50,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/Reporte")
 
-public class ReportesPrestamo {
+public class ReportesPrestamo extends WebAppConfig{
     
     @Autowired
     private TBR_PrestamoInventario_Service tbrPrestamoInvService;
@@ -99,14 +100,14 @@ public class ReportesPrestamo {
      //this.getClass().getResource("/ireportPrueba03.jrxml");
    // this.getClass().getResource("/ireportPrueba03.jrxml").toURI();
      
-    String userName = "afi";
-    String password = "ActivoFijo$";
+    //String userName = "afi";
+    //String password = "ActivoFijo$";
 
-    String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
+    //String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
 
-    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    Connection conn = DriverManager.getConnection(url, userName, password);
-      
+    //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    //Connection conn = DriverManager.getConnection(url, userName, password);
+     Connection conn = dataSource().getConnection("sa","admin123"); 
     InputStream jasperxml =  this.getClass().getResourceAsStream("/prestamo2.jrxml"); 
     //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
     
