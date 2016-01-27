@@ -5,6 +5,8 @@
  */
 package com.isdemu.controller;
 
+import com.isdemu.spring.WebAppConfig;
+
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
@@ -48,7 +50,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping(value = "/ReportesL")
-public class ReportesLocalizacion 
+public class ReportesLocalizacion extends WebAppConfig
 {
      @Autowired
     private TBC_Persona_Service tbcPersonaService;
@@ -106,13 +108,7 @@ public class ReportesLocalizacion
         
         
        
-        String userName = "afi";
-        String password = "ActivoFijo$";
-
-        String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
-
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        Connection conn = DriverManager.getConnection(url, userName, password);
+        Connection conn = dataSource().getConnection();
 
         InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
         //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
@@ -173,13 +169,7 @@ public class ReportesLocalizacion
      
   public void getRptAsig(HttpServletResponse response, @PathVariable Integer id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
-    String userName = "sa";
-    String password = "admin123";
-
-    String url = "jdbc:sqlserver://Miranda-PC:1433;databaseName=ActivosFijosISDEMU";
-
-    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    Connection conn = DriverManager.getConnection(url, userName, password);
+    Connection conn = dataSource().getConnection();
       
     //InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml");
     InputStream jasperxml =  this.getClass().getResourceAsStream("/inventarioLocalizacion.jrxml"); 

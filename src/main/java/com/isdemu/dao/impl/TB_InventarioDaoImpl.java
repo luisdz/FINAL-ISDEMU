@@ -89,7 +89,7 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
             DetachedCriteria dc = DetachedCriteria.forClass(TbInventario.class,"inv");
             dc.createAlias("inv.tbcClaseActivo", "clase");
             dc.add(Restrictions.eq("clase.idClaseActivo", id));
-             dc.addOrder(Order.desc("idInventario"));
+             dc.addOrder(Order.desc("codigoInventario"));
           
 		return dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
         }

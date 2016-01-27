@@ -150,8 +150,11 @@
                                 <label for="form-field-select-3">
                                     Asignado A<span id="span_persona" class="symbol "></span>
                                 </label>
-                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control" id="personaasig" name="personaasig" onchange="return validaAsignadoA(event);">
-                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>       
+                                <form:select path="tbcPersonaAsignada.idPersona" class="form-control search-select" id="personaasig" name="personaasig" onchange="return validaAsignadoA(event);">
+                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>
+                                    <c:forEach var="persona" items="${persona}">
+                                        <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
+                                    </c:forEach>
                                     
                                 </form:select>
                                  <span for="asigna" class="help-block  no-display" id="span_personaA">Seleccione una Persona</span>
@@ -497,9 +500,9 @@
 
     });
 
-//index change de ubicacion para cargar persona
+//index change de ubicacion para cargar persona ya no, va cargar todas las personas
     
-     $("#ubicacion").change(function () {
+     $("#ubicacion22").change(function () {
         var idLocalizacion = $('#ubicacion :selected').val(); // define the variable
        //alert(idLocalizacion);
 
@@ -635,13 +638,14 @@
     function enviarInventarioU()
     {
        //alert("enviar");
-         if (valida_envio()){      
-           
+         if (!valida_envio()){      
+          // alert("no valido");
             
         return 0; 
          }
         if($('#tabla_inventario tr').size()>1)
         {
+      //  alert("valido");
         
          var jsonArray="{";
          jsonArray+="\"Inventario\":[";
