@@ -185,7 +185,9 @@ public class TB_MovimientoController  extends WebAppConfig  {
             TbhMovimiento TbhMov = new TbhMovimiento();
             TbhMov.setCodigoInventario(tempInv.getCodigoInventario());
             TbhMov.setFechaMovimiento(fecha);
-            TbhMov.setIdMovimientoh(idMov);
+            TbhMov.setIdMovimiento(idMov);
+            TbhMov.setDescripcionEquipo(tempInv.getDescripcionEquipo());
+            System.out.println("Id mov:" + idMov);
             TbhMov.setPersonaActual(objectMov.getString("persona"));
             TbhMov.setPersonaAnterior(tempInv.getTbcPersona().getNombrePersona());
             tbhMovimientoService.save(TbhMov);
@@ -358,7 +360,8 @@ public class TB_MovimientoController  extends WebAppConfig  {
             TbhMovimiento TbhMov = new TbhMovimiento();
             TbhMov.setCodigoInventario(tempInv.getCodigoInventario());
             TbhMov.setFechaMovimiento(fecha);
-            TbhMov.setIdMovimientoh(idMov);
+            TbhMov.setIdMovimiento(idMov);
+            TbhMov.setDescripcionEquipo(tempInv.getDescripcionEquipo());
             TbhMov.setPersonaActual(nompersactual);
             TbhMov.setPersonaAnterior(tempInv.getTbcPersona().getNombrePersona());
             tbhMovimientoService.save(TbhMov);

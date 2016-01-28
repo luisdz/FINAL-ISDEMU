@@ -727,7 +727,7 @@
             //backspace
             return true;
         }
-        else if (code >= 48 && code <= 57)
+        else if (code >= 46 && code <= 57)
         {
             //is a number
             return true;

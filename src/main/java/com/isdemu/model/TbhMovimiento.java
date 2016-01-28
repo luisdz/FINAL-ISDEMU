@@ -28,9 +28,11 @@ public class TbhMovimiento {
      private int idMovimientoh;
      private String codigoInventario;
      private String personaAnterior;
-     private String personaActual;
+     private String personaActual;     
+     private String descripcionEquipo;
      private Date fechaMovimiento;
       private Integer idMovimiento;
+    
      
      
      @Id 
@@ -44,6 +46,15 @@ public class TbhMovimiento {
     public void setIdMovimientoh(int idMovimientoh) {
         this.idMovimientoh = idMovimientoh;
     }
+    @Column(name="DESCRIPCION_EQUIPO", nullable=true, length=1024)
+    public String getDescripcionEquipo() {
+        return descripcionEquipo;
+    }
+
+    public void setDescripcionEquipo(String descripcionEquipo) {
+        this.descripcionEquipo = descripcionEquipo;
+    }
+     
 
     
     @Column(name="CODIGO_INVENTARIO", nullable=false, length=1024)

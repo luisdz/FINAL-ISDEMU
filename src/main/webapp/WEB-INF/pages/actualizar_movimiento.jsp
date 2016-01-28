@@ -307,7 +307,7 @@
             var codigoI = $("#codigo").val();
             //var personaM = $('#responsable option:selected').text();
            // var idpersonaM  = $('#responsable option:selected').val();
-           alert("razon" + razonM);
+          8// alert("razon" + razonM);
             var id =  $("#id").val();
 
             var jsonArray = "{";
