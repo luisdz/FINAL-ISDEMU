@@ -297,8 +297,7 @@
                document.getElementById('destino').value="";
                document.getElementById('fecha_sol').value="";
                document.getElementById('fecha_pres').value="";
-               document.getElementById('hora_inicio').value="";
-               document.getElementById('hora_fin').value="";
+               document.getElementById('codigo').value="";
                $("#tablabody").empty();
            },
            data: jsonArray
@@ -367,6 +366,7 @@
                             $('#tabla_prueba').append('<tr  id="' + entry.idInventario + '">' + '<td class=\"no-display\" >' + entry.idInventario + '</td>' + '<td>' + entry.codigoInventario + '</td>' + '</td>' + '<td>' + entry.tbcClaseActivo.nombreClase + '</td>' + '<td>' + entry.descripcionEquipo + '</td><td class="eliminar"><a href="" onclick="return deleteElement(' + "'" + entry.idInventario + "'" + ');"><span class="glyphicon glyphicon-remove"></span></a></td></tr>');
                             $('#span_codigoE').addClass("no-display");
                             $('#span_codigoE').closest("div").removeClass("has-error");
+                            document.getElementById('codigo').value="";
                         }
                         });
                             

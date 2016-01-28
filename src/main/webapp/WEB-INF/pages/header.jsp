@@ -171,6 +171,21 @@
 									
 								</ul>
 							</li>
+                                                        <li>
+								<a href="javascript:;" class="active">
+									<i class="fa fa-folder"></i> <span class="title"> Codigo de Inventario </span> <i class="icon-arrow"></i>
+								</a>
+								<ul class="sub-menu">
+									
+									<li>
+										<a href="${pageContext.request.contextPath}/Usuario/ListInventario">
+											Generar Codigos Inventario<i class="icon-arrow"></i>
+										</a>
+										
+									</li>
+									
+								</ul>
+							</li>
                                                         
                                                         <li>
 								<a href="javascript:;" class="active">

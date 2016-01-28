@@ -10,6 +10,17 @@ import com.isdemu.model.TbsUsuario;
 
 import com.isdemu.service.TBS_Usuario_Service;
 import com.isdemu.service.TBS_Rol_Service;
+import com.isdemu.model.TbInventario;
+import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
+import com.isdemu.service.TBC_Localizacion_Service;
+import com.isdemu.service.TB_Inventario_Service;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.Barcode128;
+import com.lowagie.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -24,6 +35,8 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -36,6 +49,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 /**
  *
@@ -50,7 +64,15 @@ public class TBS_UsuarioController {
    
      @Autowired
         private TBS_Usuario_Service tbsUsuarioService;
+     
+     @Autowired
+	private TB_Inventario_Service tbInventarioService;
+     
+     @Autowired
+        private TBC_Localizacion_Service tbcLocalizacionService;
 
+     @Autowired
+        private TBC_ClasificacionLocalizacion_Service tbcClasificacionLocalizacionService;
      
      @RequestMapping(value="/list")
 	public ModelAndView listOfPaises(String b) {
@@ -169,28 +191,44 @@ public class TBS_UsuarioController {
            return listOfPaises("2");
 	}
         
-        //       @RequestMapping(value="/codigo_barra")
-//        public void codigo() throws FileNotFoundException, DocumentException {       
-//       
-//       Document document = new Document(new Rectangle(PageSize.A4));    
-//    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/codigoBarraIsdemu.pdf"));    
-//
-//    document.open();
-//	    document.add(new Paragraph("ISDEMU"));
-//
-//		    Barcode128 code128 = new Barcode128();
-//		    code128.setGenerateChecksum(true);
-//		    code128.setCode("61563333333");    
-//
-//	    document.add(code128.createImageWithBarcode(writer.getDirectContent(), null, null));
-//            
-//            code128.setCode("4545454545");  
-//            document.add(code128.createImageWithBarcode(writer.getDirectContent(), null, null));
-//    document.close();
-//
-//    System.out.println("Document Generated...!!!!!!");
-//  
-//       }
+       @RequestMapping(value="/codigo_barra", method=RequestMethod.POST)
+        public @ResponseBody String codigo(@RequestBody String codigos) throws FileNotFoundException, DocumentException {       
+       System.out.println("String Json:"+codigos);
+       JSONObject array = new JSONObject(codigos);
+       
+        Document document = new Document(new Rectangle(PageSize.A4));    
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/codigoBarraIsdemu.pdf"));    
+
+    document.open();
+	    document.add(new Paragraph("ISDEMU"));
+
+		    Barcode128 code128 = new Barcode128();
+		    code128.setGenerateChecksum(true);
+       
+       JSONArray object = array.getJSONArray("Inventario");
+                 for(int i=0;i<object.length();i++)
+                 {
+                    JSONObject object2 = object.getJSONObject(i);
+                  
+                     //JSONArray object = array.getJSONArray("Inventario");
+                    String id = object2.getString("idInv");
+                    
+                        
+                    code128.setCode(id);
+                    document.add(code128.createImageWithBarcode(writer.getDirectContent(), null, null));            
+
+                   
+                    System.out.println("Id Json:"+id);
+                   
+                }    
+            
+    document.close();
+
+    System.out.println("Document Generated...!!!!!!");
+    
+    return "almacencado";
+  
+       }
         
              
          @RequestMapping(value="/update_clave")
@@ -225,6 +263,35 @@ public class TBS_UsuarioController {
            modelAndView.addObject("message", message);
 
            return modelAndView;
+	}
+         
+         
+          @RequestMapping(value = "/ListInventario",method=RequestMethod.GET)
+            public ModelAndView ListaInventario()  
+            {
+               
+                ModelAndView modelAndView = new ModelAndView("codigo_barra");        
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll(); 
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);        
+                return new ModelAndView("codigo_barra", myModel);
+            }
+            
+            @RequestMapping(value="/listInvFiltro", method=RequestMethod.POST) 
+	public ModelAndView listInvFilto(@ModelAttribute TbInventario clasilocalizacion) {
+		ModelAndView modelAndView = new ModelAndView("codigo_barra_filtro");
+                int IdLocalizacion=clasilocalizacion.getIdLocalizacion();
+		//List inventario = tbInventarioService.getAll();
+                
+               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdLocalizacion);
+                List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+		modelAndView.addObject("inventario", inventario);
+
+		return modelAndView;
 	}
          
         

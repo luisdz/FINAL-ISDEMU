@@ -10,6 +10,7 @@ import com.isdemu.spring.WebAppConfig;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
+import com.isdemu.spring.WebAppConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -110,6 +111,14 @@ public class ReportesLocalizacion extends WebAppConfig
        
         Connection conn = dataSource().getConnection();
 
+        //String userName = "afi";
+        //String password = "ActivoFijo$";
+
+        //String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
+
+       // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+       // Connection conn = DriverManager.getConnection(url, userName, password);
+        Connection conn = dataSource().getConnection("sa","admin123");
         InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
         //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
 
@@ -213,7 +222,7 @@ public class ReportesLocalizacion extends WebAppConfig
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
      
-   response.setHeader("Content-disposition", "inline; filename=movimiento.xlsx");
+   response.setHeader("Content-disposition", "inline; filename=inventario_localizcion.xlsx");
 
    final OutputStream outStream = response.getOutputStream();
     //JasperExportManager.(jasperPrint, outStream);

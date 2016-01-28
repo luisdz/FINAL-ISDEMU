@@ -7,6 +7,7 @@ package com.isdemu.controller;
 
 import com.isdemu.spring.WebAppConfig;
 import com.isdemu.service.TBR_ControlInventario_Service;
+import com.isdemu.spring.WebAppConfig;
 //import static com.lowagie.text.Annotation.URL;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.io.File;
@@ -51,6 +52,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/Reporte")
 
 public class ReportesControl extends WebAppConfig{
+public class ReportesControl extends WebAppConfig {
     
     @Autowired
     private TBR_ControlInventario_Service tbrControlInvService;
