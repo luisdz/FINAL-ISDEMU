@@ -8,10 +8,12 @@ package com.isdemu.controller;
 import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbcPersona;
+import com.isdemu.model.TbcUbicacion;
 import com.isdemu.model.TbhMovimiento;
 import com.isdemu.model.TbrMovimientoInventario;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
+import com.isdemu.service.TBC_Ubicacion_Service;
 import com.isdemu.service.TBH_Movimiento_Service;
 import com.isdemu.service.TBR_MovimientoInventario_Service;
 import com.isdemu.service.TB_Inventario_Service;
@@ -73,6 +75,8 @@ public class TB_MovimientoController  extends WebAppConfig  {
     private TB_Movimiento_Service tbMovimientoService;
     @Autowired
     private TB_Inventario_Service tbInventarioService;
+    @Autowired
+    private TBC_Ubicacion_Service tbcUbicacioinService;
     @Autowired
     private TBR_MovimientoInventario_Service tbrMovimientoInvService;
     @Autowired
@@ -146,7 +150,7 @@ public class TB_MovimientoController  extends WebAppConfig  {
         mov.setNMovimiento(1);
         mov.setRazonCambio(objectMov.getString("razon"));
         mov.setIdPersonaNueva(Integer.parseInt(objectMov.getString("idpersona")));
-        
+        mov.setIdUbicacionNueva(Integer.parseInt(objectMov.getString("idubiM")));
         System.out.println("String codigo inv:" + objectMov.getString("codigo"));
 
         tbMovimientoService.save(mov);
@@ -191,10 +195,13 @@ public class TB_MovimientoController  extends WebAppConfig  {
             System.out.println("Id mov:" + idMov);
             TbhMov.setPersonaActual(objectMov.getString("persona"));
             TbhMov.setPersonaAnterior(tempInv.getTbcPersona().getNombrePersona());
+            TbhMov.setUbicacionAnterior(tempInv.getTbcUbicacion().getNombreUbicacion());
+            TbhMov.setUbcacionActual(objectMov.getString("ubiM"));
             tbhMovimientoService.save(TbhMov);
             //historial
             System.out.println("Id persona:" + objectMov.getString("idpersona"));            
             TbcPersona tbcpersona = (TbcPersona)tbcPersonaService.findByKey(Integer.parseInt(objectMov.getString("idpersona")));
+            TbcUbicacion tbcubicaion = (TbcUbicacion)tbcUbicacioinService.findByKey(Integer.parseInt(objectMov.getString("idubiM")));
             System.out.println("tbc persona:" + tbcpersona);
             tempInv.setTbcPersona(tbcpersona);
             tbInventarioService.update(tempInv);
@@ -278,17 +285,13 @@ public class TB_MovimientoController  extends WebAppConfig  {
     }
 
     @RequestMapping(value = "/editMovimientoI/{id}", method = RequestMethod.POST)
-    public ModelAndView edditingMovimientoInventario(@ModelAttribute TbMovimiento mov, @PathVariable Integer id) {
+    public ModelAndView edditingMovimientoInventario(@ModelAttribute TbMovimiento mov, @PathVariable Integer id) 
+    {
 
         TbMovimiento movActual = (TbMovimiento) tbMovimientoService.findByKey(id);
-
         ModelAndView modelAndView = new ModelAndView("home");
-
         movActual.setRazonCambio(mov.getRazonCambio());
-//                polizaActual.setFechaInicio(poliza.getFechaInicio());
-//                polizaActual.setFechaFin(poliza.getFechaFin());
         movActual.setNMovimiento(mov.getNMovimiento());
-
         tbMovimientoService.update(movActual);
 
         String message = "unidad was successfully edited.";
@@ -344,9 +347,11 @@ public class TB_MovimientoController  extends WebAppConfig  {
             MovInv.setTbInventario(tempInv);  
             MovInv.setIdPersonaAnterior(tempInv.getTbcPersona().getIdPersona());
             MovInv.setIdPersonaNueva(mov.getIdPersonaNueva());             
-            
+            MovInv.setIdUbicacionAnterior(tempInv.getTbcUbicacion().getIdUbicacion());
+            MovInv.setIdUbicacionNueva(mov.getIdUbicacionNueva());
             List<TbrMovimientoInventario> tbrMov =  tbrMovimientoInvService.findByInv(tempInv.getIdInventario());
             TbcPersona persactual =(TbcPersona) tbcPersonaService.findByKey(mov.getIdPersonaNueva());
+            TbcUbicacion ubicacion = (TbcUbicacion) tbcUbicacioinService.findByKey(mov.getIdUbicacionNueva());
             String nompersactual = persactual.getNombrePersona();
             
             //Eliminar anteriores
@@ -365,6 +370,8 @@ public class TB_MovimientoController  extends WebAppConfig  {
             TbhMov.setDescripcionEquipo(tempInv.getDescripcionEquipo());
             TbhMov.setPersonaActual(nompersactual);
             TbhMov.setPersonaAnterior(tempInv.getTbcPersona().getNombrePersona());
+            TbhMov.setUbicacionAnterior(tempInv.getTbcUbicacion().getNombreUbicacion());
+            TbhMov.setUbcacionActual(ubicacion.getNombreUbicacion());
             tbhMovimientoService.save(TbhMov);
             //historial
             //System.out.println("Id persona:" + objectMov.getString("idpersona"));            

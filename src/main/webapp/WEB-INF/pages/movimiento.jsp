@@ -271,7 +271,7 @@
             var idUbiM  = $('#ubicacion option:selected').val();
 
             var jsonArray = "{";
-            jsonArray += "\"Movimiento\":[{\"fecha\":\"" + fechaM + "\",\"razon\":\" " + razonM + "\"" + ",\"ubiM\":\" " + ubiM +"\",\"idubiM\":\" " + idUbiM   +"\",\"codigo\":\"" + codigoI + "\",\"persona\":\"" + personaM + "\",\"idpersona\":\"" + idpersonaM + "\"" + "}],";
+            jsonArray += "\"Movimiento\":[{\"fecha\":\"" + fechaM + "\",\"razon\":\"" + razonM + "\"" + ",\"ubiM\":\"" + ubiM +"\",\"idubiM\":\"" + idUbiM   +"\",\"codigo\":\"" + codigoI + "\",\"persona\":\"" + personaM + "\",\"idpersona\":\"" + idpersonaM + "\"" + "}],";
             jsonArray += "\"Inventario\":[";
             var l = 0;
 
