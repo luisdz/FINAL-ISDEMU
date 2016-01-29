@@ -169,7 +169,8 @@ public class TB_MovimientoController  extends WebAppConfig  {
             MovInv.setTbInventario(tempInv);  
             MovInv.setIdPersonaAnterior(tempInv.getTbcPersona().getIdPersona());
             MovInv.setIdPersonaNueva(Integer.parseInt(objectMov.getString("idpersona")));
-             
+            MovInv.setIdUbicacionAnterior(tempInv.getTbcUbicacion().getIdUbicacion());
+            MovInv.setIdUbicacionNueva(Integer.parseInt(objectMov.getString("idubiM")));
             
             List<TbrMovimientoInventario> tbrMov =  tbrMovimientoInvService.findByInv(tempInv.getIdInventario());
             

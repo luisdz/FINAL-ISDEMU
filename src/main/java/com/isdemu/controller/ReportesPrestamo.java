@@ -110,7 +110,7 @@ public class ReportesPrestamo extends WebAppConfig {
 
     //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     //Connection conn = DriverManager.getConnection(url, userName, password);
-     Connection conn = dataSource().getConnection("sa","admin123"); 
+   //  Connection conn = dataSource().getConnection("sa","admin123"); 
     InputStream jasperxml =  this.getClass().getResourceAsStream("/prestamo2.jrxml"); 
     //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
     

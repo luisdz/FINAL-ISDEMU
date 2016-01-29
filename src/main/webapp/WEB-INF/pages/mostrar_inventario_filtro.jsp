@@ -1,5 +1,6 @@
 <%@include file="header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- start: BREADCRUMB -->
 <div class="row">
     <div class="col-md-12">
@@ -69,11 +70,7 @@
                                         Save as PDF
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="export-png" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as PNG
-                                    </a>
-                                </li>
+                             
                                 <li>
                                     <a href="#" class="export-csv" data-table="#sample-table-2" data-ignoreColumn ="3,4">
                                         Save as CSV
@@ -89,16 +86,7 @@
                                         Save as XML
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="export-sql" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as SQL
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="export-json" data-table="#sample-table-2" data-ignoreColumn ="3,4">
-                                        Save as JSON
-                                    </a>
-                                </li>
+                               
                                 <li>
                                     <a href="#" class="export-excel" data-table="#sample-table-2" data-ignoreColumn ="3,4">
                                         Export to Excel
@@ -151,7 +139,7 @@
                                     <td>${inv.modelo}</td>
                                     <td>${inv.tbcUbicacion.nombreUbicacion}</td>
                                     <td>${inv.fechaAdquisicion}</td>
-                                    <td>${inv.valor}</td>
+                                    <td><fmt:formatNumber pattern="$#0.00" value="${inv.valor}" /></td>
                                    
                                     
                                     <td><a href="${pageContext.request.contextPath}/Inventario/edit/${inv.idInventario}">

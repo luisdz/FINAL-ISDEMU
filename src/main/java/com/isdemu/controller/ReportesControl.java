@@ -51,7 +51,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/Reporte")
 
-public class ReportesControl extends WebAppConfig{
+
 public class ReportesControl extends WebAppConfig {
     
     @Autowired

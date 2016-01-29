@@ -118,7 +118,7 @@ public class ReportesLocalizacion extends WebAppConfig
 
        // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
        // Connection conn = DriverManager.getConnection(url, userName, password);
-        Connection conn = dataSource().getConnection("sa","admin123");
+//        Connection conn = dataSource().getConnection("sa","admin123");
         InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
         //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
 
