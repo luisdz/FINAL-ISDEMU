@@ -31,11 +31,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-//import net.sf.jasperreports.export.SimpleExporterInput;
-//import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-//import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
-//import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter; 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,13 +117,9 @@ public class ReportesActivos extends WebAppConfig
 //        String password = "admin123";
         //String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
         
-        
         //String userName = "afi";
       //  String password = "ActivoFijo$";
        // String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
-
-        
-        
        // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
        Connection conn = dataSource().getConnection("sa","admin123");
        System.out.println(conn);
@@ -243,7 +235,7 @@ public class ReportesActivos extends WebAppConfig
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
      
-   response.setHeader("Content-disposition", "inline; filename=movimiento.xlsx");
+   response.setHeader("Content-disposition", "inline; filename=InventarioPorPersona.xlsx");
 
    final OutputStream outStream = response.getOutputStream();
     //JasperExportManager.(jasperPrint, outStream);

@@ -59,7 +59,7 @@
             <div class="panel-body">
                 
                 
-               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvPersona"  modelAttribute="inventario" id="repAsign" >
+               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvPersona"  modelAttribute="inventario" id="movF" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
@@ -109,17 +109,13 @@
                                         Consultar Activo <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-8">
-
-                    </div>
-                    <div class="col-md-4">
+                        <div class="col-md-2">
                         <button class="btn btn-yellow btn-block" type="button" id="ingresar" onclick="return enviarReporte2(event);" value="0" >
                             Guardar Excel <i class="fa fa-arrow-circle-right"></i>
                         </button>
                     </div>
                     </div>
+                    
                 </div>
 
                     </div>
@@ -179,7 +175,7 @@
 
 <%@include file="footer.jsp"%>
 
-
+<script src="${pageContext.request.contextPath}/assets/validaciones/validacionesISDEMU-01.js"></script>
  <script>
  
     
@@ -276,14 +272,17 @@ $("#dropdown1").change(function () {
     
    function enviarReporte2 ()
     {
+        alert("excel2");
      validaRespMov();
-     if(validaRespMov()==true)
+     
+     alert("excel");
+     if(validaRespMov()===true)
      {
      window.location.href='${pageContext.request.contextPath}/Reportes/getReporteAsignado/'+ $('#responsable option:selected').val() + '/'+$('#mayor option:selected').val() ;
     
-        };
-        
      };
+        
+   };
       
      
         

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vfaltante" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="84d4c9ed-011d-49e2-9349-708479edb391">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="realpath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TB_INVENTARIO.ID_INVENTARIO,TB_INVENTARIO.CODIGO_INVENTARIO, TB_INVENTARIO.DESCRIPCION_EQUIPO,TB_INVENTARIO.[VALOR] FROM TB_INVENTARIO WHERE ID_LOCALIZACION=$P{id} EXCEPT SELECT TBT_VERIFICAR_INVENTARIO.ID_INVENTARIO, TBT_VERIFICAR_INVENTARIO.CODIGO_INVENTARIO,TB_INVENTARIO.[DESCRIPCION_EQUIPO],TB_INVENTARIO.[VALOR] FROM TBT_VERIFICAR_INVENTARIO inner join tb_inventario on tb_inventario.id_inventario=tbt_verificar_inventario.id_inventario]]>
+	</queryString>
+	<field name="ID_INVENTARIO" class="java.lang.Integer"/>
+	<field name="CODIGO_INVENTARIO" class="java.lang.String"/>
+	<field name="DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<field name="VALOR" class="java.math.BigDecimal"/>
+	<title>
+		<band height="134" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="10" width="352" height="20" uuid="2e031d1b-8546-48ad-9c16-a8ec07c44ab9"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO SALVADOREÑO PARA EL DESARROLLO DE LA MUJER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="30" width="352" height="31" uuid="ebff9ef8-ab51-4482-9e6f-ed59650a0d73"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Verificacion de Inventario Activos Faltantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="95" width="282" height="39" uuid="bd8fc103-5358-4080-b3cf-0a983a2680ca"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Descripcion del Activo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="95" width="107" height="39" uuid="df568441-ff9c-4ba8-8862-f07dc72c33e8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No Inventario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="95" width="100" height="39" uuid="e338cd55-e493-4b3b-b420-ddd4f3b9cf16"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="39" y="0" width="107" height="20" uuid="3f8b5ea0-07f8-494a-8e73-dac06c871433"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="428" y="0" width="100" height="20" uuid="bb4ad3e7-8338-4b51-9e9f-ce7edf4ab15a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="146" y="0" width="282" height="20" uuid="428d0386-f15e-44b5-a3bb-172d431dc712"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

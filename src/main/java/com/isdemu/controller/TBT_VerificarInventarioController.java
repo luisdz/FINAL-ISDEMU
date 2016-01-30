@@ -6,14 +6,31 @@
 package com.isdemu.controller;
 
 import com.isdemu.model.TbInventario;
+import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbtVerificarInventario;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBT_VerificarInventario_Service;
 import com.isdemu.service.TB_Inventario_Service;
+import com.isdemu.spring.WebAppConfig;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +48,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller 
  @RequestMapping(value="/VerificarInventario")
-public class TBT_VerificarInventarioController {
+public class TBT_VerificarInventarioController  extends WebAppConfig{
      @Autowired
 	private TB_Inventario_Service tbInventarioService;
     
@@ -96,7 +113,7 @@ public class TBT_VerificarInventarioController {
                List<TbtVerificarInventario> InventarioFaltante= tbcVerificarInventarioService.getInventarioFaltante(idLocalizacionInt);
                List<TbtVerificarInventario> InventarioSobrante= tbcVerificarInventarioService.getInventarioSobrante(idLocalizacionInt);
                
-               tbcVerificarInventarioService.delete(1);
+               //tbcVerificarInventarioService.delete(1);
                // tbInventarioService.save(inventario);
                 String message = "Pais was successfully added.";
                 
@@ -111,7 +128,7 @@ public class TBT_VerificarInventarioController {
 	}
         
         
-              @RequestMapping(value="/consultar/{id}", method=RequestMethod.GET)
+        @RequestMapping(value="/consultar/{id}", method=RequestMethod.GET)
 	public ModelAndView consultarVerificarInventario(@PathVariable Integer id) {
 		//ModelAndView modelAndView = new ModelAndView("actualizar_inventario");
 		TbInventario inventario = (TbInventario) tbInventarioService.findByKey(id);
@@ -131,5 +148,115 @@ public class TBT_VerificarInventarioController {
 		//modelAndView.addObject("inventario",inventario);
 		return new ModelAndView("consultar_verificar_inventario",myModel);
 	}
+        
+        
+            
+    @RequestMapping(value = "/ReporteVerificarFaltante/{id}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptInvFalt(HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+
+    Connection conn = dataSource().getConnection();
+      
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/vfaltante.jrxml"); 
+   
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+   
+    Map<String,Object> params = new HashMap<>();
+    
+   int b = id;
+  
+    params.put("id", b);
+   //File file = new File("resources/Logo.jpg");
+    File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
+   String absolutePath = file.getAbsolutePath(); 
+   
+   absolutePath = absolutePath.replaceAll("%20"," ");
+   
+   params.put("realpath",absolutePath);
+   System.out.println("reportURL :" + absolutePath); 
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+     
+   response.setHeader("Content-disposition", "inline; filename=InvFaltante.xlsx");
+
+   final OutputStream outStream = response.getOutputStream();
+   JRXlsxExporter exporter = new JRXlsxExporter();
+    
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
+      exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
+       
+       exporter.exportReport();
+       
+       
+       
+       
+ }
+  
+    @RequestMapping(value = "/ReporteVerificarSobrante/{id}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptInvSobre(HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+
+    Connection conn = dataSource().getConnection();
+      
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/vsobrante.jrxml"); 
+   
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+   
+    Map<String,Object> params = new HashMap<>();
+    
+   int b = id;
+  
+    params.put("id", b);
+   //File file = new File("resources/Logo.jpg");
+    File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
+   String absolutePath = file.getAbsolutePath(); 
+   
+   absolutePath = absolutePath.replaceAll("%20"," ");
+   
+   params.put("realpath",absolutePath);
+   System.out.println("reportURL :" + absolutePath); 
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+     
+   response.setHeader("Content-disposition", "inline; filename=InvSobrante.xlsx");
+
+   final OutputStream outStream = response.getOutputStream();
+   JRXlsxExporter exporter = new JRXlsxExporter();
+    
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
+      exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
+       
+       exporter.exportReport();
+       
+       
+       
+       
+ }
+  
+  
+   //Agregar a la tabla temporal los inventarios para luego ser comparados
+        @RequestMapping(value="/deleteTBTemporal",  method = RequestMethod.GET)
+	public ModelAndView deletetbt() {
+		tbcVerificarInventarioService.delete(1);
+                return VInventario();
+              
+	}
+  
         
 }
