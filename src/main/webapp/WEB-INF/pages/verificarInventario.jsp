@@ -134,14 +134,27 @@
                         &nbsp;<br/>
                     </div>                 
                     <div class="row">
-                        <div class="col-md-8">
-
-                        </div>
-                        <div class="col-md-4">
+                       
+                        <div class="col-md-2">
                             <button class="btn btn-yellow btn-block" id="ingresar"   type="button" onclick="return enviarDes(event);" value="0" >
                                 Verificar Inventario <i class="fa fa-arrow-circle-right"></i>
                             </button>
                         </div>
+                         <div class="col-md-2">
+                                <button id="print" class="btn btn-yellow btn-block" type="button" onclick="">
+                                     Imp. Faltante  <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>  
+                          <div class="col-md-2">
+                                <button id="prints" class="btn btn-yellow btn-block" type="button" onclick="">
+                                     Imp. Sobrante <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div> 
+                        <div class="col-md-2">
+                                <button id="borrar" class="btn btn-yellow btn-block" type="button" onclick="location.href='${pageContext.request.contextPath}/VerificarInventario/deleteTBTemporal'">
+                                     Limpiar<i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>  
                     </div>
                 </form:form>
 
@@ -186,8 +199,8 @@
                      </div>
                  <div class="table-responsive">
                 <div class="col-md-6">
-                    ACTIVOS SOBRANTES id="InventarioSobrante"
-                    <table class="table table-hover InventarioSobrante" id="sample-table-2">
+                    ACTIVOS SOBRANTES 
+                    <table class="table table-hover " id="InventarioSobrante">
                         <thead>
                             <tr>
                                 
@@ -227,8 +240,13 @@
     
      function enviarCodeD()
     {
-        var codigoI = $("#codigo").val();
+        //$( "#print" ).append( "onclick='location.href='${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarFaltante/6''" );
+   
+    var codigoI = $("#codigo").val();
         var localizacion=$("#localizacion").val();
+         $('#print').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarFaltante/'+localizacion+'" ' );    
+         $('#prints').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarSobrante/'+localizacion+'" ' );    
+         
         if (condigoYaAgregado(codigoI) === true)
         {
 
