@@ -13,11 +13,11 @@
                 <ol class="breadcrumb">
                         <li>
                                 <a href="#">
-                                       Detalle Control Salida
+                                       Reportes
                                 </a>
                         </li>
                         <li class="active">
-                                 Control Salida
+                                 Reporte Inventario
                         </li>
                 </ol>
         </div>
@@ -30,7 +30,6 @@
                 <!-- start: FORM VALIDATION 1 PANEL -->
                 <div class="panel panel-white">
                 <div class="panel-heading">
-                                <h4 class="panel-title">Detalle de <span class="text-bold">Control</span></h4>
                                 <div class="panel-tools">
                                         <div class="dropdown">
                                                 <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -63,12 +62,12 @@
                                 </div>
                         </div>
                                 <div class="panel-body">
-                                <h2><i class="fa fa-pencil-square"></i> Control de Salida</h2>
+                                <h2><i class="fa fa-pencil-square"></i>Reporte por Localizacion</h2>
                               
                         <hr>
 
 
-<form:form method="POST" action="${pageContext.request.contextPath}/Control/editControl1/${control.idControlSalida}" modelAttribute="control" id="controlE" name="controlE">
+<form:form method="POST" action="" id="controlE" name="controlE">
     
        
                 
@@ -85,21 +84,30 @@
                         <table class="table table-striped table-hover" id="sample-table-2">
                                 <thead>
                                         <tr>
-                                            <th class="no-display">id</th>
-                                            <th>Codigo Inv</th>                                             
-                                            <th>Clase Activo</th>
-                                            <th>Descripcion</th>
+                                            <th>CODIGO ACTIVO</th>
+                                            <th>DESCRIPCION</th>                                             
+                                            <th>CLASE</th>
+                                            <th>MARCA</th>
+                                            <th>MODELO</th>
+                                            <th>SERIE</th>
+                                            <th>VALOR</th>
+                                            <th>UBICACION</th>
+                                            <th>ASIGNADO A</th>
                                         </tr>
                                 </thead>
                                 <tbody id="tablabody" name="tablabody">
 
-                                <c:forEach var="con" items="${controlInv}">
-                                            <tr id="${con[0]}">
-                                                <td class="no-display">${con[0]}</td>
+                                <c:forEach var="con" items="${reportLocali}">
+                                            <tr>
                                                 <td>${con[1]}</td>
+                                                <td>${con[0]}</td>
+                                                <td>${con[17]}</td>
                                                 <td>${con[2]}</td>
                                                 <td>${con[3]}</td>
-                                               
+                                                <td>${con[4]}</td>
+                                                <td>${con[6]}</td>
+                                                <td>${con[19]}</td>
+                                                <td>${con[20]}</td> 
                                             </tr>
                                         </c:forEach>	
                                           
@@ -112,7 +120,7 @@
                                      &nbsp;<br/>  
                                 </div>
                                 <div class="col-md-4">
-                                    <a href="${pageContext.request.contextPath}/Control/list"  class="btn btn-yellow btn-block">
+                                    <a href="${pageContext.request.contextPath}/ReportesL/reporteLocalizacion"  class="btn btn-yellow btn-block">
                                                 Regresar <i class="fa fa-arrow-circle-right"></i>
                                         </a>
                                 </div>
@@ -125,4 +133,4 @@
             </div>
 
                 <!-- end: PAGE CONTENT-->
-<%@include file="footer.jsp" %>		
+<%@include file="footer.jsp" %>	

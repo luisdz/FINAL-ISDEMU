@@ -147,10 +147,12 @@
                 
                 
                 <div class="row">
-                    <div class="col-md-8">
-
+                    <div class="col-md-6">
+                        <button class="btn btn-yellow btn-block" type="button" id="ingresar" onclick="return verReporte2(event);" value="0" >
+                            Ver reporte<i class="fa fa-arrow-circle-right"></i>
+                        </button>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <button class="btn btn-yellow btn-block" type="button" id="ingresar" onclick="return enviarReporte2(event);" value="0" >
                             Guardar excel<i class="fa fa-arrow-circle-right"></i>
                         </button>
@@ -360,6 +362,17 @@ $("#dropdown1").change(function () {
         };
         
      };
+      
+     function verReporte2 ()
+    {
+     validaRespRepAsign();
+     if(validaRespRepAsign()==true)
+     {
+      
+     window.location.href='${pageContext.request.contextPath}/ReportesL/verReporteLocalizacion/'+ $('#localizacion option:selected').val() + '/'+$('#mayor option:selected').val() ;
+    
+     };
         
+     };
     
 </script>
