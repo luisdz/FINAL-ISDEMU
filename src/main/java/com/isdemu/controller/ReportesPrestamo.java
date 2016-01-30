@@ -50,7 +50,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/Reporte")
 
-public class ReportesPrestamo extends WebAppConfig{
+public class ReportesPrestamo extends WebAppConfig {
     
     @Autowired
     private TBR_PrestamoInventario_Service tbrPrestamoInvService;
@@ -100,6 +100,9 @@ public class ReportesPrestamo extends WebAppConfig{
      //this.getClass().getResource("/ireportPrueba03.jrxml");
    // this.getClass().getResource("/ireportPrueba03.jrxml").toURI();
      
+    // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    Connection conn = dataSource().getConnection();
+    System.out.println(conn);
     //String userName = "afi";
     //String password = "ActivoFijo$";
 
@@ -107,7 +110,7 @@ public class ReportesPrestamo extends WebAppConfig{
 
     //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     //Connection conn = DriverManager.getConnection(url, userName, password);
-     Connection conn = dataSource().getConnection("sa","admin123"); 
+   //  Connection conn = dataSource().getConnection("sa","admin123"); 
     InputStream jasperxml =  this.getClass().getResourceAsStream("/prestamo2.jrxml"); 
     //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
     
@@ -122,7 +125,7 @@ public class ReportesPrestamo extends WebAppConfig{
     
    String absolutePath = file.getAbsolutePath(); 
    
-   absolutePath.replaceAll("%20"," ");
+   absolutePath=absolutePath.replaceAll("%20"," ");
    
    
     params.put("realpath",absolutePath);

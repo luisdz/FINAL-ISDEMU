@@ -162,7 +162,7 @@
                         </tbody>
                     </table>
                 </div>
-                
+                <div class="table-responsive">
                 <div class="col-md-6">
                     ACTIVOS FALTANTES
                 <div class="table-responsive">
@@ -182,10 +182,12 @@
                         </tbody>
                     </table>
                 </div>
-               </div>   
+               </div> 
+                     </div>
+                 <div class="table-responsive">
                 <div class="col-md-6">
-                    ACTIVOS SOBRANTES
-                    <table class="table table-striped table-hover" id="InventarioSobrante">
+                    ACTIVOS SOBRANTES id="InventarioSobrante"
+                    <table class="table table-hover InventarioSobrante" id="sample-table-2">
                         <thead>
                             <tr>
                                 
@@ -201,7 +203,7 @@
                         </tbody>
                     </table>
                 </div>
-                
+                </div>
 
             </div>
         </div>

@@ -5,6 +5,7 @@
  */
 package com.isdemu.controller;
 
+import com.isdemu.spring.WebAppConfig;
 import com.isdemu.service.TBR_ControlInventario_Service;
 import com.isdemu.spring.WebAppConfig;
 //import static com.lowagie.text.Annotation.URL;
@@ -49,6 +50,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/Reporte")
+
 
 public class ReportesControl extends WebAppConfig {
     
@@ -100,14 +102,7 @@ public class ReportesControl extends WebAppConfig {
      //this.getClass().getResource("/ireportPrueba03.jrxml");
    // this.getClass().getResource("/ireportPrueba03.jrxml").toURI();
      
-    //String userName = "afi";
-    //String password = "ActivoFijo$";
-
-    //String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
-
-    //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-      Connection conn = dataSource().getConnection("sa","admin123");
-    //Connection conn = DriverManager.getConnection(url, userName, password);
+     Connection conn = dataSource().getConnection();
       
     InputStream jasperxml =  this.getClass().getResourceAsStream("/control_salida.jrxml"); 
     //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );

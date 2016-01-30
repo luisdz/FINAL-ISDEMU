@@ -491,11 +491,12 @@
                                                         <li>
 								<a href="javascript:void(0)"><i class="fa fa-user"></i> <span class="title">Reportes</span><i class="icon-arrow"></i> </a>
 								<ul class="sub-menu">
-									<li>
-										<a href="${pageContext.request.contextPath}/Reportes/reporteAsignadoa"><i class="fa fa-times"></i> Reporte por Asignado</a>
-									</li>
+									 
                                                                         <li>
 										<a href="${pageContext.request.contextPath}/ReportesL/reporteLocalizacion"><i class="fa fa-times"></i> Reporte Inventario</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvPersona"><i class="fa fa-times"></i> Reporte por Persona</a>
 									</li>
 									
 								</ul>

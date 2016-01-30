@@ -5,13 +5,17 @@
  */
 package com.isdemu.controller;
 
+import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
+import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.spring.WebAppConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +62,9 @@ public class ReportesActivos extends WebAppConfig
      
       @Autowired
         private TBC_ClasificacionLocalizacion_Service tbcClasificacionLocalizacionService;
+      
+      @Autowired
+	private TB_Inventario_Service tbInventarioService;
     
       
       
@@ -252,6 +260,62 @@ public class ReportesActivos extends WebAppConfig
        
        
  }
+  
+  //Vistas previas reportes
+  @RequestMapping(value = "/filtroReporteInvPersona",method=RequestMethod.GET)
+            public ModelAndView ListaInventario()  
+            {
+               
+                ModelAndView modelAndView = new ModelAndView("prev_invPersona");        
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                List personas =tbcPersonaService.getAll();
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+                myModel.put("persona",personas);
+                return new ModelAndView("prev_invPersona", myModel);
+            }
+            
+            @RequestMapping(value="/listReporteInvPersona", method=RequestMethod.POST) 
+	public ModelAndView listInvFilto(@ModelAttribute TbInventario invent) 
+        {
+		ModelAndView modelAndView = new ModelAndView("prev_invPersonaLista");
+                int idpersona=invent.getTbcPersona().getIdPersona();
+                int val =  invent.getValor().intValue();
+                
+                int param02 = 0;
+        double param03=0;
+        
+        if(val == 1)
+        {
+            param02=599;
+            param03=999999.00;
+        }
+        else if(val == 0)
+        {
+           param02=0;
+           param03=600.00;
+        }
+        
+        
+        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +"and   asignado.\"ID_PERSONA\" = "+ idpersona +"  and TB_INVENTARIO.\"VALOR\" < " + param03;
+    
+        //params.put("idpersona", id);
+       // params.put("mayor600", param02);
+       // params.put("menorque", param03);
+                List result = tbInventarioService.customSQL(code);
+                System.out.println("val : "+ val);
+               System.out.println("INGRESA CONTROLLER ListaInventario--- id perso = " + idpersona);
+               
+               // List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+		modelAndView.addObject("activos", result);
+
+		return modelAndView;
+	}
+  //Fin vistas previas reportes
     
     
 }

@@ -88,7 +88,7 @@
                                 </li>
                                
                                 <li>
-                                    <a href="#" class="export-excel" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-excel"  data-table="#sample-table-2" data-ignoreColumn =" " >
                                         Export to Excel
                                     </a>
                                 </li>
@@ -98,7 +98,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="export-powerpoint" data-table="#sample-table-2" data-ignoreColumn ="3,4">
+                                    <a href="#" class="export-powerpoint" data-table="#sample-table-2"  data-ignoreColumn ="3,4">
                                         Export to PowerPoint
                                     </a>
                                 </li>
@@ -106,54 +106,64 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="sample-table-2">
                         <thead>
                             <tr>
-                                <th class="no-display">ID inventario</th>
-                                <th>Clase Equipo</th>
-                                <th>En custodia de</th>
-                                <th>descripcionEquipo</th>
-                                <th>codigoInventario</th>
+                                <th>Codigo</th> 
+                                <th>Descripcion</th>
                                 <th>Marca</th>
-                                <th>Modelo</th>
+                                <th class="no-display">Modelo</th>
+                                <th class="no-display">Serie</th>
+                                <th class="no-display">Fecha de adquisicion</th>
+                                <th>Valor</th> 
+                                <th hidden="true">Clase</th> 
+                                <th>Responsable</th> 
                                 <th>Ubicacion</th> 
-                                <th>fechaAdquisicion</th>
-                                <th>valor</th>
-                            
+                                <th class="no-display">Asignado a</th> 
+                                <th class="no-display">Factura</th> 
+                                <th class="no-display">Observacion</th>
+                                <th class="no-display">Valor en Libro</th>
+                                <th class="no-display">F.Garantia</th>                                 
+                                <th class="no-display">Region</th>                                  
+                                <th class="no-display">Financiamiento</th> 
                                 
-                                <th>Editar</th>
-                                <th>Eliminar</th>
+                                 
                             </tr>
                         </thead>
                         <tbody>
 
-                            <c:forEach var="inv" items="${inventario}">
-                                <tr >
-                                    <td class="no-display">${inv.idInventario}</td>
-                                    <td>${inv.tbcClaseActivo.nombreClase}</td>
-                                    <td>${inv.tbcPersona.nombrePersona}</td>
-                                    <td>${inv.descripcionEquipo}</td>
-                                    <td>${inv.codigoInventario}</td>
-                                    <td>${inv.marca}</td>
-                                    <td>${inv.modelo}</td>
-                                    <td>${inv.tbcUbicacion.nombreUbicacion}</td>
-                                    <td>${inv.fechaAdquisicion}</td>
-                                    <td><fmt:formatNumber pattern="$#0.00" value="${inv.valor}" /></td>
-                                   
-                                    
-                                    <td><a href="${pageContext.request.contextPath}/Inventario/edit/${inv.idInventario}">
-                                            Editar</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/Inventario/delete/${inv.idInventario}" onclick="return confirmar('¿Está seguro que desea eliminar el registro?')">
-                                            Eliminar</a></td>
+                             <c:forEach var="con" items="${activos}">
+                                            <tr id="${con[0]}">
+                                                
+                                                <td>${con[0]}</td>
+                                                <td>${con[1]}</td>
+                                                <td>${con[2]}</td>
+                                                <td class="no-display">${con[3]}</td>
+                                                <td class="no-display">${con[4]}</td>
+                                                <td class="no-display">${con[5]}</td>
+                                                <td>${con[6]}</td>
+                                                <td hidden="true">${con[7]}</td>
+                                                <td>${con[8]}</td>
+                                                <td>${con[9]}</td>
+                                                <td class="no-display">${con[10]}</td>
+                                                <td class="no-display">${con[11]}</td>
+                                                <td class="no-display">${con[12]}</td>
+                                                <td class="no-display">${con[13]}</td>
+                                                <td class="no-display">${con[14]}</td>
+                                                <td class="no-display">${con[15]}</td>
+                                                <td class="no-display">${con[16]}</td>                                               
 
-                                </tr>
-                            </c:forEach>	
+                                                
+                                             </tr>
+                                        </c:forEach>	
 
 
                         </tbody>
                     </table>
                 </div>
+                
             </div>
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->

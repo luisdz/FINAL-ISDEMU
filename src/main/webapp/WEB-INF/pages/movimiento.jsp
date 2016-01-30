@@ -103,25 +103,30 @@
 
                                    <div class="form-group">
                                     <label for="form-field-select-3">
-                                        Ubicacion<span id="span_clasi" class="symbol "></span>
+                                        Ubicacion<span  class="symbol "></span>
                                     </label>
 
-                                    <form:select path="" class="form-control" id="ubicacion" name="ubicacion" >
+                                    <form:select path="" class="form-control" id="ubicacion" name="dropdown2" onchange="return validaUbicMov(event);" onblur="return validaUbicMov(event);">
                                         <form:option value="0"  label="Selecciona una Ubicacion"/>
 
                                     </form:select>
-                                    <span for="ubicacion" class="help-block  no-display" id="span_dropdownT">Seleccione una Ubicacion</span>
+                                    <span for="ubicacion" class="help-block  no-display" id="span_ubi">Seleccione una Ubicacion</span>
                                 </div>
+                                
+                                <br>
                                 <div class="form-group">
-                                    <label class="control-label">
-                                        Nuevo Responsable<span class="symbol"></span>
-                                    </label>
-                                    <form:select  multiple="single" path="" cssStyle="width: 100%" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
-                                        <form:option value="0" label="Seleccione responsable"/>                                                   
-                                    </form:select>
-                                    <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>  
-
-                                </div>
+                                <label class="control-label" for="form-field-select-3">
+                                    Responsable Equipo<span  class="symbol "></span>
+                                </label>
+                                <form:select path="" class="form-control search-select" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
+                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>
+                                    <c:forEach var="persona" items="${persona}">
+                                        <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
+                                    </c:forEach>                                    
+                                </form:select>
+                                 <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>
+                                
+                            </div>
                                 <br>
                             </div>
                             <div class="col-md-6">
@@ -261,9 +266,12 @@
             var codigoI = $("#codigo").val();
             var personaM = $('#responsable option:selected').text();
             var idpersonaM  = $('#responsable option:selected').val();
+            
+            var ubiM = $('#ubicacion option:selected').text();
+            var idUbiM  = $('#ubicacion option:selected').val();
 
             var jsonArray = "{";
-            jsonArray += "\"Movimiento\":[{\"fecha\":\"" + fechaM + "\",\"razon\":\" " + razonM + "\"" + ",\"codigo\":\"" + codigoI + "\",\"persona\":\"" + personaM + "\",\"idpersona\":\"" + idpersonaM + "\"" + "}],";
+            jsonArray += "\"Movimiento\":[{\"fecha\":\"" + fechaM + "\",\"razon\":\"" + razonM + "\"" + ",\"ubiM\":\"" + ubiM +"\",\"idubiM\":\"" + idUbiM   +"\",\"codigo\":\"" + codigoI + "\",\"persona\":\"" + personaM + "\",\"idpersona\":\"" + idpersonaM + "\"" + "}],";
             jsonArray += "\"Inventario\":[";
             var l = 0;
 
@@ -513,44 +521,7 @@ $("#dropdown1").change(function () {
 
 
     });
-    $("#ubicacion").change(function () {
-        var idLocalizacion = $('#ubicacion :selected').val(); // define the variable
-       //alert(idLocalizacion);
-
-
-
-        $.ajax({
-            url: "${pageContext.request.contextPath}/Inventario/listaPersona",
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json',
-            mimeType: 'application/json',
-            data: idLocalizacion,
-            success: function (data) {
-                var html = '';
-                var len = data.length;
-                //alert("devuelve algo"+data);
-                $('#responsable').empty();
-                html = '<option value="0"  label="Selecciona una persona"/>';
-                data.forEach(function (entry)
-                {
-                    console.log(entry);
-                    // alert("foreach :"+entry.nombreClase );
-                    html += '<option value="' + entry.idPersona + '">' + entry.nombrePersona + '</option>';
-                });
-                $('#responsable').append(html);
-                // alert("devuelve algo: "+data);
-                
-                
-            },
-            error: function (data, status, er) {
-                alert("error: " + data + " status: " + status + " er:" + er);
-
-            }
-        });
-
-
-    });
+    
 
 
 

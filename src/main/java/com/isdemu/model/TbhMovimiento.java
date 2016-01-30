@@ -28,9 +28,14 @@ public class TbhMovimiento {
      private int idMovimientoh;
      private String codigoInventario;
      private String personaAnterior;
-     private String personaActual;
+     private String personaActual;     
+     private String descripcionEquipo;
      private Date fechaMovimiento;
       private Integer idMovimiento;
+     private String ubicacionAnterior;
+     private String ubcacionActual;    
+
+    
      
      
      @Id 
@@ -44,6 +49,36 @@ public class TbhMovimiento {
     public void setIdMovimientoh(int idMovimientoh) {
         this.idMovimientoh = idMovimientoh;
     }
+    
+     @Column(name="UBICACION_ANTERIOR", nullable=true, length=1024)
+    public String getUbicacionAnterior() {
+        return ubicacionAnterior;
+    }
+
+    public void setUbicacionAnterior(String ubicacionAnterior) {
+        this.ubicacionAnterior = ubicacionAnterior;
+    }
+    
+     @Column(name="UBICACION_NUEVA", nullable=true, length=1024)
+    public String getUbcacionActual() {
+        return ubcacionActual;
+    }
+
+    public void setUbcacionActual(String ubcacionActual) {
+        this.ubcacionActual = ubcacionActual;
+    }
+    
+    
+    
+    @Column(name="DESCRIPCION_EQUIPO", nullable=true, length=1024)
+    public String getDescripcionEquipo() {
+        return descripcionEquipo;
+    }
+
+    public void setDescripcionEquipo(String descripcionEquipo) {
+        this.descripcionEquipo = descripcionEquipo;
+    }
+     
 
     
     @Column(name="CODIGO_INVENTARIO", nullable=false, length=1024)

@@ -5,6 +5,8 @@
  */
 package com.isdemu.controller;
 
+import com.isdemu.spring.WebAppConfig;
+
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
@@ -107,6 +109,8 @@ public class ReportesLocalizacion extends WebAppConfig
         
         
        
+        Connection conn = dataSource().getConnection();
+
         //String userName = "afi";
         //String password = "ActivoFijo$";
 
@@ -114,7 +118,7 @@ public class ReportesLocalizacion extends WebAppConfig
 
        // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
        // Connection conn = DriverManager.getConnection(url, userName, password);
-        Connection conn = dataSource().getConnection("sa","admin123");
+//        Connection conn = dataSource().getConnection("sa","admin123");
         InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
         //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
 
@@ -174,14 +178,8 @@ public class ReportesLocalizacion extends WebAppConfig
      
   public void getRptAsig(HttpServletResponse response, @PathVariable Integer id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
-    //String userName = "sa";
-    //String password = "admin123";
-
-    //String url = "jdbc:sqlserver://Miranda-PC:1433;databaseName=ActivosFijosISDEMU";
-
-    //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    //Connection conn = DriverManager.getConnection(url, userName, password);
-      Connection conn = dataSource().getConnection("sa","admin123");
+    Connection conn = dataSource().getConnection();
+      
     //InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml");
     InputStream jasperxml =  this.getClass().getResourceAsStream("/inventarioLocalizacion.jrxml"); 
     

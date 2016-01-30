@@ -24,4 +24,5 @@ public interface TB_Inventario_Service {
     public List LastCodInventario(Serializable id);    
     public List findBycodigo(String code);
      public void ETLInv();
+     public List customSQL(String code);
 }

@@ -36,7 +36,7 @@ where C.ID_CONTROL_SALIDA = $P{id_control_sal}]]>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Control de Salida de Moviliario y Equipo]]></text>
+				<text><![CDATA[Control de Salida de Mobiliario y Equipo]]></text>
 			</staticText>
                          <staticText>
 				<reportElement x="171" y="0" width="464" height="20"/>
@@ -62,7 +62,7 @@ where C.ID_CONTROL_SALIDA = $P{id_control_sal}]]>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Señor Vigilante:]]></text>
+				<text><![CDATA[Señor(a) Vigilante:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="26" y="42" width="256" height="20"/>
