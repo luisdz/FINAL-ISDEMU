@@ -139,6 +139,8 @@
                                 <th>Codigo</th>
                                 <th>Clase</th>
                                 <th>Descripcion</th>
+                                <th>Responsable nuevo</th>
+                                <th>Ubicacion Nueva</th>
                                 <th>Anular</th>
                                 <th></th>
                                 
@@ -153,6 +155,8 @@
                                     <td>${mov.tbInventario.codigoInventario}</td>
                                     <td>${mov.tbInventario.tbcClaseActivo.nombreClase}</td> 
                                     <td>${mov.tbInventario.descripcionEquipo}</td>
+                                    <td>${mov.tbInventario.tbcPersona.nombrePersona}</td> 
+                                    <td>${mov.tbInventario.tbcUbicacion.nombreUbicacion}</td>
                                     <td><a onclick="return confirmar('¿Está seguro que desea anular el movimiento?')" href="${pageContext.request.contextPath}/Movimiento/deleteMovimiento/${mov.idMovimientoInventario}"> Anular</a></td>
                                  <td class="no-display"></td>       
                                 </tr>
@@ -224,9 +228,8 @@
     
     function enviarCodeM()
     {
-        var codigoI = $("#codigo").val();  
-        
-        if (condigoYaAgregado2(codigoI) === true)
+        var codigoI = $("#codigo").val();   
+        if (condigoYaAgregado2(codigoI) === true && codigoI !== "")
         {
             
             $.ajax({
@@ -254,7 +257,7 @@
                             else
                             {    
                             //console.log(entry);
-                            $('#tabla_prueba').append('<tr  id="' + entry.idInventario + '">' + '<td class=\"no-display\" >' + entry.idInventario + '</td>' + '<td>' + entry.codigoInventario + '</td>' + '</td>' + '<td>' + entry.tbcClaseActivo.nombreClase + '</td>' + '<td>' + entry.descripcionEquipo + '</td><td class="eliminar"><a href="" onclick="return deleteElement(' + "'" + entry.idInventario + "'" + ');"><span class="glyphicon glyphicon-remove"></span></a></td><td class="no-display" >1</td></tr>');
+                            $('#tabla_prueba').append('<tr  id="' + entry.idInventario + '">' + '<td class=\"no-display\" >' + entry.idInventario + '</td>' + '<td>' + entry.codigoInventario + '</td>' + '</td>' + '<td>' + entry.tbcClaseActivo.nombreClase + '</td>' + '<td>' + entry.descripcionEquipo + '</td>' + '<td>' + entry.tbcPersona.nombrePersona + '</td>' + '<td>' + entry.tbcUbicacion.nombreUbicacion +  '</td><td class="eliminar"><a href="" onclick="return deleteElement(' + "'" + entry.idInventario + "'" + ');"><span class="glyphicon glyphicon-remove"></span></a></td><td class="no-display" >1</td></tr>');
                             $('#span_codigoE').addClass("no-display");
                             $('#span_codigoE').closest("div").removeClass("has-error");
                             }
@@ -307,7 +310,7 @@
             var codigoI = $("#codigo").val();
             //var personaM = $('#responsable option:selected').text();
            // var idpersonaM  = $('#responsable option:selected').val();
-          8// alert("razon" + razonM);
+          // alert("razon" + razonM);
             var id =  $("#id").val();
 
             var jsonArray = "{";
@@ -318,8 +321,8 @@
             $('#tabla_prueba tr').each(function (index, element) 
                {
                 var id = $(element).find("td").eq(0).html();
-                var nv = $(element).find("td").eq(5).html();
-                //alert(nv);
+                var nv = $(element).find("td").eq(7).html();
+               
                 if(nv == 1)
                 {
                 if (l != 0)

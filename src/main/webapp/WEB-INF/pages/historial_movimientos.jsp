@@ -132,8 +132,11 @@
                                                     
                                                     <th class="no-display">id movimiento</th>
                                                     <th>Codigo</th>
+                                                    <th>Descripcion</th>
                                                     <th>Responsable Anterior</th>
-                                                    <th>Nuevo Responsabl</th>
+                                                    <th>Responsable Nuevo</th>
+                                                    <th>Ubicacion Anterior</th>
+                                                    <th>Ubicacion Nueva</th>
                                                     <th>Fecha de Movimiento</th>
                                             </tr>
                                     </thead>
@@ -144,8 +147,11 @@
                                             <tr align="center">
                                                     <td class="no-display">${mov.idMovimiento}</td>
                                                     <td>${mov.codigoInventario}</td>
+                                                    <td>${mov.descripcionEquipo}</td>
                                                     <td>${mov.personaAnterior}</td>
                                                     <td>${mov.personaActual}</td>
+                                                    <td>${mov.ubicacionAnterior}</td>
+                                                    <td>${mov.ubcacionActual}</td>
                                                     <td>${mov.fechaMovimiento}</td>                                                    
 
                                             </tr>

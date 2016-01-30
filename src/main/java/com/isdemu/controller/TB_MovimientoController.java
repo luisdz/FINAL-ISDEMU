@@ -103,13 +103,15 @@ public class TB_MovimientoController  extends WebAppConfig  {
     
     
     @RequestMapping(value = "/consultarHistorialMov")
-    public ModelAndView consultarHistorialMov() {
+    public ModelAndView consultarHistorialMov() 
+    {
         ModelAndView modelAndView = new ModelAndView("historial_movimientos");
         List movimiento = tbhMovimientoService.getAll();        
         //movimiento.        
         modelAndView.addObject("movimiento", movimiento);
         return modelAndView;
     }
+    
 
     
     @RequestMapping(value = "/insertarMovimiento", method = RequestMethod.GET)
@@ -204,6 +206,7 @@ public class TB_MovimientoController  extends WebAppConfig  {
             TbcUbicacion tbcubicaion = (TbcUbicacion)tbcUbicacioinService.findByKey(Integer.parseInt(objectMov.getString("idubiM")));
             System.out.println("tbc persona:" + tbcpersona);
             tempInv.setTbcPersona(tbcpersona);
+            tempInv.setTbcUbicacion(tbcubicaion);
             tbInventarioService.update(tempInv);
         }
 
@@ -352,6 +355,7 @@ public class TB_MovimientoController  extends WebAppConfig  {
             List<TbrMovimientoInventario> tbrMov =  tbrMovimientoInvService.findByInv(tempInv.getIdInventario());
             TbcPersona persactual =(TbcPersona) tbcPersonaService.findByKey(mov.getIdPersonaNueva());
             TbcUbicacion ubicacion = (TbcUbicacion) tbcUbicacioinService.findByKey(mov.getIdUbicacionNueva());
+            
             String nompersactual = persactual.getNombrePersona();
             
             //Eliminar anteriores
@@ -360,7 +364,8 @@ public class TB_MovimientoController  extends WebAppConfig  {
             tbrMovimientoInvService.delete(tbrMov1.getIdMovimientoInventario());
             }
             //-------------------
-            tbrMovimientoInvService.save(MovInv);            
+            tbrMovimientoInvService.save(MovInv);
+            System.out.println("Save movinv");
             System.out.println("Id Json:" + id);
             //historial
             TbhMovimiento TbhMov = new TbhMovimiento();
@@ -376,8 +381,10 @@ public class TB_MovimientoController  extends WebAppConfig  {
             //historial
             //System.out.println("Id persona:" + objectMov.getString("idpersona"));            
             TbcPersona tbcpersona = (TbcPersona)tbcPersonaService.findByKey(mov.getIdPersonaNueva());
+            TbcUbicacion tbcubicacion = (TbcUbicacion) tbcUbicacioinService.findByKey(mov.getIdUbicacionNueva());
             System.out.println("tbc persona:" + tbcpersona);
             tempInv.setTbcPersona(tbcpersona);
+            tempInv.setTbcUbicacion(tbcubicacion);
             tbInventarioService.update(tempInv);
         }
 
@@ -474,6 +481,10 @@ public class TB_MovimientoController  extends WebAppConfig  {
        
        
  }
+  
+  
+  
+  
     
 
 }
