@@ -57,7 +57,7 @@
             <div class="panel-body">
                 <h2><i class="fa fa-pencil-square"></i> Reportes</h2>
                 <p>
-                    Esta es la seccion de Reportes de Activos Fijos segun Localizacion
+                    Esta es la seccion de Reportes de Activos Fijos según Localizacion
                 </p>
                 <hr>
                 

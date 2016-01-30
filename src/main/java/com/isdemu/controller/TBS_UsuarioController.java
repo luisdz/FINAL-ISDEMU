@@ -196,11 +196,16 @@ public class TBS_UsuarioController {
        System.out.println("String Json:"+codigos);
        JSONObject array = new JSONObject(codigos);
        
-        Document document = new Document(new Rectangle(PageSize.A4));    
+       
+       
+        Document document = new Document();    
     PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/codigoBarraIsdemu.pdf"));    
 
+    Rectangle one = new Rectangle(76,35);
+    document.setPageSize(one);
+    document.setMargins(2, 2, 2, 2);
+    
     document.open();
-	    document.add(new Paragraph("ISDEMU"));
 
 		    Barcode128 code128 = new Barcode128();
 		    code128.setGenerateChecksum(true);
@@ -217,7 +222,8 @@ public class TBS_UsuarioController {
                     code128.setCode(id);
                     document.add(code128.createImageWithBarcode(writer.getDirectContent(), null, null));            
 
-                   
+                    document.newPage();
+                    
                     System.out.println("Id Json:"+id);
                    
                 }    

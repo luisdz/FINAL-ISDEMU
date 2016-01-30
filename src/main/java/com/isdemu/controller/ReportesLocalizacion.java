@@ -202,7 +202,7 @@ public class ReportesLocalizacion extends WebAppConfig
         
         if(param == 1)
         {
-            param02=599;
+            param02=600;
             param03=999999.00;
         }
         else if(param == 0)
@@ -224,7 +224,7 @@ public class ReportesLocalizacion extends WebAppConfig
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
      
-   response.setHeader("Content-disposition", "inline; filename=inventario_localizcion.xlsx");
+   response.setHeader("Content-disposition", "inline; filename=inventario_localizacion.xlsx");
 
    final OutputStream outStream = response.getOutputStream();
     //JasperExportManager.(jasperPrint, outStream);

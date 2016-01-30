@@ -145,6 +145,7 @@ public class TB_PrestamoController {
                    }
                                
                 prestamoEquipo.setNPrestamo(Integer.parseInt(nPrestamo));
+                prestamoEquipo.setDestino(destino);
                 prestamoEquipo.setHoraInicio(fecha_sol);
                 prestamoEquipo.setHoraFin(fecha_sol);
                 prestamoEquipo.setFechaSolicitud(fecha_sol);
@@ -185,7 +186,7 @@ public class TB_PrestamoController {
 		//tbMovimientoService.save(movi);
 		String message = "Prestamo was successfully added.";
 		modelAndView.addObject("message", message);
-		return "22";
+		return Integer.toString(UltPres.getIdPrestamoEquipo());
 	}
         
       @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
