@@ -28,7 +28,7 @@
                     <!-- start: EXPORT BASIC TABLE PANEL -->
                     <div class="panel panel-white">
                             <div class="panel-heading">
-                                    <h4 class="panel-title"> <span class="text-bold">Consultar</span> Personal</h4>
+                                    <h4 class="panel-title"> <span class="text-bold">Consultar</span> Control Salida</h4>
                                     <div class="panel-tools">
                                             <div class="dropdown">
                                                     <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -95,6 +95,7 @@
                                                             <tr>
                                                                    
                                                                     <th>Solicitante</th>
+                                                                    <th>Destino</th>
                                                                     <th>Fecha</th>
                                                                     <th>Detalle Control</th>
                                                                     <th>Eliminar</th>
@@ -107,6 +108,7 @@
                                                             <tr >
                                                                
                                                                     <td>${con.solicitante}</td>
+                                                                    <td>${con.destino}</td>
                                                                     <td>${con.fechaSalida}</td>
                                                                     <td><a href="${pageContext.request.contextPath}/Control/detalle/${con.idControlSalida}">Detalle</a></td>
                                                                     <td><a href="${pageContext.request.contextPath}/Control/delete/${con.idControlSalida}" onclick="if(!confirm('Se borrará el control de salida'))return false">Eliminar</a></td>

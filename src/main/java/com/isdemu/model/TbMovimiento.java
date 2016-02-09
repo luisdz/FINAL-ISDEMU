@@ -43,9 +43,11 @@ public class TbMovimiento {
      private int userUpdate;
      private Date fechaUpdate;
        private Integer idPersonaNueva;
+       private Integer idUbicacionNueva;
   
      //private Set<TbrMovimientoInventario> tbrMovimientoInventarios = new HashSet<TbrMovimientoInventario>(0);
 
+    
      
      
       @Id 
@@ -59,6 +61,15 @@ public class TbMovimiento {
    
     public void setIdMovimiento(int idMovimiento) {
         this.idMovimiento = idMovimiento;
+    }
+
+    @Column(name="ID_UBICACION_NUEVA" )
+    public Integer getIdUbicacionNueva() {
+        return idUbicacionNueva;
+    }
+
+    public void setIdUbicacionNueva(Integer idUbicacionNueva) {
+        this.idUbicacionNueva = idUbicacionNueva;
     }
 
     

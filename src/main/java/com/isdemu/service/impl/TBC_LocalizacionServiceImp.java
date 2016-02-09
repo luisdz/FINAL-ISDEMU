@@ -62,4 +62,10 @@ public class TBC_LocalizacionServiceImp implements  TBC_Localizacion_Service{
 		// TODO Auto-generated method stub
 		tbcLocalizacionDao.update(obj);
 	}
+        
+        @Override
+         public List getRepLocalizacion(Serializable id,Serializable param02,Serializable param03){
+             System.out.println("service impl getconinv");
+         return tbcLocalizacionDao.getRepLocalizacion(id,param02,param03);
+         }
 }

@@ -121,6 +121,8 @@
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="sample-table-2">
                         <thead>
@@ -153,6 +155,8 @@
                         </tbody>
                     </table>
                 </div>
+                
+                
             </div>
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->

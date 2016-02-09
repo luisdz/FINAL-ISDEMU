@@ -13,7 +13,10 @@
 		<![CDATA[select
 I.DESCRIPCION_EQUIPO,
 I.MARCA,
-I.CODIGO_INVENTARIO
+I.CODIGO_INVENTARIO,
+C.FECHA_SOLICITUD,
+C.FECHA_RESERVACION,
+C.DESTINO
 from
 TB_INVENTARIO I inner join
 TBR_PRESTAMO_EQUIPO_INVENTARIO CI on I.ID_INVENTARIO = CI.ID_INVENTARIO inner join
@@ -23,6 +26,9 @@ where C.ID_PRESTAMO_EQUIPO = $P{id_prestamo_equi}]]>
 	<field name="DESCRIPCION_EQUIPO" class="java.lang.String"/>
 	<field name="MARCA" class="java.lang.String"/>
 	<field name="CODIGO_INVENTARIO" class="java.lang.String"/>
+        <field name="FECHA_SOLICITUD" class="java.sql.Date"/>
+	<field name="FECHA_RESERVACION" class="java.sql.Date"/>
+	<field name="DESTINO" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -46,14 +52,26 @@ SOLICITUD DE PRESTAMO DE EQUIPO MULTIMEDIA]]></text>
 	<pageHeader>
 		<band height="105" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="66" y="20" width="446" height="66" uuid="61d3fadf-c060-487b-9c40-1ec1841ef727"/>
-				<text><![CDATA[Fecha de solicitud: ___________________ Fecha de reservación:____________________
+				<reportElement stretchType="RelativeToTallestObject" x="50" y="20" width="473" height="85" uuid="61d3fadf-c060-487b-9c40-1ec1841ef727"/>
+				<text><![CDATA[Fecha de solicitud:		 Fecha de reservación:
 Hora Desde: ________________ Hasta: ________________
 A quién se impartirá la actividad:______________________________________________
 ________________________________________________________________________
-Destino:__________________________________________________________________
+Destino:
 ]]></text>
 			</staticText>
+                        <textField>
+				<reportElement x="143" y="21" width="100" height="20" uuid="cdd24088-4b7b-4c40-92a7-45155dcce9d3"/>
+				<textFieldExpression><![CDATA[$F{FECHA_SOLICITUD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="21" width="100" height="20" uuid="378643ab-3e77-4bb7-ad50-123e1228fb45"/>
+				<textFieldExpression><![CDATA[$F{FECHA_RESERVACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="70" width="386" height="20" uuid="380102bd-11a1-4a19-88e8-5a199e8a8ecc"/>
+				<textFieldExpression><![CDATA[$F{DESTINO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -75,14 +93,18 @@ Destino:__________________________________________________________________
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="111" y="0" width="100" height="20" uuid="5a480a79-dfa1-4971-8a64-a8cc3e6e217c"/>
+				<reportElement stretchType="RelativeToTallestObject" x="77" y="0" width="188" height="41" uuid="5a480a79-dfa1-4971-8a64-a8cc3e6e217c"/>
+                                <textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isUnderline="false"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="301" y="0" width="100" height="20" uuid="fcdb67bb-81c0-41ef-bb6f-3a81c5cf7df6"/>
-				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
+				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="174" height="41" uuid="fcdb67bb-81c0-41ef-bb6f-3a81c5cf7df6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                <textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

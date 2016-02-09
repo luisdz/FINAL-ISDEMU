@@ -25,4 +25,5 @@ public interface TB_InventarioDao {
     public List getTop();
     public List LastCodInventario(Serializable id);
     public void ETLInv();
+    public List customSQL(String code); 
 }

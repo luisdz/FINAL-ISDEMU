@@ -5,8 +5,11 @@
  */
 package com.isdemu.controller;
 
+import com.isdemu.spring.WebAppConfig;
+
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
+import com.isdemu.service.TBC_Localizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
 import com.isdemu.spring.WebAppConfig;
 import java.io.IOException;
@@ -56,6 +59,9 @@ public class ReportesLocalizacion extends WebAppConfig
      
       @Autowired
         private TBC_ClasificacionLocalizacion_Service tbcClasificacionLocalizacionService;
+      
+    @Autowired
+        private TBC_Localizacion_Service tbcLocalizacionService;
     
       
       
@@ -107,6 +113,8 @@ public class ReportesLocalizacion extends WebAppConfig
         
         
        
+        Connection conn = dataSource().getConnection();
+
         //String userName = "afi";
         //String password = "ActivoFijo$";
 
@@ -114,7 +122,7 @@ public class ReportesLocalizacion extends WebAppConfig
 
        // Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
        // Connection conn = DriverManager.getConnection(url, userName, password);
-        Connection conn = dataSource().getConnection("sa","admin123");
+//        Connection conn = dataSource().getConnection("sa","admin123");
         InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteAsignadoA.jrxml"); 
         //jasperxml = JasperCompileManager.compileReportToStream(jasperxml );
 
@@ -169,19 +177,13 @@ public class ReportesLocalizacion extends WebAppConfig
        // return 1;
     }
     
-     @RequestMapping(value = "/getReporteLocalizacion/{id}/{param}", method = RequestMethod.GET)
-        @ResponseBody
+  @RequestMapping(value = "/getReporteLocalizacion/{id}/{param}", method = RequestMethod.GET)
+  @ResponseBody
      
   public void getRptAsig(HttpServletResponse response, @PathVariable Integer id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
-    //String userName = "sa";
-    //String password = "admin123";
-
-    //String url = "jdbc:sqlserver://Miranda-PC:1433;databaseName=ActivosFijosISDEMU";
-
-    //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    //Connection conn = DriverManager.getConnection(url, userName, password);
-      Connection conn = dataSource().getConnection("sa","admin123");
+    Connection conn = dataSource().getConnection();
+      
     //InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoMov.jrxml");
     InputStream jasperxml =  this.getClass().getResourceAsStream("/inventarioLocalizacion.jrxml"); 
     
@@ -202,7 +204,7 @@ public class ReportesLocalizacion extends WebAppConfig
         
         if(param == 1)
         {
-            param02=599;
+            param02=600;
             param03=999999.00;
         }
         else if(param == 0)
@@ -224,7 +226,7 @@ public class ReportesLocalizacion extends WebAppConfig
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
      
-   response.setHeader("Content-disposition", "inline; filename=inventario_localizcion.xlsx");
+   response.setHeader("Content-disposition", "inline; filename=inventario_localizacion.xlsx");
 
    final OutputStream outStream = response.getOutputStream();
     //JasperExportManager.(jasperPrint, outStream);
@@ -241,6 +243,48 @@ public class ReportesLocalizacion extends WebAppConfig
        
        
  }
+  
+        @RequestMapping(value = "/verReporteLocalizacion/{id}/{param}", method = RequestMethod.GET)
+	public ModelAndView detalleControlInventarioPage(@PathVariable Integer id,@PathVariable Integer param) 
+        {
+        System.out.println("id :" + id + " param " + param); 
+        Map<String,Object> params = new HashMap<>();
+//     
+        int param02 = 0;
+        double param03=0;
+        
+        if(param == 1)
+        {
+            param02=600;
+            param03=999999.00;
+        }
+        else if(param == 0)
+        {
+           param02=0;
+           param03=600.00;
+        }
+    
+        params.put("id_localizacion", id);
+        params.put("mayor600", param02);
+        params.put("menorque", param03);
+		//ModelAndView modelAndView = new ModelAndView("actualizar_inventario");
+          
+                System.out.println("Entra actualiza5");
+		List con = tbcLocalizacionService.getRepLocalizacion(id,param02,param03);
+               // TbcRegion activo = (TbcRegion) tbRegionService.findByKey(unidad.getTbcRegion().getIdRegion());
+                System.out.println("Entra actualiza2");
+                  Map<String, Object> myModel = new HashMap<String, Object>();
+                   //List ClasAct = tbClasActService.getAll();  
+                   myModel.put("reportLocali",con); 
+                 // myModel.put("clasificacionA",activo );
+                  //myModel.put("AllclasificacionA",ClasAct );
+                
+                  
+                   System.out.println("Entra actualiza");
+                //System.out.println("A ver el combo:"+inventario.getTbcClasificacionActivo().getIdClasificacionActivo()+activo.getNombreClasificacion());
+		//modelAndView.addObject("inventario",inventario);
+		return new ModelAndView("reporte_localizacion",myModel);
+	}
     
     
 }

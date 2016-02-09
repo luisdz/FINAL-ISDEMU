@@ -12,7 +12,8 @@ I.DESCRIPCION_EQUIPO,
 I.MARCA,
 I.CODIGO_INVENTARIO,
 C.DESTINO,
-C.FECHA_TENTATIVA_DEVOLUCION
+C.FECHA_TENTATIVA_DEVOLUCION,
+C.SOLICITANTE
 from
 TB_INVENTARIO I inner join
 TBR_CONTROL_SALIDA_INVENTARIO CI on I.ID_INVENTARIO = CI.ID_INVENTARIO inner join
@@ -24,19 +25,35 @@ where C.ID_CONTROL_SALIDA = $P{id_control_sal}]]>
 	<field name="CODIGO_INVENTARIO" class="java.lang.String"/>
 	<field name="DESTINO" class="java.lang.String"/>
 	<field name="FECHA_TENTATIVA_DEVOLUCION" class="java.sql.Date"/>
+        <field name="SOLICITANTE" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="40" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<staticText>
-				<reportElement x="254" y="14" width="305" height="20"/>
+				<reportElement x="254" y="40" width="305" height="20"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Control de Salida de Moviliario y Equipo]]></text>
+				<text><![CDATA[Control de Salida de Mobiliario y Equipo]]></text>
+			</staticText>
+                         <staticText>
+				<reportElement x="171" y="0" width="464" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO SALVADOREÑO PARA EL DESARROLLO DE  LA MUJER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="20" width="381" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Administracion unidad de Inventarios de Activos Fijos]]></text>
 			</staticText>
 		</band>
+                       
 	</title>
 	<pageHeader>
 		<band height="95" splitType="Stretch">
@@ -45,11 +62,11 @@ where C.ID_CONTROL_SALIDA = $P{id_control_sal}]]>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Señor Vigilante:]]></text>
+				<text><![CDATA[Señor(a) Vigilante:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="26" y="42" width="661" height="20"/>
-				<text><![CDATA[Atentamente le estamos comunicando que el señor: ___________________________________________________________________]]></text>
+				<reportElement x="26" y="42" width="256" height="20"/>
+				<text><![CDATA[Atentamente le estamos comunicando que el señor: ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="26" y="62" width="408" height="20"/>
@@ -63,10 +80,14 @@ where C.ID_CONTROL_SALIDA = $P{id_control_sal}]]>
 				<reportElement x="602" y="10" width="100" height="20"/>
 				<text><![CDATA[Fecha de Salida:]]></text>
 			</staticText>
+                        <textField>
+				<reportElement x="282" y="42" width="190" height="20"/>
+				<textFieldExpression><![CDATA[$F{SOLICITANTE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="34" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<staticText>
 				<reportElement x="26" y="2" width="100" height="20"/>
 				<textElement>
@@ -112,25 +133,25 @@ where C.ID_CONTROL_SALIDA = $P{id_control_sal}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="43" splitType="Stretch">
 			<textField>
-				<reportElement x="26" y="0" width="100" height="20"/>
+				<reportElement x="26" y="0" width="100" height="43"/>
 				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="171" y="0" width="100" height="20"/>
+				<reportElement x="171" y="0" width="100" height="43"/>
 				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="309" y="0" width="100" height="20"/>
+				<reportElement x="309" y="0" width="100" height="43"/>
 				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="434" y="0" width="100" height="20"/>
+				<reportElement x="434" y="0" width="100" height="43"/>
 				<textFieldExpression><![CDATA[$F{DESTINO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="559" y="0" width="100" height="20"/>
+				<reportElement x="559" y="0" width="100" height="43"/>
 				<textFieldExpression><![CDATA[$F{FECHA_TENTATIVA_DEVOLUCION}]]></textFieldExpression>
 			</textField>
 		</band>

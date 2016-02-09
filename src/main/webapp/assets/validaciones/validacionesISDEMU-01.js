@@ -408,17 +408,19 @@ function validaFechaMov()
             
     }; 
     
-    function validaRespMov()
+    
+     //valida ubicacion
+     function validaUbicMov()
     {
-        var x = document.forms["movF"]["responsable"].value;
+        var x = document.forms["movF"]["ubicacion"].value;
         //alert(x);
         if (x === "0")
         {
             //alert("error");
             //$('#span_nombre').addClass("symbol required");
-            $('#span_resp').removeClass("no-display");            
-            $('#span_resp').closest("div").addClass("has-error");            
-             $('#span_resp').closest("div").removeClass("has-success");
+            $('#span_ubi').removeClass("no-display");            
+            $('#span_ubi').closest("div").addClass("has-error");            
+             $('#span_ubi').closest("div").removeClass("has-success");
 
             return false;
         }
@@ -426,13 +428,42 @@ function validaFechaMov()
         {
            // alert("valido");
             //$('#span_nombre').to("required");
-            $('#span_resp').addClass("no-display");
+            $('#span_ubi').addClass("no-display");
+             $('#span_ubi').closest("div").removeClass("has-error");
+             $('#span_ubi').closest("div").addClass("has-success");
+              return true;
+        }
+
+    }; 
+     //fin valida ubicacion
+    //valida responsable
+    function validaRespMov()
+    {
+        //alert("mm");
+        var x = document.forms["movF"]["responsable"].value;
+       // alert(x);
+        if (x === "0")
+        {
+           // alert("error");
+            //$('#span_nombre').addClass("symbol required");
+            $('#span_resp').removeClass("no-display");            
+            $('#span_resp').closest("div").addClass("has-error");            
+            $('#span_resp').closest("div").removeClass("has-success");
+
+            return false;
+        }
+        else
+        {
+         // alert("valido");
+            //$('#span_nombre').to("required");
+             $('#span_resp').addClass("no-display");
              $('#span_resp').closest("div").removeClass("has-error");
              $('#span_resp').closest("div").addClass("has-success");
               return true;
         }
 
     }; 
+     //fin valida responsable
 //Fin funciones movimiento
 
 //reporte asignado a

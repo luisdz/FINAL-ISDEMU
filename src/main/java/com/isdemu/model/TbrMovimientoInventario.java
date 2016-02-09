@@ -30,7 +30,10 @@ public class TbrMovimientoInventario {
      private TbInventario tbInventario;
      private Integer idPersonaNueva;
      private Integer idPersonaAnterior;
+     private Integer idUbicacionNueva;
+     private Integer idUbicacionAnterior;
      
+      
  @Id 
 @GeneratedValue
     
@@ -42,6 +45,24 @@ public class TbrMovimientoInventario {
     public void setIdMovimientoInventario(int idMovimientoInventario) {
         this.idMovimientoInventario = idMovimientoInventario;
     }
+    
+    @Column(name="ID_UBICACION_NUEVA")
+    public Integer getIdUbicacionNueva() {
+        return idUbicacionNueva;
+    }
+    
+    public void setIdUbicacionNueva(Integer idUbicacionNueva) {
+        this.idUbicacionNueva = idUbicacionNueva;
+    }
+    @Column(name="ID_UBICACION_ANTERIOR")
+    public Integer getIdUbicacionAnterior() {
+        return idUbicacionAnterior;
+    }
+
+    public void setIdUbicacionAnterior(Integer idUbicacionAnterior) {
+        this.idUbicacionAnterior = idUbicacionAnterior;
+    }
+     
 
 @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="ID_MOVIMIENTO")

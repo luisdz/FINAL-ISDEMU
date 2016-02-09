@@ -291,6 +291,7 @@
            contentType: 'application/json',
            success: function (msg) {
                $('#mensajeExitoFormM').removeClass("no-display");
+               window.location="../Reporte/ReportePrestamo/"+msg;
                document.getElementById('numero').value="";
                document.getElementById('tema').value="";
                document.getElementById('persona').value="";

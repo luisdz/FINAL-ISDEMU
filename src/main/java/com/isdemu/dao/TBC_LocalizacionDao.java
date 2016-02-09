@@ -19,4 +19,5 @@ public interface TBC_LocalizacionDao {
      public Object findByKey(Serializable id);
      public List getAllidClasi(Serializable id);
      public void update(Object obj);
+     public List getRepLocalizacion(Serializable id,Serializable param02,Serializable param03);
 }

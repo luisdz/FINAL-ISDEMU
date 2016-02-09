@@ -84,4 +84,10 @@ public class TB_InventarioServiceImpl implements TB_Inventario_Service {
     public void ETLInv(){
     tbInventarioDao.ETLInv();
     }
+
+    @Override
+    public List customSQL(String code) {
+        
+        return tbInventarioDao.customSQL(code);
+    }
 }
