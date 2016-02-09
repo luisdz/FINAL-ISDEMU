@@ -272,10 +272,10 @@ $("#dropdown1").change(function () {
     
    function enviarReporte2 ()
     {
-        alert("excel2");
+        //alert("excel2");
      validaRespMov();
      
-     alert("excel");
+     //alert("excel");
      if(validaRespMov()===true)
      {
      window.location.href='${pageContext.request.contextPath}/Reportes/getReporteAsignado/'+ $('#responsable option:selected').val() + '/'+$('#mayor option:selected').val() ;
