@@ -60,7 +60,10 @@
                     <div class="col-md-12 space20">
                          <button data-toggle="dropdown" class="btn btn-orange" onclick="return aplicarDepre(event);" >
                                 Actualizar depreciacion
-                            </button>
+                         </button>
+                        <button data-toggle="dropdown" class="btn btn-orange" onclick="return excelDepre(event);" >
+                              Exportar a Excel                        
+                        </button>
                         <div class="btn-group pull-right">
                             
                             <button data-toggle="dropdown" class="btn btn-green dropdown-toggle">
@@ -171,6 +174,11 @@
 function aplicarDepre ()
     {
      window.location.href='${pageContext.request.contextPath}/Depreciacion/aplicarDepreciacion' ;
+    };
+    
+    function excelDepre ()
+    {
+     window.location.href='${pageContext.request.contextPath}/Depreciacion/ExcelReporteInvPersona' ;
     };
         
     

@@ -271,6 +271,7 @@ public class ReportesActivos extends WebAppConfig
                 return new ModelAndView("prev_invPersona", myModel);
             }
             
+            
             @RequestMapping(value="/listReporteInvPersona", method=RequestMethod.POST) 
 	public ModelAndView listInvFilto(@ModelAttribute TbInventario invent) 
         {
@@ -295,9 +296,7 @@ public class ReportesActivos extends WebAppConfig
         
         String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +"and   asignado.\"ID_PERSONA\" = "+ idpersona +"  and TB_INVENTARIO.\"VALOR\" < " + param03;
     
-        //params.put("idpersona", id);
-       // params.put("mayor600", param02);
-       // params.put("menorque", param03);
+        
                 List result = tbInventarioService.customSQL(code);
                 System.out.println("val : "+ val);
                System.out.println("INGRESA CONTROLLER ListaInventario--- id perso = " + idpersona);
