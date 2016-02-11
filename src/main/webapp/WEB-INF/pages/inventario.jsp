@@ -688,9 +688,9 @@
          $.ajax({
            type: "POST",
            url: "${pageContext.request.contextPath}/Inventario/add/mismocodigo",
-           dataType: "json",
+           dataType: 'json',
            contentType: 'application/json',
-           success: function (msg) {
+           success: function (variable) {
                    $('#inventarioF').each(function () {
                         this.reset();
                         $('.help-block').closest("div").removeClass("has-success");
@@ -698,6 +698,9 @@
                     }); 
                     $('#mensajeExitoFormM').removeClass("no-display");
                     $('#tablabody').empty();
+                    
+                 //   alert("asdasd");
+                    window.location.href='${pageContext.request.contextPath}/Inventario/listInvLastInsertedGet/'+variable;
            },
            data: jsonArray
        });
