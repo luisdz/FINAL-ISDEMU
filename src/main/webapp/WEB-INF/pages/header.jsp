@@ -493,10 +493,19 @@
 								<ul class="sub-menu">
 									 
                                                                         <li>
-										<a href="${pageContext.request.contextPath}/ReportesL/reporteLocalizacion"><i class="fa fa-times"></i> Reporte Inventario</a>
+										<a href="${pageContext.request.contextPath}/ReportesL/reporteLocalizacion"><i class="fa fa-times"></i> Reporte por Dependencia</a>
 									</li>
                                                                         <li>
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvPersona"><i class="fa fa-times"></i> Reporte por Persona</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvClase"><i class="fa fa-times"></i> Reporte por Clase de Activo</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvFactura"><i class="fa fa-times"></i> Reporte por Numero Factura</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvCodigo"><i class="fa fa-times"></i> Reporte por Codigo Activo</a>
 									</li>
 									
 								</ul>

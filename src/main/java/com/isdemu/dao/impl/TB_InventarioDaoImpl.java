@@ -182,6 +182,9 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
      System.out.println("ingresa al customSQL");
             Session session = null; 
             session = sessionFactory.getCurrentSession();
+            
+            
+            
             SQLQuery query = session.createSQLQuery("  \n" + 
 "  SELECT\n" +
 "     TB_INVENTARIO.\"CODIGO_INVENTARIO\" AS TB_INVENTARIO_CODIGO_INVENTARIO,\n" +
@@ -190,14 +193,14 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
 "     TB_INVENTARIO.\"MODELO\" AS TB_INVENTARIO_MODELO,\n" +
 "     TB_INVENTARIO.\"SERIE\" AS TB_INVENTARIO_SERIE,\n" +
 "     TB_INVENTARIO.\"FECHA_ADQUISICION\" AS TB_INVENTARIO_FECHA_ADQUISICION,\n" +
-"     TB_INVENTARIO.\"VALOR\" AS TB_INVENTARIO_VALOR,\n" +
+"     Convert(Decimal(15,2), TB_INVENTARIO.\"VALOR\", 2) AS TB_INVENTARIO_VALOR,\n" +
 "     TBC_CLASE_ACTIVO.\"NOMBRE_CLASE\" AS TBC_CLASE_ACTIVO_NOMBRE_CLASE,\n" +
 "     TBC_PERSONA.\"NOMBRE_PERSONA\" AS TBC_PERSONA_NOMBRE_PERSONA,\n" +
 "     TBC_UBICACION.\"NOMBRE_UBICACION\" AS TBC_UBICACION_NOMBRE_UBICACION,\n" +
 "     asignado.\"NOMBRE_PERSONA\" AS asignado_NOMBRE_PERSONA,\n" +
 "     TB_INVENTARIO.\"N_FACTURA\" AS TB_INVENTARIO_N_FACTURA,\n" +
 "     TB_INVENTARIO.\"OBSERVACION\" AS TB_INVENTARIO_OBSERVACION,\n" +
-"     TB_INVENTARIO.\"VALOR_LIBRO\" AS TB_INVENTARIO_VALOR_LIBRO,\n" +
+"     Convert(Decimal(15,2), TB_INVENTARIO.\"VALOR_LIBRO\", 2) TB_INVENTARIO_VALOR_LIBRO,\n" +
 "     TB_INVENTARIO.\"FECHA_GARANTIA\" AS TB_INVENTARIO_FECHA_GARANTIA,\n" +
 "     TB_INVENTARIO.\"REGION\" AS TB_INVENTARIO_REGION,\n" +
 "     TB_INVENTARIO.\"FINANCIAMIENTO\" AS TB_INVENTARIO_FINANCIAMIENTO\n" +

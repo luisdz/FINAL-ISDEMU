@@ -9,11 +9,15 @@ import com.isdemu.model.TbInventario;
 import com.isdemu.service.Depreciacion_Service;
 import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.spring.WebAppConfig;
+import com.lowagie.text.Document;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,20 +85,14 @@ public class DepreciacionController extends WebAppConfig
   public void getRptAsig(HttpServletResponse response) throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
       Connection conn = dataSource().getConnection();
-      System.out.println(conn);
-      
+      System.out.println(conn);    
   
     InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteDepreciacion.jrxml"); 
     JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
     Map<String,Object> params = new HashMap<>();
-     
-    
-    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);    
         System.out.println("report3 :" + response);
     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
-    //System.out.println("report4 :");
-    //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
      
    response.setHeader("Content-disposition", "inline; filename=ReporteDepreciacion.xlsx");
@@ -109,6 +107,29 @@ public class DepreciacionController extends WebAppConfig
        exporter.exportReport();     
  }          
     //fin reporte depreciacion
+  
+  //lkjk
+  @RequestMapping(value = "/ExcelReporteInvPersona2", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptAsig2(HttpServletResponse response) throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+      Document document = new Document();
+try{
+    response.setContentType("application/pdf");
+    PdfWriter.getInstance(document, response.getOutputStream());
+    document.open();
+    document.add(new Paragraph("howtodoinjava.com"));
+    document.add(new Paragraph(new Date().toString()));
+    //Add more content here
+}catch(Exception e){
+    e.printStackTrace();
+}
+    System.out.println("response :" + response);
+    document.close();
+}    
+  
+  //kjkj
     
     
 }
