@@ -101,7 +101,7 @@ function validaClase()
     function validaUbicacion()
     {
        
-        var x = document.forms["inventarioF"]["tipoClasificacion"].value;
+        var x = document.forms["inventarioF"]["ubicacion"].value;
         if (x === null || x === "" || x === "0")
         {
        
@@ -440,6 +440,12 @@ function validaClase()
         } 
         
           if(validaCustodia()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = false;
+        }
+        
+        if(validaProveedor()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
             flag = false;
