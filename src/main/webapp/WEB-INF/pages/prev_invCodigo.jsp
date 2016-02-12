@@ -1,3 +1,9 @@
+<%-- 
+    Document   : prev_invCodigo
+    Created on : 11-feb-2016, 18:46:55
+    Author     : Luis
+--%>
+
 <%@include file="header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -59,7 +65,7 @@
             <div class="panel-body">
                 
                 
-               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvPersona"  modelAttribute="inventario" id="movF" >
+               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/filtroReporteInvCodigo"  modelAttribute="inventario" id="movF" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
@@ -71,19 +77,16 @@
                         </div>
                         <div class="col-md-6">
                             
-                                <div class="form-group">
-                                <label class="control-label" for="form-field-select-3">
-                                    Responsable Equipo<span  class="symbol "></span>
+                            
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Codigo Activo<span id="span_marca" class="symbol"></span>
                                 </label>
-                                <form:select path="tbcPersona.idPersona" class="form-control search-select" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
-                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>
-                                    <c:forEach var="persona" items="${persona}">
-                                        <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
-                                    </c:forEach>                                    
-                                </form:select>
-                                 <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>
-                                
+                                <form:input path="marca" type="text" placeholder="Ingrese un codigo de activo" class="form-control" id="factura" onchange="return validaFactura(event);" onblur="return validaFactura(event);" name="marca"/>
+                                <span for="marca" class="help-block  no-display" id="span_nombreT">Ingrese un codigo de activo</span> 
                             </div>
+                            
+                            
                              <div class="form-group">
                                 <label for="form-field-select-3">
                                     Mayor o menor de 600<span id="span_clasi" class="symbol "></span>
@@ -130,34 +133,7 @@
 
                 </form:form>
                 
-<!--                <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="sample-table-2">
-                        <thead>
-                            <tr>
-                                <th class="no-display">ID inventario</th>
-                                <th>Clase Equipo</th>
-                                <th>En custodia de</th>
-                                <th>descripcionEquipo</th>
-                                <th>codigoInventario</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Ubicacion</th> 
-                                <th>fechaAdquisicion</th>
-                                <th>valor</th>
-                            
-                                
-                                <th>Editar</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            	
-
-
-                        </tbody>
-                    </table>
-                </div>-->
             </div>
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->
@@ -273,13 +249,13 @@ $("#dropdown1").change(function () {
    function enviarReporte2 ()
     {
         //alert("excel2");
-     validaRespMov();
+     validaFactura();
      
-     //alert("excel");
-     if(validaRespMov()===true)
+     //alert($('#factura').val());
+     if(validaFactura()===true)
      {
-     window.location.href='${pageContext.request.contextPath}/Reportes/getReporteAsignado/'+ $('#responsable option:selected').val() + '/'+$('#mayor option:selected').val() ;
-    
+     alert($('#factura').val());
+     window.location.href='${pageContext.request.contextPath}/Reportes/getReportefacturaInv/'+ $('#factura').val() + '/'+$('#mayor option:selected').val() ;
      };
         
    };

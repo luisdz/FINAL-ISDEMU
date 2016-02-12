@@ -25,4 +25,5 @@ public interface TB_Inventario_Service {
     public List findBycodigo(String code);
      public void ETLInv();
      public List customSQL(String code);
+      public List getLastInserted(String cantidad);
 }

@@ -125,13 +125,39 @@ public class TB_InventarioController {
             }
             
             @RequestMapping(value="/listInvFiltro", method=RequestMethod.POST) 
-	public ModelAndView listInvFilto(@ModelAttribute TbInventario clasilocalizacion) {
+	public ModelAndView listInvFilto(@ModelAttribute TbInventario clasiubicacion) {
 		ModelAndView modelAndView = new ModelAndView("mostrar_inventario_filtro");
-                int IdLocalizacion=clasilocalizacion.getIdLocalizacion();
+                int IdUbicacion=clasiubicacion.getTbcUbicacion().getIdUbicacion();
 		//List inventario = tbInventarioService.getAll();
                 
-               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdLocalizacion);
-                List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdUbicacion);
+                List inventario = tbInventarioService.getAllFiltro(IdUbicacion);
+		modelAndView.addObject("inventario", inventario);
+
+		return modelAndView;
+	}
+        
+              @RequestMapping(value="/listInvLastInserted", method=RequestMethod.POST) 
+	public ModelAndView listInvLast(String ninserted) {
+		ModelAndView modelAndView = new ModelAndView("consultar_lasinv_inserted");
+              //  int IdLocalizacion=clasilocalizacion.getIdLocalizacion();
+		 List inventario = tbInventarioService.getLastInserted(ninserted);
+                
+              // System.out.println("INGRESA CONTROLLER consultar_lasinv_inserted--- idLocalizacion = " + IdLocalizacion);
+              //  List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+		modelAndView.addObject("inventario", inventario);
+
+		return modelAndView;
+	}
+        
+               @RequestMapping(value="/listInvLastInsertedGet/{cantidad}", method=RequestMethod.GET) 
+	public ModelAndView listInvLastGet(@PathVariable String cantidad) {
+		ModelAndView modelAndView = new ModelAndView("consultar_lasinv_inserted");
+              //  int IdLocalizacion=clasilocalizacion.getIdLocalizacion();
+		 List inventario = tbInventarioService.getLastInserted(cantidad);
+                
+              // System.out.println("INGRESA CONTROLLER consultar_lasinv_inserted--- idLocalizacion = " + IdLocalizacion);
+              //  List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
 		modelAndView.addObject("inventario", inventario);
 
 		return modelAndView;
@@ -244,8 +270,10 @@ public class TB_InventarioController {
                   myModel.put("proveedor",proveedor);
                 
                
-                
+              
 		return new ModelAndView("inventario",myModel);
+               // return   listInvLast();
+               
 	}
         
         
@@ -315,7 +343,8 @@ public class TB_InventarioController {
                 tbInventarioService.save(inventario);
                 String message = "Pais was successfully added.";
                 modelAndView.addObject("message", message);
-                return insertarInventario(CodigoInventario);
+                String cantidad="1";
+                return listInvLast(cantidad);
 	}
         
         
@@ -404,7 +433,8 @@ public class TB_InventarioController {
                
                 String message = "Pais was successfully added.";
                 modelAndView.addObject("message", message);
-                return insertarInventario("1");
+               String cantidad=String.valueOf(cantidadlotes);
+                return listInvLast(cantidad);
 	}
         
         //Agregar varios activos que pertenecesn al mismo codigo
@@ -568,7 +598,8 @@ public class TB_InventarioController {
                // tbInventarioService.save(inventario);
                 String message = "Pais was successfully added.";
                 modelAndView.addObject("message", message);
-                return "2";
+                  String cantidad=String.valueOf(object.length());
+                return cantidad;
 	}
         
         

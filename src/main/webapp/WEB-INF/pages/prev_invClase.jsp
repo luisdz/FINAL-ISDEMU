@@ -59,7 +59,7 @@
             <div class="panel-body">
                 
                 
-               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvPersona"  modelAttribute="inventario" id="movF" >
+               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvClase"  modelAttribute="inventario" id="movF" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
@@ -70,20 +70,21 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            
-                                <div class="form-group">
+                               <div class="form-group">
                                 <label class="control-label" for="form-field-select-3">
-                                    Responsable Equipo<span  class="symbol "></span>
+                                    Clase Activo<span  class="symbol "></span>
                                 </label>
-                                <form:select path="tbcPersona.idPersona" class="form-control search-select" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
-                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>
-                                    <c:forEach var="persona" items="${persona}">
-                                        <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
+                                <form:select path="tbcClaseActivo.idClaseActivo" class="form-control search-select" id="clase" name="dropdown2" onchange="return validaClaseRep(event);" onblur="return validaClaseRep(event);">
+                                    <form:option value="0"  label="Selecciona la clase del Activo"/>
+                                    <c:forEach var="clases" items="${clase}">
+                                        <form:option value="${clases.idClaseActivo}"  label="${clases.tbcClasificacionActivo.codigoClasificacion}${clases.codigoClase} - ${clases.nombreClase}"/>
                                     </c:forEach>                                    
                                 </form:select>
-                                 <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>
+                                 <span for="clase" class="help-block  no-display" id="span_rep">Seleccione una clase</span>
                                 
                             </div>
+                            
+                                
                              <div class="form-group">
                                 <label for="form-field-select-3">
                                     Mayor o menor de 600<span id="span_clasi" class="symbol "></span>
@@ -130,34 +131,7 @@
 
                 </form:form>
                 
-<!--                <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="sample-table-2">
-                        <thead>
-                            <tr>
-                                <th class="no-display">ID inventario</th>
-                                <th>Clase Equipo</th>
-                                <th>En custodia de</th>
-                                <th>descripcionEquipo</th>
-                                <th>codigoInventario</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Ubicacion</th> 
-                                <th>fechaAdquisicion</th>
-                                <th>valor</th>
-                            
-                                
-                                <th>Editar</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            	
-
-
-                        </tbody>
-                    </table>
-                </div>-->
             </div>
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->
@@ -273,13 +247,12 @@ $("#dropdown1").change(function () {
    function enviarReporte2 ()
     {
         //alert("excel2");
-     validaRespMov();
+     validaClaseRep();
      
      //alert("excel");
-     if(validaRespMov()===true)
+     if(validaClaseRep()===true)
      {
-     window.location.href='${pageContext.request.contextPath}/Reportes/getReporteAsignado/'+ $('#responsable option:selected').val() + '/'+$('#mayor option:selected').val() ;
-    
+     window.location.href='${pageContext.request.contextPath}/Reportes/getReporteClaseInv/'+ $('#clase option:selected').val() + '/'+$('#mayor option:selected').val() ;
      };
         
    };

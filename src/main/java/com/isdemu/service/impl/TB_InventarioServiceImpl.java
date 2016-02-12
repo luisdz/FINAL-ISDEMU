@@ -90,4 +90,12 @@ public class TB_InventarioServiceImpl implements TB_Inventario_Service {
         
         return tbInventarioDao.customSQL(code);
     }
+    
+     @Override
+    public List getLastInserted(String cantidad) {
+        
+          return tbInventarioDao.getLastInserted(cantidad);
+    }
+    
+   
 }
