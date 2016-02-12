@@ -57,6 +57,9 @@
                 </div>
             </div>
             <div class="panel-body">
+                 <button id="btn_guardar" class="btn btn-yellow btn-block" type="button" onclick="enviar_localizacion();" style="width:250px;">
+                Imprimir Codigos<i class="fa fa-arrow-circle-right"></i>
+            </button>
                 <div class="row">
                     <div class="col-md-12 space20">
                         
@@ -165,6 +168,7 @@
                     </table>
                 </div>
             </div>
+           
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->
     </div>
@@ -176,5 +180,52 @@
     { 
         return confirm(mensaje); 
     } 
+    
+     function enviar_localizacion()
+    {        
+                
+              
+        var jsonArray="{"
+        
+      
+         jsonArray+="\"Inventario\":[";
+        
+        var l=0;
+        var bandera = 0;
+        $('#sample-table-2 tr').each(function(index, element){
+
+        var id = $(element).find("td").eq(0).html();
+      
+        if(l!=0){
+            jsonArray=jsonArray+"{\"idInv\":"+'"'+id+'"'+"},";
+            bandera=1;
+          }
+
+        l=1;
+
+    });
+
+
+    jsonArray=jsonArray.substring(0,jsonArray.length-1);
+    jsonArray=jsonArray+"]}";
+    //alert(jsonArray);
+    if(bandera==0)
+    {
+        alert("Debe ingresar al menos un activo");
+        return 0;
+    }
+         $.ajax({
+           type: "POST",
+           url: "${pageContext.request.contextPath}/Usuario/codigo_barra",
+           contentType: 'application/json; charset=utf-8',
+           success: function (msg) {
+               alert(msg);
+               $("#tabla_codigo").empty();
+               window.location="${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra";
+           },
+           data: jsonArray
+       });
+        
+    };
 </script>
 <%@include file="footer.jsp"%>
