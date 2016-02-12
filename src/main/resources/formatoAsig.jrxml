@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="formatoMovimiento" language="groovy" pageWidth="705" pageHeight="555" orientation="Landscape" columnWidth="705" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="3e2663fc-d0b2-4d91-a0b7-884d411a1ddf">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="144"/>
+	<parameter name="idmov" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[26]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\ISDEMU\\Ireport Templates\\formato movimiento\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[01/01/1990]]></defaultValueExpression>
+	</parameter>
+	<parameter name="razon" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="realpath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="top" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[10]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     top $P!{top} TB_INVENTARIO."ID_INVENTARIO" AS TB_INVENTARIO_ID_INVENTARIO,
+     TB_INVENTARIO."ID_CLASE_ACTIVO" AS TB_INVENTARIO_ID_CLASE_ACTIVO,
+     TB_INVENTARIO."ID_PERSONA" AS TB_INVENTARIO_ID_PERSONA,
+     TB_INVENTARIO."ID_PERSONA_ASIGNADO" AS TB_INVENTARIO_ID_PERSONA_ASIGNADO,
+     TB_INVENTARIO."ID_PROVEEDOR" AS TB_INVENTARIO_ID_PROVEEDOR,
+     TB_INVENTARIO."ID_ESTADO" AS TB_INVENTARIO_ID_ESTADO,
+     TB_INVENTARIO."ID_LOCALIZACION" AS TB_INVENTARIO_ID_LOCALIZACION,
+     TB_INVENTARIO."DESCRIPCION_EQUIPO" AS TB_INVENTARIO_DESCRIPCION_EQUIPO,
+     TB_INVENTARIO."CODIGO_INVENTARIO" AS TB_INVENTARIO_CODIGO_INVENTARIO,
+     TB_INVENTARIO."MARCA" AS TB_INVENTARIO_MARCA,
+     TB_INVENTARIO."MODELO" AS TB_INVENTARIO_MODELO,
+     TB_INVENTARIO."SERIE" AS TB_INVENTARIO_SERIE,
+     TB_INVENTARIO."FECHA_ADQUISICION" AS TB_INVENTARIO_FECHA_ADQUISICION,
+     TB_INVENTARIO."VALOR" AS TB_INVENTARIO_VALOR,
+     TB_INVENTARIO."N_FACTURA" AS TB_INVENTARIO_N_FACTURA,
+     TB_INVENTARIO."FINANCIAMIENTO" AS TB_INVENTARIO_FINANCIAMIENTO,
+     TB_INVENTARIO."OBSERVACION" AS TB_INVENTARIO_OBSERVACION,
+     TB_INVENTARIO."VALOR_LIBRO" AS TB_INVENTARIO_VALOR_LIBRO,
+     TB_INVENTARIO."FECHA_GARANTIA" AS TB_INVENTARIO_FECHA_GARANTIA,
+     TB_INVENTARIO."REGION" AS TB_INVENTARIO_REGION,
+     TB_INVENTARIO."ID_UBICACION" AS TB_INVENTARIO_ID_UBICACION,
+     TBC_UBICACION."ID_UBICACION" AS TBC_UBICACION_ID_UBICACION,
+     TBC_UBICACION."ID_LOCALIZACION" AS TBC_UBICACION_ID_LOCALIZACION,
+     TBC_UBICACION."NOMBRE_UBICACION" AS TBC_UBICACION_NOMBRE_UBICACION,
+     TBC_PERSONA."ID_PERSONA" AS TBC_PERSONA_ID_PERSONA,
+     TBC_PERSONA."ID_UBICACION" AS TBC_PERSONA_ID_UBICACION,
+     TBC_PERSONA."NOMBRE_PERSONA" AS TBC_PERSONA_NOMBRE_PERSONA,
+     TBC_PERSONA."JEFATURA" AS TBC_PERSONA_JEFATURA,
+     TBC_PERSONA."ENCARGADO_AFIJO" AS TBC_PERSONA_ENCARGADO_AFIJO
+FROM
+     "dbo"."TB_INVENTARIO" TB_INVENTARIO INNER JOIN "dbo"."TBC_UBICACION" TBC_UBICACION ON TB_INVENTARIO."ID_UBICACION" = TBC_UBICACION."ID_UBICACION"
+     INNER JOIN "dbo"."TBC_PERSONA" TBC_PERSONA ON TB_INVENTARIO."ID_PERSONA" = TBC_PERSONA."ID_PERSONA"
+     AND TBC_PERSONA."ID_PERSONA" = TB_INVENTARIO."ID_PERSONA"
+ORDER BY
+     TB_INVENTARIO_ID_INVENTARIO DESC]]>
+	</queryString>
+	<field name="TB_INVENTARIO_ID_INVENTARIO" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_ID_CLASE_ACTIVO" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_ID_PERSONA" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_ID_PERSONA_ASIGNADO" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_ID_PROVEEDOR" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_ID_ESTADO" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_ID_LOCALIZACION" class="java.lang.Integer"/>
+	<field name="TB_INVENTARIO_DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_CODIGO_INVENTARIO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_MARCA" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_MODELO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_SERIE" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_FECHA_ADQUISICION" class="java.sql.Date"/>
+	<field name="TB_INVENTARIO_VALOR" class="java.math.BigDecimal"/>
+	<field name="TB_INVENTARIO_N_FACTURA" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_FINANCIAMIENTO" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_OBSERVACION" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_VALOR_LIBRO" class="java.math.BigDecimal"/>
+	<field name="TB_INVENTARIO_FECHA_GARANTIA" class="java.sql.Date"/>
+	<field name="TB_INVENTARIO_REGION" class="java.lang.String"/>
+	<field name="TB_INVENTARIO_ID_UBICACION" class="java.lang.Integer"/>
+	<field name="TBC_UBICACION_ID_UBICACION" class="java.lang.Integer"/>
+	<field name="TBC_UBICACION_ID_LOCALIZACION" class="java.lang.Integer"/>
+	<field name="TBC_UBICACION_NOMBRE_UBICACION" class="java.lang.String"/>
+	<field name="TBC_PERSONA_ID_PERSONA" class="java.lang.Integer"/>
+	<field name="TBC_PERSONA_ID_UBICACION" class="java.lang.Integer"/>
+	<field name="TBC_PERSONA_NOMBRE_PERSONA" class="java.lang.String"/>
+	<field name="TBC_PERSONA_JEFATURA" class="java.lang.String"/>
+	<field name="TBC_PERSONA_ENCARGADO_AFIJO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="276" splitType="Stretch">
+			<staticText>
+				<reportElement x="189" y="11" width="516" height="20" uuid="8a88fb30-aaa5-436a-a9b2-00f9606e2caf"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO SALVADOREÑO PARA EL DESARROLLO DE LA MUJER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="31" width="465" height="31" uuid="556fad35-97c1-4d49-8b77-ef819cdfb35b"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOVIMIENTOS DE MOBILIARIO Y EQUIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="85" width="55" height="20" uuid="f1affca4-4660-4c74-949b-ddfa61cbed0d"/>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="105" width="703" height="25" uuid="a2f32562-2b53-4de8-b1f6-26d43c95b8ba"/>
+				<text><![CDATA[SEÑOR (A) ENCARGADO (A) DE ACTIVO FIJO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="130" width="703" height="27" uuid="2b9978c2-83aa-48f7-9cd0-547d1cbd7e71"/>
+				<text><![CDATA[ATENTAMENTE SE LE SOLICITA AUTORIZAR LOS SIGUIENTES CAMBIOS EN LA ASIGNACIÓN DE MOBILIARIO Y EQUIPO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="157" width="703" height="18" uuid="ba53c037-11cb-47e2-9ff8-dafb6044a58c"/>
+				<text><![CDATA[LAS RAZONES PARA EFECTUAR LOS CAMBIOS SON LAS SIGUIENTES: ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="57" y="85" width="648" height="20" uuid="1eec1aa5-3885-4e73-889e-5bf4bcf135dd"/>
+				<textElement>
+					<font isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="26" y="11" width="76" height="51" uuid="2c14aaa8-9014-47f0-9347-66d0c8295722"/>
+				<imageExpression><![CDATA[$P{realpath}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="237" width="78" height="39" uuid="bcac145f-718c-449f-a33f-5f39c4cdf537"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Ubicacion Inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="237" width="80" height="39" uuid="720728d8-ef2a-4d2c-8ad2-ee6ff7743359"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Responsable del Activo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="237" width="80" height="39" uuid="aa8758db-7d56-4d4b-b1e5-1de61ff55cf2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Descripcion del Activo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="237" width="65" height="39" uuid="ed870e14-eb3a-4419-87fd-3bc789d023e4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No Inventario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="237" width="80" height="39" uuid="91d38266-7427-4f22-9efc-18dcfd90080f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="237" width="80" height="39" uuid="ef7b5e89-bea9-4968-b220-89a111a64315"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Modelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="237" width="80" height="39" uuid="93be2de0-8735-433b-9c8f-fd31a23bd6d6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No de Serie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="545" y="237" width="80" height="39" uuid="487bc0c8-49b1-4a4d-8e9e-57e8dda90df3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Ubicacion Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="625" y="237" width="80" height="39" uuid="65a19f5e-a229-4e90-be9c-b600b3e46a84"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Nuevo Responsable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="175" width="703" height="62" uuid="a2ed7ea5-025f-4259-ab4a-4473f0ce2764"/>
+				<text><![CDATA[Nuevo Ingreso]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<elementGroup/>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="160" y="0" width="80" height="39" uuid="a73990ea-02a2-4a50-a29b-5911b5f67e66"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="240" y="0" width="65" height="39" uuid="cf95b6ae-774f-428c-98ed-e238a1073b14"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="305" y="0" width="80" height="39" uuid="e371362d-d1ce-49b4-acf5-9b14427fa853"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_MARCA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="385" y="0" width="80" height="39" uuid="c7dc868b-a8f9-4972-ac5f-580ce5cde07e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_MODELO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="465" y="0" width="80" height="39" uuid="0b5e7ba6-ff06-44be-90c8-f9de1a7bdcc5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TB_INVENTARIO_SERIE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="545" y="0" width="80" height="39" uuid="9a7a9da9-cc53-427f-9271-f7c58e558c6e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBC_UBICACION_NOMBRE_UBICACION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="2" y="0" width="78" height="39" uuid="bdf4bdf1-7f1b-4a3a-bc3c-f4e169974878"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nuevo Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="80" y="0" width="80" height="39" uuid="8f435f45-464d-4b1c-860d-60141c0c77da"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nuevo Ingreso]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="625" y="0" width="80" height="39" uuid="bc67ac8b-a1f1-40de-af17-717fdd849a3b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBC_PERSONA_NOMBRE_PERSONA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="73">
+			<staticText>
+				<reportElement x="-1" y="53" width="706" height="20" uuid="4a07b04a-c7d5-4e14-8320-2e884a650c5e"/>
+				<text><![CDATA[                      Jefatura Solicitante                        Responsable Inicial                Responsable Final                     Encargado de Activo Fijo      ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="33" width="706" height="20" uuid="87be1e4c-a838-4240-ba21-c5926a091cf5"/>
+				<text><![CDATA[                      _______________                        _______________                   _____________                              _______________   ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -63,8 +63,8 @@
             <div class="panel-body">
                     <div class="row">
                             <div class="col-md-12 space20">
-                                    <button class="btn btn-orange add-row">
-                                            Nuevo <i class="fa fa-plus"></i>
+                                    <button data-toggle="dropdown" class="btn btn-orange" onclick="return excelHist(event);" >
+                              Exportar a Excel                        
                                     </button>
                                     <div class="btn-group pull-right">
                                             <button data-toggle="dropdown" class="btn btn-green dropdown-toggle">
@@ -166,3 +166,17 @@
     </div>
     </div>
 <%@include file="footer.jsp"%>
+
+<script>
+function aplicarDepre ()
+    {
+     window.location.href='${pageContext.request.contextPath}/Depreciacion/aplicarDepreciacion' ;
+    };
+    
+    function excelHist()
+    {
+     window.location.href='${pageContext.request.contextPath}/Movimiento/ExcelHistorialMov' ;
+    };
+        
+    
+</script>

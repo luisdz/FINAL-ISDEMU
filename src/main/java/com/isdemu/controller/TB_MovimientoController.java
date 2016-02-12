@@ -63,6 +63,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
  import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
+import net.sf.jasperreports.engine.JRExporterParameter;
 /**
  *
  * @author AlejandroPC
@@ -100,18 +101,54 @@ public class TB_MovimientoController  extends WebAppConfig  {
     }
     
     
-    
+    //*******************************************************
+    //***************Historial de movimiento*****************
+    //*******************************************************
     
     @RequestMapping(value = "/consultarHistorialMov")
     public ModelAndView consultarHistorialMov() 
     {
         ModelAndView modelAndView = new ModelAndView("historial_movimientos");
-        List movimiento = tbhMovimientoService.getAll();        
-        //movimiento.        
+        List movimiento = tbhMovimientoService.getAll(); 
         modelAndView.addObject("movimiento", movimiento);
         return modelAndView;
     }
+    @RequestMapping(value = "/ExcelHistorialMov", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptHist(HttpServletResponse response) throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);    
+  
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteHistMov.jrxml"); 
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+    Map<String,Object> params = new HashMap<>();
+    System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+     
+         File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
     
+   String absolutePath = file.getAbsolutePath();    
+   absolutePath = absolutePath.replaceAll("%20"," ");   
+    params.put("realpath",absolutePath);
+        
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    response.setContentType("application/vnd.ms-excel");
+     
+   response.setHeader("Content-disposition", "inline; filename=ReporteHistorialMovimiento.xlsx");
+
+   final OutputStream outStream = response.getOutputStream();
+     
+       JRXlsxExporter exporter = new JRXlsxExporter();
+    
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+       
+       exporter.exportReport();     
+ }  
+    
+    //*******************************************************
 
     
     @RequestMapping(value = "/insertarMovimiento", method = RequestMethod.GET)
@@ -416,14 +453,11 @@ public class TB_MovimientoController  extends WebAppConfig  {
   public void getRptMov (HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
   {      
 //    String userName = "sa";
-//    String password = "admin123";
-//
-//    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";
-    
+//    String password = "admin123";//
+//    String url = "jdbc:sqlserver://DESKTOP-78K7A51:1433;databaseName=ActivosFijosISDEMU";    
    // String userName = "afi";
     //String password = "ActivoFijo$";
    // String url = "jdbc:sqlserver://192.168.10.187:1433;databaseName=ActivosFijosISDEMU";
-
   //  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
     Connection conn = dataSource().getConnection();
       
@@ -471,16 +505,9 @@ public class TB_MovimientoController  extends WebAppConfig  {
        //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
       exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
        
-       exporter.exportReport();
-       
-       
-       
+       exporter.exportReport();  
        
  }
-  
-  
-  
-  
     
 
 }

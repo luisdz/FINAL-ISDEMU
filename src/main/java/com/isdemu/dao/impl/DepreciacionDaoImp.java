@@ -28,7 +28,7 @@ public class DepreciacionDaoImp implements DepreciacionDao
         Session session = null; 
             session = sessionFactory.getCurrentSession();
             SQLQuery query = session.createSQLQuery("  \n" +
-"  select inv.ID_INVENTARIO,inv.CODIGO_INVENTARIO,inv.DESCRIPCION_EQUIPO,clase.NOMBRE_CLASE,inv.FECHA_ADQUISICION, Convert(Decimal(15,2), inv.VALOR, 2) as VALOR ,Convert(Decimal(15,2), inv.VALOR_LIBRO, 2) as VALOR_LIBRO   from TB_INVENTARIO as inv inner join TBC_CLASE_ACTIVO as clase on inv.ID_CLASE_ACTIVO=clase.ID_CLASE_ACTIVO where inv.VALOR is not null and inv.FECHA_ADQUISICION is not null and inv.VALOR >= 600\n" +
+"  select inv.ID_INVENTARIO,inv.CODIGO_INVENTARIO,inv.DESCRIPCION_EQUIPO,clase.NOMBRE_CLASE,inv.MODELO,inv.SERIE,pers.NOMBRE_PERSONA,ubi.NOMBRE_UBICACION,inv.FECHA_ADQUISICION, Convert(Decimal(15,2), inv.VALOR, 2) as VALOR ,Convert(Decimal(15,2), inv.VALOR_LIBRO, 2) as VALOR_LIBRO   from TB_INVENTARIO as inv inner join TBC_CLASE_ACTIVO as clase on inv.ID_CLASE_ACTIVO=clase.ID_CLASE_ACTIVO inner join TBC_PERSONA as pers on inv.ID_PERSONA=pers.ID_PERSONA inner join TBC_UBICACION as ubi on inv.ID_UBICACION=ubi.ID_UBICACION where inv.VALOR is not null and inv.FECHA_ADQUISICION is not null and inv.VALOR >= 600\n" +
 "");
             List lista = query.list();
             return lista;

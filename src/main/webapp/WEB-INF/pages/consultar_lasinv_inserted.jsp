@@ -60,6 +60,9 @@
                  <button id="btn_guardar" class="btn btn-yellow btn-block" type="button" onclick="enviar_localizacion();" style="width:250px;">
                 Imprimir Codigos<i class="fa fa-arrow-circle-right"></i>
             </button>
+                 <button id="btn_guardar2" class="btn btn-yellow btn-block" type="button" onclick="formatoAsignacion(event);" style="width:250px;">
+                Hoja de Asignaciones <i class="fa fa-arrow-circle-right"></i>
+            </button>
                 <div class="row">
                     <div class="col-md-12 space20">
                         
@@ -227,5 +230,21 @@
        });
         
     };
+    
+    function formatoAsignacion()
+    {
+       var schoolList=new Array();
+       var a=0;
+        <c:forEach items="${inventario}" var="inv">
+        a=a+1;
+        </c:forEach>
+       alert("alert : "+a)
+       window.location.href='${pageContext.request.contextPath}/Reportes/getFormatoAsignacion/'+a ;
+     
+       
+    };
+    
+    
 </script>
+ 
 <%@include file="footer.jsp"%>

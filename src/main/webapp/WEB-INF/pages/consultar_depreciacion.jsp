@@ -134,6 +134,10 @@
                                 <th>Codigo</th>
                                 <th>Descripcion</th>
                                 <th>Clase</th>
+                                <th>Modelo</th>
+                                <th class="">Serie</th>
+                                <th>Responsable</th>
+                                <th>Ubicacion</th>
                                 <th>Fecha Adquisicion</th>
                                 <th class="">Valor de Adquisicion</th>
                                 <th>Valor en Libros</th>
@@ -149,8 +153,12 @@
                                                 <td>${con[2]}</td>
                                                 <td>${con[3]}</td>
                                                 <td>${con[4]}</td>
-                                                <td>$ ${con[5]}</td>
-                                                <td>$ ${con[6]}</td>
+                                                <td>${con[5]}</td>
+                                                <td>${con[6]}</td>
+                                                <td>${con[7]}</td>
+                                                <td>${con[8]}</td>
+                                                <td>$${con[9]}</td>
+                                                <td>$${con[10]}</td>
                                              </tr>
                                         </c:forEach>	
 
@@ -178,7 +186,7 @@ function aplicarDepre ()
     
     function excelDepre ()
     {
-     window.location.href='${pageContext.request.contextPath}/Depreciacion/ExcelReporteInvPersona2' ;
+     window.location.href='${pageContext.request.contextPath}/Depreciacion/ExcelReporteInvPersona' ;
     };
         
     

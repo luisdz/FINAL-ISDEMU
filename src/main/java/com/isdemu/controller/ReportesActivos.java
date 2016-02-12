@@ -724,5 +724,59 @@ public class ReportesActivos extends WebAppConfig
  }
   
  //Fin vistas previas reportes   
+  
+  //*************************************************************
+  //***************Formato de asignacion*********************
+  
+   @RequestMapping(value = "/getFormatoAsignacion/{id}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getformatoAsig(HttpServletResponse response, @PathVariable String id) throws JRException, IOException, SQLException, ClassNotFoundException, ParseException 
+  {      
+   
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
+     
+        InputStream jasperxml =  this.getClass().getResourceAsStream("/formatoAsig.jrxml"); 
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+        Map<String,Object> params = new HashMap<>();
+
+        System.out.println("id :"); 
+        String tipoRep="";     
+          //TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
+        String nombrefiltro="CODIGO " + id.toUpperCase();
+        int param02 = 0;
+        double param03=0;
+        
+        
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," "); 
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        Date fechaR= dt1.parse(fech);
+        System.out.println("format "+fech);
+        
+        params.put("fecha", fechaR);
+        
+        params.put("realpath",absolutePath);
+        params.put("top",id); 
+    
+     
+        System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-disposition", "inline; filename=formatoAsignacion.xlsx");
+        final OutputStream outStream = response.getOutputStream();
+        JRXlsxExporter exporter = new JRXlsxExporter();
+        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);  
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+        exporter.exportReport();
+ }
+  //********************************************************
     
 }
