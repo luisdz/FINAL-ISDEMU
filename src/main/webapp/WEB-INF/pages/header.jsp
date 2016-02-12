@@ -216,6 +216,13 @@
 										</a>
 										
 									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/VerificarInventario/addinvperona.html">
+											Verificar Inventario Persona <i class="icon-arrow"></i>
+										</a>
+										
+									</li>
+                                                                       
 								
 								</ul>
 							</li>	
