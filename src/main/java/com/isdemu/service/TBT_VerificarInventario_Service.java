@@ -20,4 +20,6 @@ public interface TBT_VerificarInventario_Service {
       public void delete(Serializable id);
       public List<TbtVerificarInventario> getInventarioFaltante(Serializable id);
       public List<TbtVerificarInventario> getInventarioSobrante(Serializable id);
+      public List<TbtVerificarInventario> getInventarioFaltantePersona(Serializable id);
+      public List<TbtVerificarInventario> getInventarioSobrantePersona(Serializable id);
 }

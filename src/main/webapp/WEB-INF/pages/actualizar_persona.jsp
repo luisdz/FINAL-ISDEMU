@@ -110,7 +110,11 @@
                                                         Jefe<span id="span_jefe" class="symbol"></span>
                                                 </label>
 <!--                                                <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">-->
-                                                <form:input path="jefatura" type="text" class="form-control" id="jefe" name="jefe" onblur="return validaJefe(event);"/>
+                                                <form:select path="jefatura" class="form-control" id="jefe" name="jefe" onblur="return validaJefe(event);">
+                                                    <form:option value="0"  label="Seleccionar.."/>       
+                                                    <form:option value="Si"  label="Si"/>
+                                                    <form:option value="No"  label="No"/>  
+                                                 </form:select>  
                                                 <span for="jefe" class="help-block  no-display" id="span_jefeT">Ingrese un Jefe</span> 
                 
                                     </div> 
@@ -119,7 +123,11 @@
                                                         Encargado<span id="span_encargado" class="symbol"></span>
                                                 </label>
 <!--                                                <input type="text" placeholder="Codigo" class="form-control" id="codigo" name="firstname">-->
-                                                <form:input path="encargadoAfijo" type="text" class="form-control" id="encargado" name="encargado" onblur="return validaEncargado(event);"/>
+                                                <form:select path="encargadoAfijo" class="form-control" id="encargado" name="encargado" onblur="return validaEncargado(event);">
+                                                    <form:option value="0"  label="Seleccionar.."/>       
+                                                    <form:option value="Si"  label="Si"/>
+                                                    <form:option value="No"  label="No"/>  
+                                                 </form:select>  
                                                 <span for="encargado" class="help-block  no-display" id="span_encargadoT">Ingrese un Encargado</span> 
                 
                                     </div> 

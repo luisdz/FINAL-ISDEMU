@@ -8,16 +8,19 @@ package com.isdemu.controller;
 import com.isdemu.spring.WebAppConfig;
 
 import com.isdemu.model.TbMovimiento;
+import com.isdemu.model.TbcLocalizacion;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Localizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
 import com.isdemu.spring.WebAppConfig;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -197,8 +200,13 @@ public class ReportesLocalizacion extends WebAppConfig
      
     System.out.println("id :"); 
    System.out.println("id :" + id + " param " + param); 
-     
+     String tipoRep="";
 //     
+     
+     TbcLocalizacion localizacion = (TbcLocalizacion)tbcLocalizacionService.findByKey(id);
+     
+     String nombrefiltro = "LA "+localizacion.getNombreLocalizacion().toUpperCase();
+             
      int param02 = 0;
         double param03=0;
         
@@ -206,17 +214,33 @@ public class ReportesLocalizacion extends WebAppConfig
         {
             param02=600;
             param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
         }
         else if(param == 0)
         {
            param02=0;
            param03=600.00;
+           tipoRep="MENORES DE $600.00";
         }
     
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
+        
         params.put("id_localizacion", id);
         params.put("mayor600", param02);
         params.put("menorque", param03);
-
+        params.put("tipo_valor", tipoRep);              
+        params.put("inventario_de", nombrefiltro); 
+        
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+        params.put("fecha_reporte", fech);  
     
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
     System.out.println("report3 :" + jasperReport);    
