@@ -59,7 +59,7 @@ public class DepreciacionController extends WebAppConfig
     {
         ModelAndView modelAndView = new ModelAndView("consultar_depreciacion");        
        // List movimientoR = tbrMovimientoInvService.getAll(); 
-         List activos = depreciacionService.getAll();
+         List activos = depreciacionService.getAll(); 
        //  List movimientoI = tbMovimientoService.getAllInvPer();         
                   
         modelAndView.addObject("activos", activos);
