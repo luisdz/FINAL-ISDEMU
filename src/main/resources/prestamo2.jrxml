@@ -53,7 +53,7 @@ SOLICITUD DE PRESTAMO DE EQUIPO MULTIMEDIA]]></text>
 		<band height="105" splitType="Stretch">
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="50" y="20" width="473" height="85" uuid="61d3fadf-c060-487b-9c40-1ec1841ef727"/>
-				<text><![CDATA[Fecha de solicitud:		 Fecha de reservación:
+				<text><![CDATA[Fecha de solicitud:		                 Fecha de reservación:
 Hora Desde: ________________ Hasta: ________________
 A quién se impartirá la actividad:______________________________________________
 ________________________________________________________________________
@@ -61,11 +61,11 @@ Destino:
 ]]></text>
 			</staticText>
                         <textField>
-				<reportElement x="143" y="21" width="100" height="20" uuid="cdd24088-4b7b-4c40-92a7-45155dcce9d3"/>
+				<reportElement x="143" y="21" width="103" height="20" uuid="cdd24088-4b7b-4c40-92a7-45155dcce9d3"/>
 				<textFieldExpression><![CDATA[$F{FECHA_SOLICITUD}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="321" y="21" width="100" height="20" uuid="378643ab-3e77-4bb7-ad50-123e1228fb45"/>
+				<reportElement x="380" y="21" width="100" height="20" uuid="378643ab-3e77-4bb7-ad50-123e1228fb45"/>
 				<textFieldExpression><![CDATA[$F{FECHA_RESERVACION}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -77,14 +77,28 @@ Destino:
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="111" y="2" width="100" height="20" uuid="553a073d-3ba3-47a1-991c-689d827ef54a"/>
+				<reportElement stretchType="RelativeToTallestObject" x="50" y="0" width="215" height="30" uuid="553a073d-3ba3-47a1-991c-689d827ef54a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Equipo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="301" y="2" width="100" height="20" uuid="8651a6d0-c9a3-4651-a665-39292119749b"/>
+				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="215" height="30" uuid="8651a6d0-c9a3-4651-a665-39292119749b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -95,14 +109,28 @@ Destino:
 	<detail>
 		<band height="41" splitType="Stretch">
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="77" y="0" width="188" height="41" uuid="5a480a79-dfa1-4971-8a64-a8cc3e6e217c"/>
-                                <textElement textAlignment="Justified" verticalAlignment="Middle">
+				<reportElement stretchType="RelativeToTallestObject" x="50" y="0" width="215" height="41" uuid="5a480a79-dfa1-4971-8a64-a8cc3e6e217c"/>
+                                <box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="174" height="41" uuid="fcdb67bb-81c0-41ef-bb6f-3a81c5cf7df6"/>
+				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="215" height="41" uuid="fcdb67bb-81c0-41ef-bb6f-3a81c5cf7df6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
                                 <textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
 			</textField>
@@ -111,47 +139,47 @@ Destino:
 	<columnFooter>
 		<band height="134" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="77" y="0" width="446" height="27" uuid="76448a4d-838b-462f-a542-f151d7e45a51"/>
+				<reportElement stretchType="RelativeToTallestObject" x="65" y="0" width="446" height="27" uuid="76448a4d-838b-462f-a542-f151d7e45a51"/>
 				<text><![CDATA[Nota: La persona que solicita el equipo es responsable de él desde el momento en que se le Entrega. ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="66" y="27" width="145" height="20" uuid="051f9ef6-71d3-48d1-a1c1-0b99ec552de9"/>
+				<reportElement stretchType="RelativeToTallestObject" x="65" y="34" width="145" height="20" uuid="051f9ef6-71d3-48d1-a1c1-0b99ec552de9"/>
 				<text><![CDATA[________________________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="77" y="41" width="125" height="20" uuid="cd0b6cae-fa88-4a61-a6af-ee1a12c2070a"/>
+				<reportElement stretchType="RelativeToTallestObject" x="77" y="47" width="125" height="20" uuid="cd0b6cae-fa88-4a61-a6af-ee1a12c2070a"/>
 				<text><![CDATA[Nombre del/a Solicitante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="326" y="41" width="125" height="20" uuid="b220f49c-c772-4e46-95a1-531327a08e68"/>
+				<reportElement stretchType="RelativeToTallestObject" x="331" y="47" width="125" height="20" uuid="b220f49c-c772-4e46-95a1-531327a08e68"/>
 				<text><![CDATA[Firma del/a Solicitante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="311" y="27" width="145" height="20" uuid="aa8d13d2-bcd5-4f30-99a7-729db8c367a3"/>
+				<reportElement stretchType="RelativeToTallestObject" x="317" y="34" width="145" height="20" uuid="aa8d13d2-bcd5-4f30-99a7-729db8c367a3"/>
 				<text><![CDATA[________________________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="67" y="73" width="179" height="20" uuid="6081ca9f-5d0c-4a73-b874-d571d807c6ec"/>
+				<reportElement stretchType="RelativeToTallestObject" x="66" y="83" width="179" height="20" uuid="6081ca9f-5d0c-4a73-b874-d571d807c6ec"/>
 				<text><![CDATA[Nombre de quien devuelve el equipo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="67" y="58" width="179" height="20" uuid="2a57bb98-8498-472a-aa8c-03af81959181"/>
+				<reportElement stretchType="RelativeToTallestObject" x="67" y="73" width="179" height="20" uuid="2a57bb98-8498-472a-aa8c-03af81959181"/>
 				<text><![CDATA[_______________________________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="301" y="73" width="179" height="20" uuid="ab0069b5-a457-44ca-99b1-2cc346fc4fc0"/>
+				<reportElement stretchType="RelativeToTallestObject" x="301" y="83" width="179" height="20" uuid="ab0069b5-a457-44ca-99b1-2cc346fc4fc0"/>
 				<text><![CDATA[Nombre de quien devuelve el equipo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="301" y="58" width="179" height="20" uuid="d1ff2902-f1a0-42dc-909a-7548138933ec"/>
+				<reportElement stretchType="RelativeToTallestObject" x="301" y="73" width="179" height="20" uuid="d1ff2902-f1a0-42dc-909a-7548138933ec"/>
 				<text><![CDATA[_______________________________]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="66" y="93" width="100" height="20" uuid="2b4f976b-94fe-4cda-81e1-cf243670fb30"/>
+				<reportElement stretchType="RelativeToTallestObject" x="66" y="103" width="100" height="20" uuid="2b4f976b-94fe-4cda-81e1-cf243670fb30"/>
 				<text><![CDATA[Observaciones:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="68" y="101" width="455" height="20" uuid="b2f5a240-0818-4894-bfa8-f6ed7e3ab4f1"/>
+				<reportElement stretchType="RelativeToTallestObject" x="68" y="113" width="455" height="20" uuid="b2f5a240-0818-4894-bfa8-f6ed7e3ab4f1"/>
 				<text><![CDATA[__________________________________________________________________________]]></text>
 			</staticText>
 		</band>

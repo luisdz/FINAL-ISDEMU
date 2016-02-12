@@ -19,10 +19,20 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.html.HtmlWriter;
 import com.lowagie.text.pdf.Barcode128;
+import com.lowagie.text.pdf.BarcodeEAN;
+import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfDocument;
 import com.lowagie.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 //import com.itextpdf.text.Document;
 //import com.itextpdf.text.DocumentException;
@@ -35,6 +45,11 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -57,7 +72,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller 
  @RequestMapping(value="/Usuario")
-public class TBS_UsuarioController {
+public class TBS_UsuarioController extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
     
     @Autowired
         private TBS_Rol_Service tbsRolService;
@@ -190,16 +205,23 @@ public class TBS_UsuarioController {
 
            return listOfPaises("2");
 	}
-        
-       @RequestMapping(value="/codigo_barra", method=RequestMethod.POST)
-        public @ResponseBody String codigo(@RequestBody String codigos) throws FileNotFoundException, DocumentException {       
-       System.out.println("String Json:"+codigos);
+         
+         @RequestMapping(value="/codigo_barra", method=RequestMethod.POST)
+        @ResponseBody public String codigo(@RequestBody String codigos) throws FileNotFoundException, DocumentException {       
+       
        JSONObject array = new JSONObject(codigos);
        
        
        
-        Document document = new Document();    
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/codigoBarraIsdemu.pdf"));    
+        Document document = new Document();   
+        
+        File file = new File(this.getClass().getResource("/codigoBarraIsdemu.pdf").getFile());
+    
+            String absolutePath = file.getAbsolutePath(); 
+
+            absolutePath=absolutePath.replaceAll("%20"," ");
+            
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(absolutePath));    
 
     Rectangle one = new Rectangle(76,35);
     document.setPageSize(one);
@@ -224,15 +246,43 @@ public class TBS_UsuarioController {
 
                     document.newPage();
                     
-                    System.out.println("Id Json:"+id);
+                    
                    
                 }    
             
     document.close();
 
-    System.out.println("Document Generated...!!!!!!");
+    
     
     return "almacencado";
+  
+       }
+        
+        
+        
+       @RequestMapping(value="/imprimir_codigo_barra", method=RequestMethod.GET)
+       @ResponseBody public void codigo(HttpServletRequest request, HttpServletResponse response) throws  ServletException, DocumentException, IOException {       
+           String pdfFileName = "codigoBarraIsdemu.pdf";
+           
+           File file = new File(this.getClass().getResource("/codigoBarraIsdemu.pdf").getFile());
+    
+            String absolutePath = file.getAbsolutePath(); 
+
+            absolutePath=absolutePath.replaceAll("%20"," ");
+		System.out.println("DIR:"+absolutePath);
+            String contextPath = absolutePath;
+		File pdfFile = new File(contextPath);
+
+		response.setContentType("application/pdf");
+		response.addHeader("Content-Disposition", "attachment; filename=" + pdfFileName);
+		response.setContentLength((int) pdfFile.length());
+
+		FileInputStream fileInputStream = new FileInputStream(pdfFile);
+		OutputStream responseOutputStream = response.getOutputStream();
+		int bytes;
+		while ((bytes = fileInputStream.read()) != -1) {
+			responseOutputStream.write(bytes);
+		}
   
        }
         

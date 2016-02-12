@@ -52,7 +52,7 @@ function validaUnidad()
 function validaJefe()
     {
         var x = document.forms["personaF"]["jefe"].value;
-        if (x === null || x === "")
+        if (x === null || x === "" || x === "0")
         {
             //$('#span_nombre').addClass("symbol required");
             $('#span_jefeT').removeClass("no-display");            
@@ -74,7 +74,7 @@ function validaJefe()
 function validaEncargado()
     {
         var x = document.forms["personaF"]["encargado"].value;
-        if (x === null || x === "")
+        if (x === null || x === "" || x === "0")
         {
             //$('#span_nombre').addClass("symbol required");
             $('#span_encargadoT').removeClass("no-display");            
