@@ -125,13 +125,13 @@ public class TB_InventarioController {
             }
             
             @RequestMapping(value="/listInvFiltro", method=RequestMethod.POST) 
-	public ModelAndView listInvFilto(@ModelAttribute TbInventario clasilocalizacion) {
+	public ModelAndView listInvFilto(@ModelAttribute TbInventario clasiubicacion) {
 		ModelAndView modelAndView = new ModelAndView("mostrar_inventario_filtro");
-                int IdLocalizacion=clasilocalizacion.getIdLocalizacion();
+                int IdUbicacion=clasiubicacion.getTbcUbicacion().getIdUbicacion();
 		//List inventario = tbInventarioService.getAll();
                 
-               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdLocalizacion);
-                List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdUbicacion);
+                List inventario = tbInventarioService.getAllFiltro(IdUbicacion);
 		modelAndView.addObject("inventario", inventario);
 
 		return modelAndView;

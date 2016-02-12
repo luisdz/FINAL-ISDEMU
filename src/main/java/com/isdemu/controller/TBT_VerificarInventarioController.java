@@ -9,6 +9,7 @@ import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbtVerificarInventario;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
+import com.isdemu.service.TBC_Persona_Service;
 import com.isdemu.service.TBT_VerificarInventario_Service;
 import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.spring.WebAppConfig;
@@ -57,6 +58,9 @@ public class TBT_VerificarInventarioController  extends WebAppConfig{
      
      @Autowired
         private TBT_VerificarInventario_Service tbcVerificarInventarioService;
+     
+     @Autowired
+        private TBC_Persona_Service tbcPersonaService;
      
         @RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView VInventario() {
@@ -257,6 +261,181 @@ public class TBT_VerificarInventarioController  extends WebAppConfig{
                 return VInventario();
               
 	}
+        
+        
+        
+        //------------------------CODIGO PARA VERIFICAR INVENTARIO POR PERSONA-------------------------------------
+         @RequestMapping(value="/addinvperona", method=RequestMethod.GET)
+	public ModelAndView VInventarioPerona() {
+             
+		//ModelAndView modelAndView = new ModelAndView("inventario");
+                 Map<String, Object> myModel = new HashMap<String, Object>();
+		List persona=tbcPersonaService.getAll();
+                 myModel.put("verificarinv_persona", new TbInventario());
+                 myModel.put("persona",persona);
+                 
+                
+		return new ModelAndView("verificarinv_persona",myModel);
+	}
+        
+        
+        
+         //Agregar a la tabla temporal los inventarios para luego ser comparados
+        @RequestMapping(value="/add/agregarTBTemporalPersona", method=RequestMethod.POST)
+	public @ResponseBody List<Object> InsertandoMismoCodigoPersona(@RequestBody String inventario) {
+		ModelAndView modelAndView = new ModelAndView("home");
+		System.out.println("String Json:" + inventario);
+                 
+                 JSONObject array = new JSONObject(inventario);
+                 System.out.println("Object Array:" + array);
+                 JSONArray object = array.getJSONArray("Inventario");
+                 System.out.println("Object JsonArray:" + object);
+                 JSONObject object2 = object.getJSONObject(0);
+                  System.out.println("Object2:" + object2);
+                 String idLocalizacion = object2.getString("idlocalizacion");
+                
+                 //Convertir el idClase a int
+                 int idLocalizacionInt=Integer.parseInt(idLocalizacion);
+                
+                 System.out.println("persona:" + idLocalizacionInt);
+                 
+               
+                
+                for (int i = 0; i < object.length(); i++) 
+                {
+                    JSONObject ObjInv = object.getJSONObject(i);
+                    System.out.println("objeto for"+ObjInv);
+                    TbtVerificarInventario Vinv=new TbtVerificarInventario();
+                                   
+                    String codigoStr=ObjInv.getString("codigo");
+                     Vinv.setCodigoInventario(codigoStr);
+                    
+                     String idInv=ObjInv.getString("idInv");
+                     int idInvInteger=Integer.parseInt(idInv);
+                     Vinv.setIdInventario(idInvInteger);
+                     
+                    Vinv.setIdLocalizacion(idLocalizacionInt);
+                    tbcVerificarInventarioService.save(Vinv);
+                }
+                
+               List<TbtVerificarInventario> InventarioFaltante= tbcVerificarInventarioService.getInventarioFaltantePersona(idLocalizacionInt);
+               List<TbtVerificarInventario> InventarioSobrante= tbcVerificarInventarioService.getInventarioSobrantePersona(idLocalizacionInt);
+               
+               //tbcVerificarInventarioService.delete(1);
+               // tbInventarioService.save(inventario);
+                String message = "Pais was successfully added.";
+                
+               List<Object> newList = new ArrayList<Object>();
+               newList.add(InventarioFaltante);
+               newList.add(InventarioSobrante);
+               System.out.println("la 1 "+newList.get(0));
+                System.out.println("la 2 "+newList.get(1));
+                System.out.println("la 2 listas en una"+newList);
+                modelAndView.addObject("message", message);
+                return newList;
+	}
+        
+        
+                 
+    @RequestMapping(value = "/ReporteVerificarFaltantePersona/{id}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptInvFaltPersona(HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+
+    Connection conn = dataSource().getConnection();
+      
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/vfaltantepersona.jrxml"); 
+   
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+   
+    Map<String,Object> params = new HashMap<>();
+    
+   int b = id;
+  
+    params.put("id", b);
+   //File file = new File("resources/Logo.jpg");
+    File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
+   String absolutePath = file.getAbsolutePath(); 
+   
+   absolutePath = absolutePath.replaceAll("%20"," ");
+   
+   params.put("realpath",absolutePath);
+   System.out.println("reportURL :" + absolutePath); 
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+     
+   response.setHeader("Content-disposition", "inline; filename=InvFaltante.xlsx");
+
+   final OutputStream outStream = response.getOutputStream();
+   JRXlsxExporter exporter = new JRXlsxExporter();
+    
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
+      exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
+       
+       exporter.exportReport();
+       
+       
+       
+       
+ }
+  
+    @RequestMapping(value = "/ReporteVerificarSobrantePersona/{id}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptInvSobrePersona(HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+
+    Connection conn = dataSource().getConnection();
+      
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/vsobrantepersona.jrxml"); 
+   
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+   
+    Map<String,Object> params = new HashMap<>();
+    
+   int b = id;
+  
+    params.put("id", b);
+   //File file = new File("resources/Logo.jpg");
+    File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
+   String absolutePath = file.getAbsolutePath(); 
+   
+   absolutePath = absolutePath.replaceAll("%20"," ");
+   
+   params.put("realpath",absolutePath);
+   System.out.println("reportURL :" + absolutePath); 
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+     
+   response.setHeader("Content-disposition", "inline; filename=InvSobrante.xlsx");
+
+   final OutputStream outStream = response.getOutputStream();
+   JRXlsxExporter exporter = new JRXlsxExporter();
+    
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
+      exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
+       
+       exporter.exportReport();
+       
+       
+       
+       
+ }
+  
+        
   
         
 }

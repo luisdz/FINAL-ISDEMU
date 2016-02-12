@@ -56,8 +56,9 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
         @Override
 	public List<TbInventario> getAllFiltro(Serializable id) {
 	
-            DetachedCriteria dc = DetachedCriteria.forClass(TbInventario.class);
-             dc.add(Restrictions.eq("idLocalizacion",id));
+          DetachedCriteria dc = DetachedCriteria.forClass(TbInventario.class,"inv");
+            dc.createAlias("inv.tbcUbicacion", "ubicacion");
+            dc.add(Restrictions.eq("ubicacion.idUbicacion", id));
             List<TbInventario> inventario = dc.getExecutableCriteria(sessionFactory.getCurrentSession()).list();
             return inventario;
 	}

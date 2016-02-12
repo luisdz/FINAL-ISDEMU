@@ -57,4 +57,18 @@ public class TBT_VerificarInventario_ServiceImp implements TBT_VerificarInventar
 		// TODO Auto-generated method stub
 		return tbVInventarioDao.getInventarioSobrante(id);
 	}
+        
+         @Override
+	public List<TbtVerificarInventario> getInventarioFaltantePersona(Serializable id) {
+             System.out.println("service impl faltante");
+		// TODO Auto-generated method stub
+		return tbVInventarioDao.getInventarioFaltantePersona(id);
+	}
+        
+        @Override
+	public List<TbtVerificarInventario> getInventarioSobrantePersona(Serializable id) {
+             System.out.println("service impl sobrante");
+		// TODO Auto-generated method stub
+		return tbVInventarioDao.getInventarioSobrantePersona(id);
+	}
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vsobrante" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7b4ec16-0e1a-498a-a2e5-08cfbcd2fcf4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[6]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT TBT_VERIFICAR_INVENTARIO.ID_INVENTARIO, TBT_VERIFICAR_INVENTARIO.CODIGO_INVENTARIO,TB_INVENTARIO.[DESCRIPCION_EQUIPO],TB_INVENTARIO.[VALOR] FROM TBT_VERIFICAR_INVENTARIO inner join tb_inventario on tb_inventario.id_inventario=tbt_verificar_inventario.id_inventario EXCEPT SELECT TB_INVENTARIO.ID_INVENTARIO,TB_INVENTARIO.CODIGO_INVENTARIO, TB_INVENTARIO.[DESCRIPCION_EQUIPO],TB_INVENTARIO.[VALOR] FROM TB_INVENTARIO WHERE ID_PERSONA=$P{id}]]>
+	</queryString>
+	<field name="ID_INVENTARIO" class="java.lang.Integer"/>
+	<field name="CODIGO_INVENTARIO" class="java.lang.String"/>
+	<field name="DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<field name="VALOR" class="java.math.BigDecimal"/>
+	<title>
+		<band height="117" splitType="Stretch">
+			<staticText>
+				<reportElement x="95" y="30" width="352" height="31" uuid="1bee039b-4bf0-4a05-82e1-bb2dfb9f240b"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Verificacion de Inventario Activos Sobrantes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="10" width="352" height="20" uuid="c2993be3-8926-4758-8b23-5408feb970bb"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO SALVADOREÑO PARA EL DESARROLLO DE LA MUJER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="78" width="107" height="39" uuid="63714d02-0b33-483b-b69f-f9d061d22152"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[No Inventario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="78" width="282" height="39" uuid="c0bf8f0f-86c3-4054-914e-f3cfa674cc6a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Descripcion del Activo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="78" width="100" height="39" uuid="c0b4e53b-c053-4ee0-9ca9-88a2cc7ec496"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="46" y="0" width="107" height="20" uuid="7249c41c-7667-4af6-acd4-6fb70f5819ca"/>
+				<textFieldExpression><![CDATA[$F{CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="0" width="282" height="20" uuid="77627655-785f-4b59-8bda-23e44cff1aac"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="100" height="20" uuid="b88e8ecd-f6f8-4cd4-8c9f-7cc249005ca6"/>
+				<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
