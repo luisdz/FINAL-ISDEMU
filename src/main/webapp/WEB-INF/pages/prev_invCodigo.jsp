@@ -65,7 +65,7 @@
             <div class="panel-body">
                 
                 
-               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/filtroReporteInvCodigo"  modelAttribute="inventario" id="movF" >
+               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvCodigo"  modelAttribute="inventario" id="movF" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
@@ -254,8 +254,8 @@ $("#dropdown1").change(function () {
      //alert($('#factura').val());
      if(validaFactura()===true)
      {
-     alert($('#factura').val());
-     window.location.href='${pageContext.request.contextPath}/Reportes/getReportefacturaInv/'+ $('#factura').val() + '/'+$('#mayor option:selected').val() ;
+     //alert($('#factura').val());
+     window.location.href='${pageContext.request.contextPath}/Reportes/getReporteCodigoInv/'+ $('#factura').val() + '/'+$('#mayor option:selected').val() ;
      };
         
    };

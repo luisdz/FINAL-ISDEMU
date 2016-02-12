@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="idpersona" class="java.lang.Integer">
+	<parameter name="factura" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="mayor600" class="java.lang.Integer">
@@ -11,6 +11,13 @@
 	</parameter>
 	<parameter name="menorque" class="java.lang.Double">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inventario_de" class="java.lang.String"/>
+	<parameter name="tipo_valor" class="java.lang.String"/>
+	<parameter name="fecha_reporte" class="java.lang.String"/>
+	<parameter name="realpath" class="java.lang.String"/>
+	<parameter name="numfactura" class="java.lang.String">
+		<defaultValueExpression><![CDATA[5555]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -38,7 +45,7 @@
 FROM
      "dbo"."TBC_CLASE_ACTIVO" TBC_CLASE_ACTIVO INNER JOIN "dbo"."TB_INVENTARIO" TB_INVENTARIO ON TBC_CLASE_ACTIVO."ID_CLASE_ACTIVO" = TB_INVENTARIO."ID_CLASE_ACTIVO"
      INNER JOIN "dbo"."TBC_PERSONA" TBC_PERSONA ON TB_INVENTARIO."ID_PERSONA" = TBC_PERSONA."ID_PERSONA"
-     INNER JOIN "dbo"."TBC_UBICACION" TBC_UBICACION ON TB_INVENTARIO."ID_UBICACION" = TBC_UBICACION."ID_UBICACION"  INNER JOIN "dbo"."TBC_PERSONA" as asignado ON TB_INVENTARIO."ID_PERSONA_ASIGNADO" = asignado."ID_PERSONA" where TB_INVENTARIO."VALOR" >= $P{mayor600} and   TBC_PERSONA."ID_PERSONA" = $P{idpersona} and TB_INVENTARIO."VALOR" < $P{menorque}]]>
+     INNER JOIN "dbo"."TBC_UBICACION" TBC_UBICACION ON TB_INVENTARIO."ID_UBICACION" = TBC_UBICACION."ID_UBICACION"  INNER JOIN "dbo"."TBC_PERSONA" as asignado ON TB_INVENTARIO."ID_PERSONA_ASIGNADO" = asignado."ID_PERSONA" where TB_INVENTARIO."VALOR" >= $P{mayor600} and   TB_INVENTARIO."CODIGO_INVENTARIO" like $P{numfactura}+'%'  and TB_INVENTARIO."VALOR" < $P{menorque}]]>
 	</queryString>
 	<field name="TB_INVENTARIO_DESCRIPCION_EQUIPO" class="java.lang.String"/>
 	<field name="TB_INVENTARIO_CODIGO_INVENTARIO" class="java.lang.String"/>
@@ -64,6 +71,42 @@ FROM
 	<background>
 		<band splitType="Stretch"/>
 	</background>
+	<title>
+		<band height="82">
+			<staticText>
+				<reportElement x="267" y="0" width="716" height="20" uuid="f0407f35-141e-4543-9c6c-7cd9f393245a"/>
+				<text><![CDATA[INSTITUTO SALVADOREñO PARA EL DESARROLLO DE LA MUJER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="40" width="135" height="20" uuid="62f0b92d-33d5-44c7-9d92-e144edb4c650"/>
+				<text><![CDATA[INVENTARIO DE BIENES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="62" width="135" height="20" uuid="c7eced3c-653e-40fb-8ff1-91da0ab135c9"/>
+				<text><![CDATA[INVENTARIO AL MES DE]]></text>
+			</staticText>
+			<image>
+				<reportElement x="36" y="10" width="96" height="65" uuid="69d819cf-b6c4-4747-b319-d498cb3770f0"/>
+				<imageExpression><![CDATA[$P{realpath}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="415" y="20" width="1285" height="20" uuid="fc1c6f66-2880-4128-9425-60e4dc31aa43"/>
+				<textFieldExpression><![CDATA[$P{inventario_de}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="40" width="548" height="20" uuid="aa9d8236-75d0-4694-b863-8f54a92d776b"/>
+				<textFieldExpression><![CDATA[$P{tipo_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="62" width="568" height="20" uuid="0854e1d0-69b9-478b-ac58-8eecc29045e5"/>
+				<textFieldExpression><![CDATA[$P{fecha_reporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="20" width="215" height="20" uuid="3f7d7b05-9540-4f75-978b-ba85ddc9fc54"/>
+				<text><![CDATA[INVENTARIO DE ACTIVOS FIJOS DE]]></text>
+			</staticText>
+		</band>
+	</title>
 	<columnHeader>
 		<band height="20">
 			<staticText>

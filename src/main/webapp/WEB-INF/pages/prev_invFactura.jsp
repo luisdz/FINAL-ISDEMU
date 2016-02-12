@@ -254,7 +254,7 @@ $("#dropdown1").change(function () {
      //alert($('#factura').val());
      if(validaFactura()===true)
      {
-     alert($('#factura').val());
+     //alert($('#factura').val());
      window.location.href='${pageContext.request.contextPath}/Reportes/getReportefacturaInv/'+ $('#factura').val() + '/'+$('#mayor option:selected').val() ;
      };
         

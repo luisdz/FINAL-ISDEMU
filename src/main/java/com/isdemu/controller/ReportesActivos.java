@@ -261,9 +261,9 @@ public class ReportesActivos extends WebAppConfig
        
  }
   
-  //Vistas previas reportes
+  //*************************Vistas previas reportes
   
-  //Reporte por persona
+  //********************Reporte por persona****************************************************
   @RequestMapping(value = "/filtroReporteInvPersona",method=RequestMethod.GET)
             public ModelAndView ListaInventario()  
             {
@@ -304,7 +304,7 @@ public class ReportesActivos extends WebAppConfig
         }
         
         
-        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +"and   asignado.\"ID_PERSONA\" = "+ idpersona +"  and TB_INVENTARIO.\"VALOR\" < " + param03;
+        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +"and   TBC_PERSONA.\"ID_PERSONA\" = "+ idpersona +"  and TB_INVENTARIO.\"VALOR\" < " + param03;
     
         
                 List result = tbInventarioService.customSQL(code);
@@ -594,7 +594,7 @@ public class ReportesActivos extends WebAppConfig
   //***********Reporte por codigo***********************************************
   
         
-  //Fin vistas previas reportes
+  
   @RequestMapping(value = "/filtroReporteInvCodigo",method=RequestMethod.GET)
             public ModelAndView filtroInventarioCodigo()  
             {          
@@ -634,13 +634,10 @@ public class ReportesActivos extends WebAppConfig
         {
            param02=0;
            param03=600.00;
-        }
+        }        
         
-        
-        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +" and   TB_INVENTARIO.\"N_FACTURA\" = \'"+numeroF+"\'  and TB_INVENTARIO.\"VALOR\" < " + param03;
-    
-        
-                System.out.println("query : "+ code);
+        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +" and   TB_INVENTARIO.\"CODIGO_INVENTARIO\" like \'"+numeroF+"%\'  and TB_INVENTARIO.\"VALOR\" < " + param03;
+               System.out.println("query : "+ code);
                List result = tbInventarioService.customSQL(code);
                
                //System.out.println("INGRESA CONTROLLER ListaInventario--- id perso = " + id);
@@ -662,20 +659,16 @@ public class ReportesActivos extends WebAppConfig
       Connection conn = dataSource().getConnection();
       System.out.println(conn);
      
-    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteXfactura.jrxml"); 
-    
-    
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteXCodigo.jrxml"); 
     
     JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
-
     Map<String,Object> params = new HashMap<>();
      
     System.out.println("id :"); 
     System.out.println("id :" + id + " param " + param); 
-     String tipoRep="";
-     
+     String tipoRep="";     
       //TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
-     String nombrefiltro="LA FACTURA NUMERO " + id.toUpperCase();
+     String nombrefiltro="CODIGO " + id.toUpperCase();
      int param02 = 0;
         double param03=0;
         
@@ -721,7 +714,7 @@ public class ReportesActivos extends WebAppConfig
     //System.out.println("report4 :");
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
-   response.setHeader("Content-disposition", "inline; filename=InventarioPorFactura.xlsx");
+   response.setHeader("Content-disposition", "inline; filename=InventarioPorCodigo.xlsx");
    final OutputStream outStream = response.getOutputStream();
        JRXlsxExporter exporter = new JRXlsxExporter();
        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
@@ -730,6 +723,6 @@ public class ReportesActivos extends WebAppConfig
        exporter.exportReport();
  }
   
-    
+ //Fin vistas previas reportes   
     
 }
