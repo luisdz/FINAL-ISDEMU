@@ -7,10 +7,13 @@ package com.isdemu.controller;
 
 import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbMovimiento;
+import com.isdemu.model.TbcClaseActivo;
+import com.isdemu.service.TBC_ClaseActivo_Service;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
 import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.spring.WebAppConfig;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,6 +22,8 @@ import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +66,9 @@ public class ReportesActivos extends WebAppConfig
       
       @Autowired
 	private TB_Inventario_Service tbInventarioService;
+      
+      @Autowired
+	private TBC_ClaseActivo_Service tbcClaseService;
     
       
       
@@ -254,6 +262,8 @@ public class ReportesActivos extends WebAppConfig
  }
   
   //Vistas previas reportes
+  
+  //Reporte por persona
   @RequestMapping(value = "/filtroReporteInvPersona",method=RequestMethod.GET)
             public ModelAndView ListaInventario()  
             {
@@ -273,7 +283,7 @@ public class ReportesActivos extends WebAppConfig
             
             
             @RequestMapping(value="/listReporteInvPersona", method=RequestMethod.POST) 
-	public ModelAndView listInvFilto(@ModelAttribute TbInventario invent) 
+	public ModelAndView listInvFiltro(@ModelAttribute TbInventario invent) 
         {
 		ModelAndView modelAndView = new ModelAndView("prev_invPersonaLista");
                 int idpersona=invent.getTbcPersona().getIdPersona();
@@ -306,7 +316,420 @@ public class ReportesActivos extends WebAppConfig
 
 		return modelAndView;
 	}
+        
+       //Reporte por Clase 
+        
+        @RequestMapping(value = "/filtroReporteInvClase",method=RequestMethod.GET)
+            public ModelAndView filtroInventarioClase()  
+            {
+               
+                ModelAndView modelAndView = new ModelAndView("prev_invClase");        
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                List personas =tbcPersonaService.getAll();
+                List clases= tbcClaseService.getAll();
+                myModel.put("clase", clases);
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+                myModel.put("persona",personas);
+                return new ModelAndView("prev_invClase", myModel);
+            }
+            
+            
+            @RequestMapping(value="/listReporteInvClase", method=RequestMethod.POST) 
+	public ModelAndView listInvClase(@ModelAttribute TbInventario invent) 
+        {
+		ModelAndView modelAndView = new ModelAndView("prev_invClaseLista");
+                int id=invent.getTbcClaseActivo().getIdClaseActivo();
+                int val =  invent.getValor().intValue();
+                
+                int param02 = 0;
+        double param03=0;
+        
+        if(val == 1)
+        {
+            param02=599;
+            param03=999999.00;
+        }
+        else if(val == 0)
+        {
+           param02=0;
+           param03=600.00;
+        }
+        
+        
+        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +"and   TBC_CLASE_ACTIVO.\"ID_CLASE_ACTIVO\" = "+ id +"  and TB_INVENTARIO.\"VALOR\" < " + param03;
+    
+        
+               List result = tbInventarioService.customSQL(code);
+               System.out.println("val : "+ val);
+               System.out.println("INGRESA CONTROLLER ListaInventario--- id perso = " + id);
+               
+               // List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+		modelAndView.addObject("activos", result);
+
+		return modelAndView;
+	}
+        
+        @RequestMapping(value = "/getReporteClaseInv/{id}/{param}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptClase(HttpServletResponse response, @PathVariable Integer id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException, ParseException 
+  {      
+   
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
+     
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteXclase.jrxml"); 
+    
+    
+    
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+
+    Map<String,Object> params = new HashMap<>();
+     
+    System.out.println("id :"); 
+   System.out.println("id :" + id + " param " + param); 
+     String tipoRep="";
+     
+      TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
+     String nombrefiltro="LA CLASE " + clase.getNombreClase().toUpperCase();
+     int param02 = 0;
+        double param03=0;
+        
+        if(param == 1)
+        {
+            param02=599;
+            param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
+        }
+        else if(param == 0)
+        {
+           param02=0;
+           param03=600.00;
+           tipoRep="MENORES DE $600.00";
+        }
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
+    
+        params.put("idpersona", id);
+        params.put("mayor600", param02);
+        params.put("menorque", param03);        
+        params.put("tipo_valor", tipoRep);              
+        params.put("inventario_de", nombrefiltro);  
+         
+      
+       
+        
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+        params.put("fecha_reporte", fech);  
+       
+    
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+   response.setHeader("Content-disposition", "inline; filename=InventarioPorClase.xlsx");
+   final OutputStream outStream = response.getOutputStream();
+       JRXlsxExporter exporter = new JRXlsxExporter();
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+       exporter.exportReport();
+ }
+  
+  //Reporte por factura
+        
+        @RequestMapping(value = "/filtroReporteInvFactura",method=RequestMethod.GET)
+            public ModelAndView filtroInventarioFactura()  
+            {
+               
+                ModelAndView modelAndView = new ModelAndView("prev_invFactura");        
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                List personas =tbcPersonaService.getAll();
+                List clases= tbcClaseService.getAll();
+                myModel.put("clase", clases);
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+                myModel.put("persona",personas);
+                return new ModelAndView("prev_invFactura", myModel);
+            }
+            
+            
+            @RequestMapping(value="/listReporteInvFactura", method=RequestMethod.POST) 
+	public ModelAndView listInvFactura(@ModelAttribute TbInventario invent) 
+        {
+                
+                
+		ModelAndView modelAndView = new ModelAndView("prev_invFacturaList");
+                //int id=invent.getTbcClaseActivo().getIdClaseActivo();                
+                System.out.println("metodo post reporte factura");
+                int val =  invent.getValor().intValue();
+                String numeroF= invent.getMarca();
+                int param02 = 0;
+        double param03=0;
+        
+        if(val == 1)
+        {
+            param02=599;
+            param03=999999.00;
+        }
+        else if(val == 0)
+        {
+           param02=0;
+           param03=600.00;
+        }
+        
+        
+        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +" and   TB_INVENTARIO.\"N_FACTURA\" = \'"+numeroF+"\'  and TB_INVENTARIO.\"VALOR\" < " + param03;
+    
+        
+                System.out.println("query : "+ code);
+               List result = tbInventarioService.customSQL(code);
+               
+               //System.out.println("INGRESA CONTROLLER ListaInventario--- id perso = " + id);
+               
+               // List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+		modelAndView.addObject("activos", result);
+                System.out.println("val : "+ val);
+		return modelAndView;
+	}
+        
+        
+        
+        @RequestMapping(value = "/getReportefacturaInv/{id}/{param}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptFActura(HttpServletResponse response, @PathVariable String id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException, ParseException 
+  {      
+   
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
+     
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteXfactura.jrxml"); 
+    
+    
+    
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+
+    Map<String,Object> params = new HashMap<>();
+     
+    System.out.println("id :"); 
+    System.out.println("id :" + id + " param " + param); 
+     String tipoRep="";
+     
+      //TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
+     String nombrefiltro="LA FACTURA NUMERO " + id.toUpperCase();
+     int param02 = 0;
+        double param03=0;
+        
+        if(param == 1)
+        {
+            param02=599;
+            param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
+        }
+        else if(param == 0)
+        {
+           param02=0;
+           param03=600.00;
+           tipoRep="MENORES DE $600.00";
+        }
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
+    
+        params.put("numfactura", id);
+        params.put("mayor600", param02);
+        params.put("menorque", param03);        
+        params.put("tipo_valor", tipoRep);              
+        params.put("inventario_de", nombrefiltro);  
+         
+      
+       
+        
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+        params.put("fecha_reporte", fech);  
+       
+    
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+   response.setHeader("Content-disposition", "inline; filename=InventarioPorFactura.xlsx");
+   final OutputStream outStream = response.getOutputStream();
+       JRXlsxExporter exporter = new JRXlsxExporter();
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+       exporter.exportReport();
+ }
+  
+  //***********Reporte por codigo***********************************************
+  
+        
   //Fin vistas previas reportes
+  @RequestMapping(value = "/filtroReporteInvCodigo",method=RequestMethod.GET)
+            public ModelAndView filtroInventarioCodigo()  
+            {          
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                List personas =tbcPersonaService.getAll();
+                List clases= tbcClaseService.getAll();
+                myModel.put("clase", clases);
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+                myModel.put("persona",personas);
+                return new ModelAndView("prev_invCodigo", myModel);
+            }
+            
+            
+            @RequestMapping(value="/listReporteInvCodigo", method=RequestMethod.POST) 
+	public ModelAndView listInvCodigo(@ModelAttribute TbInventario invent) 
+        {
+                                
+		ModelAndView modelAndView = new ModelAndView("prev_invFacturaList");
+                //int id=invent.getTbcClaseActivo().getIdClaseActivo();                
+                System.out.println("metodo post reporte factura");
+                int val =  invent.getValor().intValue();
+                String numeroF= invent.getMarca();
+                int param02 = 0;
+        double param03=0;
+        
+        if(val == 1)
+        {
+            param02=599;
+            param03=999999.00;
+        }
+        else if(val == 0)
+        {
+           param02=0;
+           param03=600.00;
+        }
+        
+        
+        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +" and   TB_INVENTARIO.\"N_FACTURA\" = \'"+numeroF+"\'  and TB_INVENTARIO.\"VALOR\" < " + param03;
+    
+        
+                System.out.println("query : "+ code);
+               List result = tbInventarioService.customSQL(code);
+               
+               //System.out.println("INGRESA CONTROLLER ListaInventario--- id perso = " + id);
+               
+               // List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+		modelAndView.addObject("activos", result);
+                System.out.println("val : "+ val);
+		return modelAndView;
+	}
+        
+        
+        
+        @RequestMapping(value = "/getReporteCodigoInv/{id}/{param}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptCodigo(HttpServletResponse response, @PathVariable String id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException, ParseException 
+  {      
+   
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
+     
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteXfactura.jrxml"); 
+    
+    
+    
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+
+    Map<String,Object> params = new HashMap<>();
+     
+    System.out.println("id :"); 
+    System.out.println("id :" + id + " param " + param); 
+     String tipoRep="";
+     
+      //TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
+     String nombrefiltro="LA FACTURA NUMERO " + id.toUpperCase();
+     int param02 = 0;
+        double param03=0;
+        
+        if(param == 1)
+        {
+            param02=599;
+            param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
+        }
+        else if(param == 0)
+        {
+           param02=0;
+           param03=600.00;
+           tipoRep="MENORES DE $600.00";
+        }
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
+    
+        params.put("numfactura", id);
+        params.put("mayor600", param02);
+        params.put("menorque", param03);        
+        params.put("tipo_valor", tipoRep);              
+        params.put("inventario_de", nombrefiltro);  
+         
+      
+       
+        
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+        params.put("fecha_reporte", fech);  
+       
+    
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+   response.setHeader("Content-disposition", "inline; filename=InventarioPorFactura.xlsx");
+   final OutputStream outStream = response.getOutputStream();
+       JRXlsxExporter exporter = new JRXlsxExporter();
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+       exporter.exportReport();
+ }
+  
     
     
 }

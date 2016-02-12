@@ -493,3 +493,56 @@ function validaFechaMov()
 
     }; 
 //fin reporte asignado a
+
+//reporte por clase
+function validaClaseRep()
+    {
+        //alert("mm");
+        var x = document.forms["movF"]["clase"].value;
+       // alert(x);
+        if (x === "0")
+        {
+           // alert("error");
+            //$('#span_nombre').addClass("symbol required");
+            $('#span_rep').removeClass("no-display");            
+            $('#span_rep').closest("div").addClass("has-error");            
+            $('#span_rep').closest("div").removeClass("has-success");
+
+            return false;
+        }
+        else
+        {
+         // alert("valido");
+            //$('#span_nombre').to("required");
+             $('#span_resp').addClass("no-display");
+             $('#span_resp').closest("div").removeClass("has-error");
+             $('#span_resp').closest("div").addClass("has-success");
+              return true;
+        }
+
+    };
+//fin reporte por clase
+//reporte por factura
+function validaFactura()
+    {
+        var x = document.forms["movF"]["factura"].value;
+        if (x === null || x === "")
+        {
+             
+            $('#span_nombreT').removeClass("no-display");            
+            $('#span_nombreT').closest("div").addClass("has-error");            
+             $('#span_nombreT').closest("div").removeClass("has-success");
+             
+            return false;
+        }
+        else
+        {
+            
+            $('#span_nombreT').addClass("no-display");
+             $('#span_nombreT').closest("div").removeClass("has-error");
+             $('#span_nombreT').closest("div").addClass("has-success");
+             return true;
+        }
+
+};
+//fin reporte por factura
