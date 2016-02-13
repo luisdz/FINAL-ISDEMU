@@ -5,7 +5,7 @@
 --%>
 <%@include file="header.jsp"%>
 
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!-- start: BREADCRUMB -->
 <div class="row">
@@ -105,7 +105,7 @@
                                                 <td>${con[2]}</td>
                                                 <td>${con[3]}</td>
                                                 <td>${con[4]}</td>
-                                                <td>${con[6]}</td>
+                                                <td><fmt:formatNumber pattern="$#0.00" value="${con[6]}" /></td>
                                                 <td>${con[19]}</td>
                                                 <td>${con[20]}</td> 
                                             </tr>

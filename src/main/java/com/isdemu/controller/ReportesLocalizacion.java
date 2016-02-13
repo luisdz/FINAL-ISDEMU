@@ -205,7 +205,7 @@ public class ReportesLocalizacion extends WebAppConfig
      
      TbcLocalizacion localizacion = (TbcLocalizacion)tbcLocalizacionService.findByKey(id);
      
-     String nombrefiltro = "LA "+localizacion.getNombreLocalizacion().toUpperCase();
+     String nombrefiltro = localizacion.getNombreLocalizacion().toUpperCase();
              
      int param02 = 0;
         double param03=0;
