@@ -30,7 +30,7 @@
         <!-- start: EXPORT DATA TABLE PANEL  -->
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Consultar <span class="text-bold">Inventario</span> Activos Fijos</h4>
+                <h4 class="panel-title">Reporte <span class="text-bold">Inventario</span> Por Numero de Factura</h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">

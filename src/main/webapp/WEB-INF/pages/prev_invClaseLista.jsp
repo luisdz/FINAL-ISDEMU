@@ -149,7 +149,7 @@
                                                 <td class="no-display">${con[3]}</td>
                                                 <td class="no-display">${con[4]}</td>
                                                 <td class="no-display">${con[5]}</td>
-                                                <td>${con[6]}</td>
+                                                <td>$${con[6]}</td>
                                                 <td hidden="true">${con[7]}</td>
                                                 <td>${con[8]}</td>
                                                 <td>${con[9]}</td>

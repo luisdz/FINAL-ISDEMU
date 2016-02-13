@@ -8,6 +8,7 @@ package com.isdemu.controller;
 import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbcClaseActivo;
+import com.isdemu.model.TbcPersona;
 import com.isdemu.service.TBC_ClaseActivo_Service;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
@@ -214,8 +215,11 @@ public class ReportesActivos extends WebAppConfig
      
     System.out.println("id :"); 
    System.out.println("id :" + id + " param " + param); 
+     String tipoRep="";
      
-//     
+     TbcPersona pers=(TbcPersona)tbcPersonaService.findByKey(id);   
+     String nombrefiltro="ASIGNADO A " + pers.getNombrePersona().toUpperCase();
+    
      int param02 = 0;
         double param03=0;
         
@@ -223,16 +227,31 @@ public class ReportesActivos extends WebAppConfig
         {
             param02=599;
             param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
         }
         else if(param == 0)
         {
            param02=0;
            param03=600.00;
+           tipoRep="MENORES DE $600.00";
         }
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
     
         params.put("idpersona", id);
         params.put("mayor600", param02);
-        params.put("menorque", param03);
+        params.put("menorque", param03);                
+        params.put("tipo_valor", tipoRep);              
+        params.put("inventario_de", nombrefiltro);
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+        params.put("fecha_reporte", fech); 
 
     
     //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
@@ -639,10 +658,6 @@ public class ReportesActivos extends WebAppConfig
         String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +" and   TB_INVENTARIO.\"CODIGO_INVENTARIO\" like \'"+numeroF+"%\'  and TB_INVENTARIO.\"VALOR\" < " + param03;
                System.out.println("query : "+ code);
                List result = tbInventarioService.customSQL(code);
-               
-               //System.out.println("INGRESA CONTROLLER ListaInventario--- id perso = " + id);
-               
-               // List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
 		modelAndView.addObject("activos", result);
                 System.out.println("val : "+ val);
 		return modelAndView;
