@@ -180,7 +180,9 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
 "DELETE FROM ActivosFijosISDEMU.dbo.tbc_poliza\n" +
 "DELETE FROM ActivosFijosISDEMU.dbo.tbc_persona\n" +
 "DELETE FROM ActivosFijosISDEMU.dbo.tbc_ubicacion\n" +
+
 "DELETE FROM ActivosFijosISDEMU.dbo.tbc_localizacion\n" +
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_riesgo\n" +
 "DELETE FROM ActivosFijosISDEMU.dbo.tbc_clasificacion_localizacion\n" +
 "DELETE FROM ActivosFijosISDEMU.dbo.tbc_proveedor\n" +
 "DELETE FROM ActivosFijosISDEMU.dbo.tb_prestamo_equipo\n" +
@@ -189,6 +191,8 @@ public class TB_InventarioDaoImpl implements TB_InventarioDao {
 "DELETE FROM ActivosFijosISDEMU.dbo.tbh_verificar_inventario\n" +
 "DELETE FROM ActivosFijosISDEMU.dbo.tb_control_salida\n" +
 "DELETE FROM ActivosFijosISDEMU.dbo.tbr_control_salida_inventario\n" +
+
+"DELETE FROM ActivosFijosISDEMU.dbo.tbc_estado_inventario\n" +
 "\n" +
  "INSERT [ActivosFijosISDEMU].[dbo].TBC_CLASIFICACION_LOCALIZACION SELECT *FROM [ISDEMU_PROD].[ActivosFijosISDEMU].[dbo].TBC_CLASIFICACION_LOCALIZACION\n" +
 "INSERT [ActivosFijosISDEMU].[dbo].tbc_poliza SELECT *FROM [ISDEMU_PROD].[ActivosFijosISDEMU].[dbo].tbc_poliza\n" +
