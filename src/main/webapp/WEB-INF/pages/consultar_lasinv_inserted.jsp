@@ -224,7 +224,11 @@
            success: function (msg) {
                alert(msg);
                $("#tabla_codigo").empty();
-               window.location="${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra";
+               window.open(
+                '${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra',
+                '_blank' // <- This is what makes it open in a new window.
+              );
+               //window.location="${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra";
            },
            data: jsonArray
        });

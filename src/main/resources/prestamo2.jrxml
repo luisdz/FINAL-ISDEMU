@@ -60,15 +60,15 @@ ________________________________________________________________________
 Destino:
 ]]></text>
 			</staticText>
-                        <textField>
+                        <textField pattern="dd/MM/yyyy">
 				<reportElement x="143" y="21" width="103" height="20" uuid="cdd24088-4b7b-4c40-92a7-45155dcce9d3"/>
 				<textFieldExpression><![CDATA[$F{FECHA_SOLICITUD}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="380" y="21" width="100" height="20" uuid="378643ab-3e77-4bb7-ad50-123e1228fb45"/>
 				<textFieldExpression><![CDATA[$F{FECHA_RESERVACION}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="94" y="70" width="386" height="20" uuid="380102bd-11a1-4a19-88e8-5a199e8a8ecc"/>
 				<textFieldExpression><![CDATA[$F{DESTINO}]]></textFieldExpression>
 			</textField>
@@ -108,7 +108,7 @@ Destino:
 	</columnHeader>
 	<detail>
 		<band height="41" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="50" y="0" width="215" height="41" uuid="5a480a79-dfa1-4971-8a64-a8cc3e6e217c"/>
                                 <box>
 					<pen lineWidth="1.0"/>
@@ -122,7 +122,7 @@ Destino:
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DESCRIPCION_EQUIPO}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="215" height="41" uuid="fcdb67bb-81c0-41ef-bb6f-3a81c5cf7df6"/>
 				<box>
 					<pen lineWidth="1.0"/>

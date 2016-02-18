@@ -96,6 +96,16 @@
                                 </form:select>
                                 <span for="local" class="help-block  no-display" id="span_local">Seleccione una Clasificacion</span>
                             </div>
+                             <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Ubicacion<span id="span_clasi" class="symbol "></span>
+                                </label>
+                                <form:select path="TbcUbicacion.idUbicacion" class="form-control" id="ubicacion" name="ubicacion" onchange="return validaUbicacion(event);">
+                                    <form:option value="0"  label="Selecciona una Ubicacion"/>
+                                   
+                                </form:select>
+                                <span for="ubicacion" class="help-block  no-display" id="span_ubicacionT">Seleccione una Ubicacion</span>
+                            </div>
                             
                              
                             <br>
@@ -266,7 +276,43 @@ $("#dropdown1").change(function () {
 
     });
     
-   
+    $("#localizacion").change(function () {
+        var idLocalizacion = $('#localizacion :selected').val(); // define the variable
+      // alert(idLocalizacion);
+
+
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/Inventario/listaUbicacion",
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: idLocalizacion,
+            success: function (data) {
+                var html = '';
+                var len = data.length;
+                //alert("devuelve algo"+data);
+                $('#ubicacion').empty();
+                html = '<option value="0"  label="Selecciona una Ubicacion"/>';
+                data.forEach(function (entry)
+                {
+                    console.log(entry);
+                    // alert("foreach :"+entry.nombreClase );
+                    html += '<option value="' + entry.idUbicacion + '">' + entry.nombreUbicacion + '</option>';
+                });
+                $('#ubicacion').append(html);
+                // alert("devuelve algo: "+data);
+            },
+            error: function (data, status, er) {
+                alert("error: " + data + " status: " + status + " er:" + er);
+
+
+            }
+        });
+
+
+    });
       
      
         

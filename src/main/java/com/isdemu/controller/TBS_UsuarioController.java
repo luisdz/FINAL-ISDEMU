@@ -254,7 +254,7 @@ public class TBS_UsuarioController extends javax.servlet.http.HttpServlet implem
 
     
     
-    return "almacencado";
+    return "Almacenado";
   
        }
         
@@ -274,7 +274,7 @@ public class TBS_UsuarioController extends javax.servlet.http.HttpServlet implem
 		File pdfFile = new File(contextPath);
 
 		response.setContentType("application/pdf");
-		response.addHeader("Content-Disposition", "attachment; filename=" + pdfFileName);
+		response.addHeader("Content-Disposition", "inline; filename=" + pdfFileName);
 		response.setContentLength((int) pdfFile.length());
 
 		FileInputStream fileInputStream = new FileInputStream(pdfFile);
@@ -340,11 +340,11 @@ public class TBS_UsuarioController extends javax.servlet.http.HttpServlet implem
             @RequestMapping(value="/listInvFiltro", method=RequestMethod.POST) 
 	public ModelAndView listInvFilto(@ModelAttribute TbInventario clasilocalizacion) {
 		ModelAndView modelAndView = new ModelAndView("codigo_barra_filtro");
-                int IdLocalizacion=clasilocalizacion.getIdLocalizacion();
+                int IdUbicacion=clasilocalizacion.getTbcUbicacion().getIdUbicacion();
 		//List inventario = tbInventarioService.getAll();
                 
-               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdLocalizacion);
-                List inventario = tbInventarioService.getAllFiltro(IdLocalizacion);
+               System.out.println("INGRESA CONTROLLER ListaInventario--- idLocalizacion = " + IdUbicacion);
+                List inventario = tbInventarioService.getAllFiltro(IdUbicacion);
 		modelAndView.addObject("inventario", inventario);
 
 		return modelAndView;
