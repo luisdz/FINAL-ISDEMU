@@ -864,8 +864,137 @@ public class ReportesActivos extends WebAppConfig
  }
   
   //*************************************************************
+  //REPORTE POR FINANCIAMIENTO
+   @RequestMapping(value = "/filtroReporteInvFianc",method=RequestMethod.GET)
+            public ModelAndView filtroInvFianc()  
+            {          
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                List personas =tbcPersonaService.getAll();
+                List clases= tbcClaseService.getAll();
+                myModel.put("clase", clases);
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+                myModel.put("persona",personas);
+                return new ModelAndView("prev_invFinanciamiento", myModel);
+            }
+            
+      @RequestMapping(value="/listReporteInvFianc", method=RequestMethod.POST) 
+	public ModelAndView listReporteInvFianc(@ModelAttribute TbInventario invent) 
+        {
+                                
+		ModelAndView modelAndView = new ModelAndView("prev_invFinanciamientoList");
+                //int id=invent.getTbcClaseActivo().getIdClaseActivo();                
+                System.out.println("metodo post reporte factura");
+                int val =  invent.getValor().intValue();
+                String numeroF= invent.getMarca();
+                numeroF=numeroF.replace(",","");
+                int param02 = 0;
+                
+                System.out.println("año nujevo ingreso :" + numeroF + "*");
+        double param03=0;
+        
+        if(val == 1)
+        {
+            param02=599;
+            param03=999999.00;
+        }
+        else if(val == 0)
+        {
+           param02=0;
+           param03=600.00;
+        }        
+        
+       // String  code = "where year(TB_INVENTARIO.\"FECHA_ADQUISICION\") = " + numeroF ;
+        String  code = "where TB_INVENTARIO.\"VALOR\" >=" + param02 +" and   TB_INVENTARIO.\"FINANCIAMIENTO\" like \'"+numeroF+"\'  and TB_INVENTARIO.\"VALOR\" < " + param03;
+               System.out.println("query : "+ code);
+               List result = tbInventarioService.customSQL(code);
+		modelAndView.addObject("activos", result);
+                System.out.println("val : "+ val);
+		return modelAndView;
+	}
   
- //Fin vistas previas reportes   
+  @RequestMapping(value = "/getReporteInvFianc/{id}/{param}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptInvFianc(HttpServletResponse response, @PathVariable String id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException, ParseException 
+  {      
+   
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
+     
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteXFinanc.jrxml"); 
+    
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+    Map<String,Object> params = new HashMap<>();
+     
+    System.out.println("id :"); 
+    System.out.println("id :" + id + " param " + param); 
+     String tipoRep="";     
+      //TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
+     String nombrefiltro="TIPO FINANCIAMIENTO " + id.toUpperCase();
+     int param02 = 0;
+        double param03=0;
+        
+        if(param == 1)
+        {
+            param02=599;
+            param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
+        }
+        else if(param == 0)
+        {
+           param02=0;
+           param03=600.00;
+           tipoRep="MENORES DE $600.00";
+        }
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
+    
+        params.put("numfactura", id);
+        params.put("mayor600", param02);
+        params.put("menorque", param03);        
+        params.put("tipo_valor", tipoRep);              
+        params.put("inventario_de", nombrefiltro);  
+         
+      
+       
+        
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+        params.put("fecha_reporte", fech);  
+       
+    
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+   response.setHeader("Content-disposition", "inline; filename=InventarioPorFinanciamiento.xlsx");
+   final OutputStream outStream = response.getOutputStream();
+       JRXlsxExporter exporter = new JRXlsxExporter();
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+       exporter.exportReport();
+ }
+  
+  
+ //*************************************************************
+
+
+//Fin vistas previas reportes   
   
   
   

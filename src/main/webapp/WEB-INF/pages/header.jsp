@@ -517,6 +517,9 @@
                                                                         <li>
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvNuevoInv"><i class="fa fa-times"></i> Reporte Activo Nuevo Ingreso</a>
 									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvFianc"><i class="fa fa-times"></i> Reporte por tipo Fianciamiento</a>
+									</li>
 									
 								</ul>
 							</li>
