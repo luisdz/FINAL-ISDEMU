@@ -514,6 +514,9 @@
                                                                         <li>
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvCodigo"><i class="fa fa-times"></i> Reporte por Codigo Activo</a>
 									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvNuevoInv"><i class="fa fa-times"></i> Reporte Activo Nuevo Ingreso</a>
+									</li>
 									
 								</ul>
 							</li>
