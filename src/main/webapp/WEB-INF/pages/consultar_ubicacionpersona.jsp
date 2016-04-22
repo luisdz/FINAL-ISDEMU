@@ -15,7 +15,7 @@
                                 </a>
                         </li>
                         <li class="active">
-                                Consultar Personal
+                                Consultar Persona Ubicacion
                         </li>
                 </ol>
         </div>
@@ -28,7 +28,7 @@
                     <!-- start: EXPORT BASIC TABLE PANEL -->
                     <div class="panel panel-white">
                             <div class="panel-heading">
-                                    <h4 class="panel-title"> <span class="text-bold">Consultar</span> Personal</h4>
+                                    <h4 class="panel-title"> <span class="text-bold">Consultar</span> Persona</h4>
                                     <div class="panel-tools">
                                             <div class="dropdown">
                                                     <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -93,21 +93,16 @@
                                             <table class="table table-hover" id="sample-table-2">
                                                     <thead>
                                                             <tr>
-                                                                    <th>Persona</th>
-                                                                    <th>Ubicacion</th>
-                                                                    <th>Eliminar</th>
-                                                                    <th>Actualizar</th>
+                                                                    <th>Persona</th>                                                                   
+                                                                    <th>Opcion</th>
                                                             </tr>
                                                     </thead>
                                                     <tbody>
                                                      <c:forEach var="per" items="${persona}">
                                                             <tr >
-                                                                    <td>${per.nombrePersona}</td>
-                                                                    <td>${per.tbcUbicacion.nombreUbicacion}</td>
-                                                                    <td><a href="#" onclick="eliminar(${per.idPersona});" onclick="if(!confirm('¿Desea borrar la Persona?'))return false">
-                                                                    Eliminar</a></td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Persona/edit/${per.idPersona}">
-                                                                    Actualizar</a></td>
+                                                                    <td>${per[1]}</td>                                                                    
+                                                                    <td><a href="${pageContext.request.contextPath}/UbicacionPersona/list_ubicacion/${per[0]}">
+                                                                    Ver</a></td>
                                                                     
                                                             </tr>
                                                         </c:forEach>
@@ -120,19 +115,3 @@
             </div>
     </div>
 <%@include file="footer.jsp"%>
-<script>
-    
-    function eliminar(id){
-          confirmar=confirm("¿Seguro que desea eliminar?"); 
-                if (confirmar) {
-                // si pulsamos en aceptar
-                    window.location="${pageContext.request.contextPath}/Persona/delete/"+id;}
-                else {
-                // si pulsamos en cancelar
-                alert('Se cancelo la eliminacion'); 
-                } 
-        
-    }
-  
-    
-</script>

@@ -358,12 +358,27 @@
 										</a>
                                                                                         
                                                                                 <ul class="sub-menu">
-													<li>
-														<a href="${pageContext.request.contextPath}/Persona/add"><i class="fa fa-times"></i> Ingresar</a>
-													</li>
-													<li>
-														<a href="${pageContext.request.contextPath}/Persona/list"><i class="fa fa-pencil"></i> Consultar</a>
-													</li>
+                                                                                    <li>
+                                                                                            <a href="${pageContext.request.contextPath}/Persona/add"><i class="fa fa-times"></i> Ingresar</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                            <a href="${pageContext.request.contextPath}/Persona/list"><i class="fa fa-pencil"></i> Consultar</a>
+                                                                                    </li>
+													
+                                                                                </ul>
+									</li>
+                                                                        <li>
+										<a href="javascript:;">
+											<span class="title"> Ubicacion Persona </span> <i class="icon-arrow"></i>
+										</a>
+                                                                                        
+                                                                                <ul class="sub-menu">
+                                                                                    <li>
+                                                                                            <a href="${pageContext.request.contextPath}/UbicacionPersona/add"><i class="fa fa-pencil"></i>Asignar Ubicacion Persona</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                            <a href="${pageContext.request.contextPath}/UbicacionPersona/list"><i class="fa fa-pencil"></i>Buscar Persona</a>
+                                                                                    </li>
 													
                                                                                 </ul>
 									</li>
@@ -513,6 +528,12 @@
 									</li>
                                                                         <li>
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvCodigo"><i class="fa fa-times"></i> Reporte por Codigo Activo</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvNuevoInv"><i class="fa fa-times"></i> Reporte Activo Nuevo Ingreso</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvFianc"><i class="fa fa-times"></i> Reporte por tipo Fianciamiento</a>
 									</li>
 									
 								</ul>

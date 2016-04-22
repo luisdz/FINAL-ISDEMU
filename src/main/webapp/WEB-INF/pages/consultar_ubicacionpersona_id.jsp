@@ -28,7 +28,7 @@
                     <!-- start: EXPORT BASIC TABLE PANEL -->
                     <div class="panel panel-white">
                             <div class="panel-heading">
-                                    <h4 class="panel-title"> <span class="text-bold">Consultar</span> Personal</h4>
+                                    <h4 class="panel-title"> <span class="text-bold">Consultar</span> Persona Ubicacion</h4>
                                     <div class="panel-tools">
                                             <div class="dropdown">
                                                     <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -95,18 +95,22 @@
                                                             <tr>
                                                                     <th>Persona</th>
                                                                     <th>Ubicacion</th>
-                                                                    <th>Eliminar</th>
+                                                                    <th>Jefe</th>
+                                                                    <th>Encargado</th>
                                                                     <th>Actualizar</th>
                                                             </tr>
                                                     </thead>
                                                     <tbody>
-                                                     <c:forEach var="per" items="${persona}">
+                                                     <c:forEach var="per" items="${ubicacionpersona}">
+                                                         
+                                                         
+                                                         
                                                             <tr >
-                                                                    <td>${per.nombrePersona}</td>
+                                                                    <td>${per.tbcPersona.nombrePersona}</td>
                                                                     <td>${per.tbcUbicacion.nombreUbicacion}</td>
-                                                                    <td><a href="#" onclick="eliminar(${per.idPersona});" onclick="if(!confirm('¿Desea borrar la Persona?'))return false">
-                                                                    Eliminar</a></td>
-                                                                    <td><a href="${pageContext.request.contextPath}/Persona/edit/${per.idPersona}">
+                                                                    <td>${per.jefatura}</td>
+                                                                    <td>${per.encargadoAfijo}</td>
+                                                                    <td><a href="${pageContext.request.contextPath}/UbicacionPersona/edit/${per.idUbicacionPersona}">
                                                                     Actualizar</a></td>
                                                                     
                                                             </tr>
