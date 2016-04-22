@@ -10,6 +10,7 @@ import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbhMovimiento;
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -66,5 +67,33 @@ public class TBH_MovimientoDaoImp implements TBH_MovimientoDao {
             System.out.println("ingresa antes de enviar con la sesion el objeto para update");
 		getCurrentSession().update(obj);
 	}
+
+    @Override
+    public List reporteHist(String code) {
+    
+        
+     System.out.println("ingresa al customSQL hist");
+            Session session = null; 
+            session = sessionFactory.getCurrentSession();            
+            
+            
+            SQLQuery query = session.createSQLQuery( "select \n" +
+" a.\"ID_MOVIMIENTOH\" ,\n" +
+" a.\"CODIGO_INVENTARIO\" ,\n" +
+" a.\"PERSONA_ANTERIOR\" ,\n" +
+" a.\"PERSONA_ACTUAL\" ,\n" +
+" a.\"FECHA_MOVIMIENTO\" ,\n" +
+" a.\"ID_MOVIMIENTO\" ,\n" +
+" a.\"DESCRIPCION_EQUIPO\" ,\n" +
+" a.\"UBICACION_ANTERIOR\" ,\n" +
+" a.\"UBICACION_NUEVA\" \n" +
+"from TBH_MOVIMIENTO as a inner join ( select MIN(TBH_MOVIMIENTO.\"ID_MOVIMIENTOH\") as ID_MOVIMIENTOH, TBH_MOVIMIENTO.\"CODIGO_INVENTARIO\",TBH_MOVIMIENTO.\"DESCRIPCION_EQUIPO\",TBH_MOVIMIENTO.\"PERSONA_ANTERIOR\"\n" +
+" from TBH_MOVIMIENTO  \n" +
+" WHERE " + code );
+            List mov = query.list();
+            return mov;
+        
+    }
+      
         
 }

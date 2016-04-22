@@ -18,4 +18,5 @@ public interface TBH_MovimientoDao {
     public void delete(Serializable id); 
              public Object findByKey(Serializable id);
              public void update(Object obj);
+             public List reporteHist(String code);
 }

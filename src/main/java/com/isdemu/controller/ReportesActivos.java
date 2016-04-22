@@ -9,9 +9,11 @@ import com.isdemu.model.TbInventario;
 import com.isdemu.model.TbMovimiento;
 import com.isdemu.model.TbcClaseActivo;
 import com.isdemu.model.TbcPersona;
+import com.isdemu.model.TbhMovimiento;
 import com.isdemu.service.TBC_ClaseActivo_Service;
 import com.isdemu.service.TBC_ClasificacionLocalizacion_Service;
 import com.isdemu.service.TBC_Persona_Service;
+import com.isdemu.service.TBH_Movimiento_Service;
 import com.isdemu.service.TB_Inventario_Service;
 import com.isdemu.spring.WebAppConfig;
 import java.io.File;
@@ -70,6 +72,9 @@ public class ReportesActivos extends WebAppConfig
       
       @Autowired
 	private TBC_ClaseActivo_Service tbcClaseService;
+      
+      @Autowired
+      private TBH_Movimiento_Service tbhMovimientoService;
     
       
       
@@ -768,7 +773,7 @@ public class ReportesActivos extends WebAppConfig
                 numeroF=numeroF.replace(",","");
                 int param02 = 0;
                 
-                System.out.println("año nujevo ingreso :" + numeroF + "*");
+                System.out.println("año nuevo ingreso :" + numeroF + "*");
         double param03=0;
         
         if(val == 1)
@@ -894,7 +899,7 @@ public class ReportesActivos extends WebAppConfig
                 numeroF=numeroF.replace(",","");
                 int param02 = 0;
                 
-                System.out.println("año nujevo ingreso :" + numeroF + "*");
+                System.out.println("año nuevo ingreso :" + numeroF + "*");
         double param03=0;
         
         if(val == 1)
@@ -1052,5 +1057,245 @@ public class ReportesActivos extends WebAppConfig
         exporter.exportReport();
  }
   //********************************************************
+  
+  
+  @RequestMapping(value = "/filtroReporteInvHistorialP",method=RequestMethod.GET)
+            public ModelAndView filtroInventarioPersonaHist()  
+            {
+               
+                ModelAndView modelAndView = new ModelAndView("prev_invPersonaHist");        
+
+               Map<String, Object> myModel = new HashMap<String, Object>();
+               System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                List personas =tbcPersonaService.getAll();
+                List clases= tbcClaseService.getAll();
+                myModel.put("clase", clases);
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+                myModel.put("persona",personas);
+                return new ModelAndView("prev_invPersonaHist", myModel);
+            }
+            
+            
+             @RequestMapping(value = "/getRptInvHistPersona/{id}/{param}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptInvHistPers(HttpServletResponse response, @PathVariable String id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException, ParseException 
+  {      
+   
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
+     
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteHistMov_persona.jrxml"); 
+    
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+    Map<String,Object> params = new HashMap<>();
+     
+     
+     String tipoRep="";     
+      //TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
+     String nombrefiltro="TIPO FINANCIAMIENTO " + id.toUpperCase();
+     int param02 = 0;
+        double param03=0;
+        
+        if(param == 1)
+        {
+            param02=599;
+            param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
+        }
+        else if(param == 0)
+        {
+           param02=0;
+           param03=600.00;
+           tipoRep="MENORES DE $600.00";
+        }
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
+        int idn = Integer.parseInt(id);
+        TbcPersona pers =(TbcPersona)tbcPersonaService.findByKey(idn); 
+    
+        params.put("persona", pers.getNombrePersona());  
+         
+      
+       
+        
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+       // params.put("fecha_reporte", fech);  
+       
+    
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+   response.setHeader("Content-disposition", "inline; filename=InventarioHistorialPorPersonal.xlsx");
+   final OutputStream outStream = response.getOutputStream();
+       JRXlsxExporter exporter = new JRXlsxExporter();
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+       exporter.exportReport();
+ }
+  
+  
+    @RequestMapping(value="/listReporteInvHPers", method=RequestMethod.POST) 
+	public ModelAndView listReporteInvHistPers(@ModelAttribute TbInventario invent) 
+        {
+                                
+		ModelAndView modelAndView = new ModelAndView("prev_invPersonaHistList");
+                //int id=invent.getTbcClaseActivo().getIdClaseActivo();                
+                System.out.println("metodo post reporte factura");
+                String nombre = ((TbcPersona)tbcPersonaService.findByKey(invent.getTbcPersona().getIdPersona())).getNombrePersona();
+                //String npersona = invent.getTbcPersona().getNombrePersona();
+                //String numeroF= invent.getMarca();
+               // numeroF=numeroF.replace(",","");
+                int param02 = 0;
+                
+                //System.out.println("año nuevo ingreso :" + numeroF + "*");
+           
+                
+        
+       // String  code = "where year(TB_INVENTARIO.\"FECHA_ADQUISICION\") = " + numeroF ;
+        String  code = " TBH_MOVIMIENTO.\"PERSONA_ANTERIOR\" = \'" + nombre;
+        code = code + "\' group by TBH_MOVIMIENTO.\"CODIGO_INVENTARIO\",TBH_MOVIMIENTO.\"DESCRIPCION_EQUIPO\",TBH_MOVIMIENTO.\"PERSONA_ANTERIOR\"\n" +
+" \n" +
+" ) as b \n" +
+" on a.\"ID_MOVIMIENTOH\" = b.\"ID_MOVIMIENTOH\"  ";
+               System.out.println("query : "+ code);
+               List result = tbhMovimientoService.reporteHist(code);
+		modelAndView.addObject("activos", result); 
+		return modelAndView;
+	}
+  
+        
+        @RequestMapping(value="/listReporteInvHCod", method=RequestMethod.POST) 
+	public ModelAndView listReporteInvHistCod(@ModelAttribute TbInventario invent) 
+        {
+                                
+		ModelAndView modelAndView = new ModelAndView("prev_invCodigoHistList");
+                //int id=invent.getTbcClaseActivo().getIdClaseActivo();                
+                System.out.println("metodo post reporte factura");
+                //String nombre = ((TbcPersona)tbcPersonaService.findByKey(invent.getTbcPersona().getIdPersona())).getNombrePersona();
+                //String npersona = invent.getTbcPersona().getNombrePersona();
+                String numcod= invent.getMarca();
+               // numeroF=numeroF.replace(",","");
+                int param02 = 0;
+                
+                //System.out.println("año nuevo ingreso :" + numeroF + "*");
+           
+                
+        
+       // String  code = "where year(TB_INVENTARIO.\"FECHA_ADQUISICION\") = " + numeroF ;
+        String  code = " TBH_MOVIMIENTO.\"CODIGO_INVENTARIO\" = \'" + numcod;
+        code = code + "\' group by TBH_MOVIMIENTO.\"CODIGO_INVENTARIO\",TBH_MOVIMIENTO.\"DESCRIPCION_EQUIPO\",TBH_MOVIMIENTO.\"PERSONA_ANTERIOR\"\n" +
+" \n" +
+" ) as b \n" +
+" on a.\"ID_MOVIMIENTOH\" = b.\"ID_MOVIMIENTOH\"  ";
+               System.out.println("query : "+ code);
+               List result = tbhMovimientoService.reporteHist(code);
+		modelAndView.addObject("activos", result); 
+		return modelAndView;
+	}
+        
+         @RequestMapping(value = "/getRptInvHistCodigo/{id}/{param}", method = RequestMethod.GET)
+        @ResponseBody
+     
+  public void getRptInvHistCod(HttpServletResponse response, @PathVariable String id,@PathVariable Integer param) throws JRException, IOException, SQLException, ClassNotFoundException, ParseException 
+  {      
+   
+      Connection conn = dataSource().getConnection();
+      System.out.println(conn);
+     
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/reporteHistMov_codigo.jrxml"); 
+    
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+    Map<String,Object> params = new HashMap<>();
+     
+     
+     String tipoRep="";     
+      //TbcClaseActivo clase=(TbcClaseActivo)tbcClaseService.findByKey(id);   
+     String nombrefiltro="TIPO FINANCIAMIENTO " + id.toUpperCase();
+     int param02 = 0;
+        double param03=0;
+        
+        if(param == 1)
+        {
+            param02=599;
+            param03=999999.00;
+            tipoRep="MAYORES DE $600.00";
+        }
+        else if(param == 0)
+        {
+           param02=0;
+           param03=600.00;
+           tipoRep="MENORES DE $600.00";
+        }
+        File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+        String absolutePath = file.getAbsolutePath();    
+        absolutePath = absolutePath.replaceAll("%20"," ");   
+        params.put("realpath",absolutePath);
+        //int idn = Integer.parseInt(id);
+        //TbcPersona pers =(TbcPersona)tbcPersonaService.findByKey(idn); 
+    
+        params.put("persona", id);  
+         
+      
+       
+        
+        Date fecha = new Date();
+        // *** same for the format String below
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMMM yyyy");
+        String fech = dt1.format(fecha).toUpperCase();
+        System.out.println("format "+fech);
+        
+       // params.put("fecha_reporte", fech);  
+       
+    
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);    
+        System.out.println("report3 :" + response);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+   response.setHeader("Content-disposition", "inline; filename=InventarioHistorialPorCodigo.xlsx");
+   final OutputStream outStream = response.getOutputStream();
+       JRXlsxExporter exporter = new JRXlsxExporter();
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "E:\\Rpt01.xls"); 
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outStream);
+       exporter.exportReport();
+ }
+  
+  @RequestMapping(value = "/filtroReporteInvHistorialC",method=RequestMethod.GET)
+            public ModelAndView filtroInventarioCodigoHist()  
+            {               
+                ModelAndView modelAndView = new ModelAndView("prev_invCodigoHist");        
+
+                Map<String, Object> myModel = new HashMap<String, Object>();
+                System.out.println("INGRESA CONTROLLER ListaInventario---");
+                //List persona = tbcPersonaService.getAll();
+                List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                List personas =tbcPersonaService.getAll();
+                List clases= tbcClaseService.getAll();
+                myModel.put("clase", clases);
+                myModel.put("inventario", new TbInventario());       
+                myModel.put("clasiLocalizacion",clasiLocalizacion);
+                myModel.put("persona",personas);
+                return new ModelAndView("prev_invCodigoHist", myModel);
+            }
+  
     
 }
