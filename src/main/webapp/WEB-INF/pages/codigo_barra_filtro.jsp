@@ -55,6 +55,14 @@
                     </a>
                 </div>
             </div>
+            
+                    <div class="col-md-3">
+                      
+                        <button id="btn_guardar" class="btn btn-yellow btn-block" type="button" onclick="enviar_localizacion();" >
+                            Imprimir Codigos (Todos)<i class="fa fa-arrow-circle-right"></i>
+                        </button>
+
+                    </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 space20">
@@ -118,6 +126,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="sample-table-2">
                         <thead>
@@ -182,20 +191,14 @@
                     <div class="col-md-6">
 
                     </div>
-                    <div class="col-md-3">
+                    
+                    </div>
+                <div class="col-md-3">
                                     <button id="btn_guardar" class="btn btn-yellow btn-block" type="button" onclick="enviar();" >
                                         Imprimir Codigos<i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                     
                                 </div>
-                    <div class="col-md-3">
-                      
-                        <button id="btn_guardar" class="btn btn-yellow btn-block" type="button" onclick="enviar_localizacion();" >
-                            Imprimir Codigos Localizacion<i class="fa fa-arrow-circle-right"></i>
-                        </button>
-
-                    </div>
-                    </div>
             </div>
         </div>
         <!-- end: EXPORT DATA TABLE PANEL -->
@@ -264,7 +267,7 @@ function deleteElement(id){
            url: "${pageContext.request.contextPath}/Usuario/codigo_barra",
            contentType: 'application/json; charset=utf-8',
            success: function (msg) {
-               alert(msg);
+               //alert(msg);
                $("#tabla_codigo").empty();
                window.open(
                 '${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra',
@@ -315,9 +318,13 @@ function deleteElement(id){
            url: "${pageContext.request.contextPath}/Usuario/codigo_barra",
            contentType: 'application/json; charset=utf-8',
            success: function (msg) {
-               alert(msg);
+               //alert(msg);
                $("#tabla_codigo").empty();
-               window.location="${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra";
+               window.open(
+                '${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra',
+                '_blank' // <- This is what makes it open in a new window.
+              );
+               //window.location="${pageContext.request.contextPath}/Usuario/imprimir_codigo_barra";
            },
            data: jsonArray
        });
