@@ -58,5 +58,11 @@ public class TBH_Movimiento_ServiceImp implements TBH_Movimiento_Service {
 		// TODO Auto-generated method stub
 		tbhMovimientoDao.update(obj);
 	}
+
+    @Override
+    public List reporteHist(String code) {
+    
+    return tbhMovimientoDao.reporteHist(code);
+    }
     
 }

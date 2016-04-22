@@ -535,6 +535,13 @@
                                                                         <li>
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvFianc"><i class="fa fa-times"></i> Reporte por tipo Fianciamiento</a>
 									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvHistorialP"><i class="fa fa-times"></i> Reporte Historial Activos por Persona</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvHistorialC"><i class="fa fa-times"></i> Reporte Historial Activos por Codigo</a>
+									</li>
+                                                                        
 									
 								</ul>
 							</li>

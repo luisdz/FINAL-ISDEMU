@@ -19,4 +19,6 @@ public interface TBH_Movimiento_Service {
     public void delete(Serializable id); 
              public Object findByKey(Serializable id);
              public void update(Object obj);
+             
+              public List reporteHist(String code);
 }

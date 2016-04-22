@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteAsignadoA" language="groovy" pageWidth="1000" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1000" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="af2a97de-4621-4555-aa0d-5f65081e3244">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="menorque" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inventario_de" class="java.lang.String"/>
+	<parameter name="tipo_valor" class="java.lang.String"/>
+	<parameter name="fecha_reporte" class="java.lang.String"/>
+	<parameter name="realpath" class="java.lang.String"/>
+	<parameter name="numfactura" class="java.lang.String">
+		<defaultValueExpression><![CDATA[5555]]></defaultValueExpression>
+	</parameter>
+	<parameter name="persona" class="java.lang.String">
+		<defaultValueExpression><![CDATA["6110160040"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT distinct
+     TBH_MOVIMIENTO."CODIGO_INVENTARIO" AS TBH_MOVIMIENTO_CODIGO_INVENTARIO,
+     TBH_MOVIMIENTO."PERSONA_ANTERIOR" AS TBH_MOVIMIENTO_PERSONA_ANTERIOR,
+     TBH_MOVIMIENTO."DESCRIPCION_EQUIPO" AS TBH_MOVIMIENTO_DESCRIPCION_EQUIPO
+FROM
+     "dbo"."TBH_MOVIMIENTO" TBH_MOVIMIENTO
+  where [TBH_MOVIMIENTO].[CODIGO_INVENTARIO] =   $P{persona}]]>
+	</queryString>
+	<field name="TBH_MOVIMIENTO_CODIGO_INVENTARIO" class="java.lang.String"/>
+	<field name="TBH_MOVIMIENTO_PERSONA_ANTERIOR" class="java.lang.String"/>
+	<field name="TBH_MOVIMIENTO_DESCRIPCION_EQUIPO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82">
+			<staticText>
+				<reportElement x="267" y="0" width="733" height="20" uuid="f0407f35-141e-4543-9c6c-7cd9f393245a"/>
+				<text><![CDATA[INSTITUTO SALVADOREñO PARA EL DESARROLLO DE LA MUJER]]></text>
+			</staticText>
+			<image>
+				<reportElement x="36" y="10" width="96" height="65" uuid="69d819cf-b6c4-4747-b319-d498cb3770f0"/>
+				<imageExpression><![CDATA[$P{realpath}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="334" y="20" width="666" height="20" uuid="3f7d7b05-9540-4f75-978b-ba85ddc9fc54"/>
+				<text><![CDATA[HISTORIAL DE MOVIMIENTOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="190" height="20" uuid="e0e309f0-7b33-4129-9bff-7b3365c96545"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="0" width="385" height="20" uuid="26ecb2c3-134b-4e3f-83e3-6b3e12f7cd99"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION EQUIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="575" y="0" width="425" height="20" uuid="af274205-ddc9-4802-a701-70460299edbd"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[PERSONA ANTERIOR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="190" height="44" uuid="088c5256-19e3-4f56-9758-db3dabe88106"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBH_MOVIMIENTO_CODIGO_INVENTARIO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="190" y="0" width="385" height="44" uuid="d2846bef-9954-4192-9cdb-016dd0d2b268"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBH_MOVIMIENTO_DESCRIPCION_EQUIPO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="575" y="0" width="425" height="44" uuid="54dc4f19-bff8-4163-ad46-d2704ff36f19"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TBH_MOVIMIENTO_PERSONA_ANTERIOR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
