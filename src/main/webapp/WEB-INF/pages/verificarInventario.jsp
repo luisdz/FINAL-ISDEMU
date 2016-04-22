@@ -150,7 +150,13 @@
                                      Imp. Sobrante <i class="fa fa-arrow-circle-right"></i>
                                 </button>
                             </div> 
-                        <div class="col-md-2">
+                       
+                         <div class="col-md-2">
+                                <button id="printencontrado" class="btn btn-yellow btn-block" type="button" onclick="">
+                                     Imp. Encontrado  <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                          </div>  
+                             <div class="col-md-2">
                                 <button id="borrar" class="btn btn-yellow btn-block" type="button" onclick="location.href='${pageContext.request.contextPath}/VerificarInventario/deleteTBTemporal'">
                                      Limpiar<i class="fa fa-arrow-circle-right"></i>
                                 </button>
@@ -246,6 +252,7 @@
         var localizacion=$("#localizacion").val();
          $('#print').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarFaltante/'+localizacion+'" ' );    
          $('#prints').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarSobrante/'+localizacion+'" ' );    
+          $('#printencontrado').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarEncontrado/'+localizacion+'" ' );    
          
         if (condigoYaAgregado(codigoI) === true)
         {

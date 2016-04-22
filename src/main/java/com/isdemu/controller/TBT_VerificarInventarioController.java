@@ -254,6 +254,55 @@ public class TBT_VerificarInventarioController  extends WebAppConfig{
  }
   
   
+   @RequestMapping(value = "/ReporteVerificarEncontrado/{id}", method = RequestMethod.GET)
+        @ResponseBody
+       public void getRptInvEncontrado(HttpServletResponse response, @PathVariable Integer id)  throws JRException, IOException, SQLException, ClassNotFoundException 
+  {      
+
+    Connection conn = dataSource().getConnection();
+      
+    InputStream jasperxml =  this.getClass().getResourceAsStream("/vencontrado.jrxml"); 
+   
+    JasperReport jasperReport = JasperCompileManager.compileReport(jasperxml);
+   
+    Map<String,Object> params = new HashMap<>();
+    
+   int b = id;
+  
+    params.put("id", b);
+   //File file = new File("resources/Logo.jpg");
+    File file = new File(this.getClass().getResource("/Logo.jpg").getFile());
+    
+   String absolutePath = file.getAbsolutePath(); 
+   
+   absolutePath = absolutePath.replaceAll("%20"," ");
+   
+   params.put("realpath",absolutePath);
+   System.out.println("reportURL :" + absolutePath); 
+    //JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+    System.out.println("report3 :" + jasperReport);
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,conn);
+    //System.out.println("report4 :");
+    //response.setContentType("application/x-pdf");
+    response.setContentType("application/vnd.ms-excel");
+     
+   response.setHeader("Content-disposition", "inline; filename=InvEcontrado.xlsx");
+
+   final OutputStream outStream = response.getOutputStream();
+   JRXlsxExporter exporter = new JRXlsxExporter();
+    
+       exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+       //exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  "C:\\Rpt01.xls"); 
+      exporter.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,outStream);
+       
+       exporter.exportReport();
+       
+       
+       
+       
+ }
+  
+  
    //Agregar a la tabla temporal los inventarios para luego ser comparados
         @RequestMapping(value="/deleteTBTemporal",  method = RequestMethod.GET)
 	public ModelAndView deletetbt() {
