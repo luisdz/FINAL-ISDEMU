@@ -291,9 +291,12 @@ public class TB_InventarioController {
                 //ir a inventario y consultar el ultimo codigo con la clase que se ingreso devolver el codigo, convertilo a int y sumarle uno
                 List<TbInventario> LastInv=tbInventarioService.LastCodInventario(inventario.getTbcClaseActivo().getIdClaseActivo());
                 System.out.println("cual es el ultimo inventario que trae");
-                System.out.println(LastInv.get(0).getCodigoInventario());
+                //System.out.println(LastInv.get(0).getCodigoInventario());
                 String Correlativo="";
+                System.out.println("el tamanio del inventario es:");
+                System.out.println(LastInv.size());
                 if(LastInv.size()!=0){
+                     System.out.println("ingresa si es distinto de cero");
                     //extraer los ultimos digitos convertitlo a int, sumarle uno y luego concatenarlo con CodigoInventario
                     String LastCodInv=LastInv.get(0).getCodigoInventario();
                     int LongLastCod=LastCodInv.length();
@@ -328,6 +331,7 @@ public class TB_InventarioController {
                     
                 }
                 else{
+                    System.out.println("ingresa si es cero");
                      Correlativo="001";
                 }
                  
