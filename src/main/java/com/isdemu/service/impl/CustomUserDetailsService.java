@@ -34,6 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private TBS_Rol_Service rolService;
     
     public int id;
+     public String rol;
     
     @Transactional(readOnly=true)
     @SuppressWarnings("empty-statement")
@@ -55,6 +56,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                   //TbsUsuario user = new TbsUsuario();
 		System.out.println("User : "+user);
                 id = user.getIdUsuario();
+                rol=user.getTbsRol().getNombreRol();
+                System.out.println("Rol de ususario : "+rol);
 		if(username==null){
 			System.out.println("User not found");
 			throw new UsernameNotFoundException("Username not found");
@@ -66,7 +69,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private List<GrantedAuthority> getGrantedAuthorities(TbsUsuario user){
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
-			authorities.add(new SimpleGrantedAuthority("ADMIN"));
+			authorities.add(new SimpleGrantedAuthority(user.getTbsRol().getNombreRol()));
 		
 		System.out.print("authorities :"+authorities);
 		return authorities;

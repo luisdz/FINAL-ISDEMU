@@ -101,7 +101,7 @@
                                     Clase de Activo<span id="span_clase" class="symbol "></span>
                                 </label>
 
-                                <form:select path="TbcClaseActivo.idClaseActivo" class="form-control" id="dropdown2" name="dropdown" onchange="return validaClase(event);">
+                                <form:select path="TbcClaseActivo.idClaseActivo" class="form-control search-select" id="dropdown2" name="dropdown" onchange="return validaClase(event);">
                                     <form:option value="0"  label="Selecciona una clasificacion"/>
 
                                 </form:select>

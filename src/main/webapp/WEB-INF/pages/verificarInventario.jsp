@@ -59,7 +59,7 @@
                 </p>
                 <hr>
 
-                <form:form method="POST" action="${pageContext.request.contextPath}/Descargo/insertarDescargo"  modelAttribute="verificarInventario" id="descargoF" onsubmit="return valida_envioDescargo();" >
+                <form:form  modelAttribute="verificarInventario" id="descargoF"  >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM">
@@ -111,7 +111,7 @@
                                 <label class="control-label">
                                     Codigo Inventario<span class="symbol "></span>
                                 </label>
-                                <form:input path=""  type="text" placeholder="Ingrese un codigo" class="form-control" id="codigo" name="codigo" />
+                                <form:input  path=""  type="text" placeholder="Ingrese un codigo" class="form-control" id="codigo" name="codigo" />
                                 <span for="codigo" class="help-block  no-display" id="span_codigoE">El codigo es invalido o ya esta agreagado</span>  
                                 <span for="codigo" class="help-block  no-display" id="span_codigoE2">El inventario con ese codigo esta descargado</span>  
                             
@@ -150,7 +150,13 @@
                                      Imp. Sobrante <i class="fa fa-arrow-circle-right"></i>
                                 </button>
                             </div> 
-                        <div class="col-md-2">
+                       
+                         <div class="col-md-2">
+                                <button id="printencontrado" class="btn btn-yellow btn-block" type="button" onclick="">
+                                     Imp. Encontrado  <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                          </div>  
+                             <div class="col-md-2">
                                 <button id="borrar" class="btn btn-yellow btn-block" type="button" onclick="location.href='${pageContext.request.contextPath}/VerificarInventario/deleteTBTemporal'">
                                      Limpiar<i class="fa fa-arrow-circle-right"></i>
                                 </button>
@@ -246,10 +252,9 @@
         var localizacion=$("#localizacion").val();
          $('#print').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarFaltante/'+localizacion+'" ' );    
          $('#prints').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarSobrante/'+localizacion+'" ' );    
+          $('#printencontrado').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarEncontrado/'+localizacion+'" ' );    
          
-        if (condigoYaAgregado(codigoI) === true)
-        {
-
+      
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/Descargo/agregarInventario",
@@ -289,13 +294,7 @@
                 }
 
             });//Fin .ajax
-        }
-        else
-                    {
-                        $('#span_codigoE').removeClass("no-display");
-                        $('#span_codigoE').closest("div").addClass("has-error");
-                        $('#span_codigoE').closest("div").removeClass("has-success");
-                    }
+      
         
     };
     
@@ -448,6 +447,14 @@
     $(document).ready(function () {
 
         $('#dropdown').select2();
+        
+        
 
     });
+    
+    $("form").submit(function( event ) {
+      // alert('sunmit');
+      enviarCodeD();
+  event.preventDefault();
+});
 </script>

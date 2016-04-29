@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -112,5 +113,18 @@ public class LinkController {
 	@RequestMapping(value="/index")
 	public ModelAndView indexPage() {
 		return new ModelAndView("home");
+	}
+        
+        
+        //pagina para el acceso denegado
+        @RequestMapping(value = "/403", method = RequestMethod.GET)
+        public ModelAndView accesssDenied() {
+System.out.println("ingresa al controler errro");
+		ModelAndView model = new ModelAndView();
+
+
+		model.setViewName("403");
+		return model;
+
 	}
 }
