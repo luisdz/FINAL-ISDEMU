@@ -548,7 +548,7 @@
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInfoLocal"><i class="fa fa-times"></i> Reporte Activos Informaticos por Localizacion</a>
 									</li>
                                                                         <li>
-										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInfo"><i class="fa fa-times"></i> Reporte Activos Informaticos por Localizacion</a>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInfo"><i class="fa fa-times"></i> Reporte Activos Informaticos ISDEMU</a>
 									</li>
                                                                         
 									

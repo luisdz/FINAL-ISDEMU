@@ -1163,6 +1163,12 @@ public class ReportesActivos extends WebAppConfig
 		ModelAndView modelAndView = new ModelAndView("prev_invPersonaHistList");
                 //int id=invent.getTbcClaseActivo().getIdClaseActivo();                
                 System.out.println("metodo post reporte factura");
+                if(invent.getTbcPersona().getIdPersona() == 0)
+                {
+                   return filtroInventarioPersonaHist();
+                }
+                
+                
                 String nombre = ((TbcPersona)tbcPersonaService.findByKey(invent.getTbcPersona().getIdPersona())).getNombrePersona();
                 //String npersona = invent.getTbcPersona().getNombrePersona();
                 //String numeroF= invent.getMarca();
@@ -1467,28 +1473,19 @@ public class ReportesActivos extends WebAppConfig
 		ModelAndView modelAndView = new ModelAndView("prev_invInfList");
                 //int id=invent.getTbcClaseActivo().getIdClaseActivo();                
                 System.out.println("metodo post reporte factura");
-                int val =  invent.getValor().intValue();
+              //  int val =  invent.getValor().intValue();
                 String numeroF= "61104";
                 int param02 = 0;
                 int id_local = 0;
         double param03=0;
         
-        if(val == 1)
-        {
-            param02=599;
-            param03=999999.00;
-        }
-        else if(val == 0)
-        {
-           param02=0;
-           param03=600.00;
-        }        
+                
         
         String  code = "where   TB_INVENTARIO.\"CODIGO_INVENTARIO\" like \'"+numeroF+"%\'  ";
                System.out.println("query : "+ code);
                List result = tbInventarioService.customSQL(code);
 		modelAndView.addObject("activos", result);
-                System.out.println("val : "+ val);
+                //System.out.println("val : "+ val);
 		return modelAndView;
 	}
               
@@ -1560,7 +1557,7 @@ public class ReportesActivos extends WebAppConfig
     //System.out.println("report4 :");
     //response.setContentType("application/x-pdf");
     response.setContentType("application/vnd.ms-excel");
-   response.setHeader("Content-disposition", "inline; filename=InventarioInformaticoXLocal.xlsx");
+   response.setHeader("Content-disposition", "inline; filename=InventarioInformaticoIDEMU.xlsx");
    final OutputStream outStream = response.getOutputStream();
        JRXlsxExporter exporter = new JRXlsxExporter();
        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);

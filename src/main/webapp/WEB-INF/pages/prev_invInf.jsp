@@ -59,7 +59,7 @@
             <div class="panel-body">
                 
                 
-               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvInformaticoLocal"  modelAttribute="inventario" id="movF" >
+               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvInformatico"  modelAttribute="inventario" id="movF" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >

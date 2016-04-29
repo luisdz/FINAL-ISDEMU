@@ -105,7 +105,7 @@
 
                     </div>
                     <div class="col-md-2">
-                                    <button id="btn_guardar" class="btn btn-yellow btn-block" type="submit" >
+                        <button id="btn_guardar" class="btn btn-yellow btn-block" onsubmit="return valida(event);" type="submit" >
                                         Consultar Activo <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </div>
@@ -161,6 +161,14 @@
 
 
     });
+    
+ $("#btn_guardar").submit(
+         function()
+ {
+     alert("fucntion");
+ }
+ })
+            );   
 
 //Combos dependientes
 
@@ -255,6 +263,16 @@ $("#dropdown1").change(function () {
     
      };
         
+   };
+   
+   function valida()
+   {
+       alert("asfd");
+       if($('#responsable option:selected').val()==0)
+       {
+           alert("asdfweeeee");
+           return false;
+       } 
    };
       
      
