@@ -546,3 +546,26 @@ function validaFactura()
 
 };
 //fin reporte por factura
+
+function validaLocalizacion()
+    {
+       
+        var x = document.forms["movF"]["localizacion"].value;
+        if (x === null || x === "" || x === "0")
+        {
+       
+            $('#span_localizacionT').removeClass("no-display");            
+            $('#span_localizacionT').closest("div").addClass("has-error");            
+             $('#span_localizacionT').closest("div").removeClass("has-success");
+            
+            return false;
+        }
+        else
+        {
+       
+            $('#span_localizacionT').addClass("no-display");
+             $('#span_localizacionT').closest("div").removeClass("has-error");
+             $('#span_localizacionT').closest("div").addClass("has-success");
+        }
+
+    };
