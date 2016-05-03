@@ -393,7 +393,28 @@ function validaClase()
 //
 //    };
     
+ function validaCodigoInv()
+    {
+       
+        var x = document.forms["inventarioF"]["cantidadl"].value;
+        if (x === null || x === "" || x === "0")
+        {
+         
+            $('#span_valorCT').removeClass("no-display");            
+            $('#span_valorCT').closest("div").addClass("has-error");            
+             $('#span_valorCT').closest("div").removeClass("has-success");
+            
+            return false;
+        }
+        else
+        {
+       
+            $('#span_valorCT').addClass("no-display");
+             $('#span_valorCT').closest("div").removeClass("has-error");
+             $('#span_valorCT').closest("div").addClass("has-success");
+        }
 
+    };
        
  //Envio descargo     
  var  flag=true;
@@ -454,6 +475,12 @@ function validaClase()
                
        
         if(validaFechaAdq()===false)
+        {        
+            $('#mensajeErrorForm').removeClass("no-display");
+            flag = false;
+        }
+        
+        if(validaCodigoInv()===false)
         {        
             $('#mensajeErrorForm').removeClass("no-display");
             flag = false;

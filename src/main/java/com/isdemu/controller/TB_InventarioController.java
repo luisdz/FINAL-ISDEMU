@@ -276,6 +276,44 @@ public class TB_InventarioController {
                
 	}
         
+        @RequestMapping(value="/add_porcodigo", method=RequestMethod.GET)
+	public ModelAndView insertarInventarioporCodigo(String b) {
+             
+		//ModelAndView modelAndView = new ModelAndView("inventario");
+                 Map<String, Object> myModel = new HashMap<String, Object>();
+		 List ClasAct = tbClasActService.getAll();
+                 List persona=tbcPersonaService.getAll();
+             System.out.println("antesss");
+                 List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
+                 //List ClaseActivo=tbcClaseActivoService.getAll();
+                 String message = "0";
+                 if(b!=null){
+                 message = "1";
+                 }
+                  
+                  String codigoIngresado = b;
+                  myModel.put("message", message); 
+                  
+                 List ClaseActivo=tbcClaseActivoService.getTop();
+                 
+                 List proveedor=tbcProveedorService.getAll();
+                 
+                 myModel.put("inventario", new TbInventario());
+                  myModel.put("codigoIngresado",codigoIngresado);
+                 myModel.put("clasificacionA",ClasAct );
+                 myModel.put("claseActivo",ClaseActivo );
+                 myModel.put("persona",persona);
+                
+                 myModel.put("clasiLocalizacion",clasiLocalizacion);
+                  myModel.put("proveedor",proveedor);
+                
+               
+              
+		return new ModelAndView("inventario_porcodigo",myModel);
+               // return   listInvLast();
+               
+	}
+        
         
         @RequestMapping(value="/add", method=RequestMethod.POST)
 	public ModelAndView insertandoInventario(@ModelAttribute TbInventario inventario) {
@@ -351,6 +389,30 @@ public class TB_InventarioController {
                 return listInvLast(cantidad);
 	}
         
+        
+        @RequestMapping(value="/add_porcodigo", method=RequestMethod.POST)
+	public ModelAndView insertandoInventarioporcodigo(@ModelAttribute TbInventario inventario) {
+		ModelAndView modelAndView = new ModelAndView("home");
+		
+                inventario.setValorLibro(BigDecimal.ZERO);
+                inventario.setFechaInsert(new Date());
+                //obtener el codigo de la clase seleccionada para armar el codigo de inventario
+                TbcClaseActivo codigoClaseA = (TbcClaseActivo)tbcClaseActivoService.findByKey(inventario.getTbcClaseActivo().getIdClaseActivo());
+                String CodigoClase=codigoClaseA.getCodigoClase();
+                System.out.println("El codigo de la clase para general el codigo inventario:"+CodigoClase+"tamanio:"+CodigoClase.length());
+                
+                //ir a inventario y consultar el ultimo codigo con la clase que se ingreso devolver el codigo, convertilo a int y sumarle uno
+               
+                 TbcEstadoInventario estado=new TbcEstadoInventario();
+                 estado.setIdEstado(1);
+                 inventario.setTbcEstadoInventario(estado);
+                    
+                tbInventarioService.save(inventario);
+                String message = "Pais was successfully added.";
+                modelAndView.addObject("message", message);
+                String cantidad="1";
+                return listInvLast(cantidad);
+	}
         
         //agregar por lotes
         @RequestMapping(value="/add/lotes", method=RequestMethod.POST)

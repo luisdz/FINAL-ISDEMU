@@ -162,6 +162,12 @@
 										</a>
 										
 									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Inventario/add_porcodigo">
+											Ingresar Inventario por Código <i class="icon-arrow"></i>
+										</a>
+										
+									</li>
 									<li>
 										<a href="${pageContext.request.contextPath}/Inventario/ListInventario.html">
 											Consultar Inventario<i class="icon-arrow"></i>
