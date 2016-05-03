@@ -296,7 +296,7 @@
                 url: "${pageContext.request.contextPath}/Movimiento/insertarMovimiento",
                 contentType: 'application/json',
                 success: function (msg) {
-                    //alert("entra");
+                   // alert(msg);
                     $('#movF').each(function () 
                     {
                         this.reset();

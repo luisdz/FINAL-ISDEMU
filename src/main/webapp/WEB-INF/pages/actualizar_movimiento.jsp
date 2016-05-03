@@ -167,8 +167,12 @@
                     </table>
                     <div class="row">
                             <div class="col-md-12"> 
+                                 
                                 <div class="col-md-4">
-                                </div>
+                                <button class="btn btn-yellow btn-block" type="button" onclick="location.href='${pageContext.request.contextPath}/Movimiento/insertarMovimiento'">
+                                    Volver <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
                             <div class="col-md-4">
                                 <button class="btn btn-yellow btn-block" type="button" onclick="enviarMov();">
                                     Actualizar <i class="fa fa-arrow-circle-right"></i>
@@ -199,7 +203,13 @@
 <script src="${pageContext.request.contextPath}/assets/validaciones/validacionesISDEMU-01.js"></script>
 <script>
     
-    
+    function regresar()
+    {
+        var el = document.getElementById(id);
+        el.parentNode.removeChild(el);
+        return false;
+    }
+    ;
     
     function deleteElement(id)
     {

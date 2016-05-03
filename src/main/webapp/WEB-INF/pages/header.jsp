@@ -518,6 +518,9 @@
 										<a href="${pageContext.request.contextPath}/ReportesL/reporteLocalizacion"><i class="fa fa-times"></i> Reporte por Dependencia</a>
 									</li>
                                                                         <li>
+										<a href="${pageContext.request.contextPath}/ReportesU/reporteUbicacion"><i class="fa fa-times"></i> Reporte por Ubicacion</a>
+									</li>
+                                                                        <li>
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvPersona"><i class="fa fa-times"></i> Reporte por Persona</a>
 									</li>
                                                                         <li>
@@ -540,6 +543,12 @@
 									</li>
                                                                         <li>
 										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInvHistorialC"><i class="fa fa-times"></i> Reporte Historial Activos por Codigo</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInfoLocal"><i class="fa fa-times"></i> Reporte Activos Informaticos por Localizacion</a>
+									</li>
+                                                                        <li>
+										<a href="${pageContext.request.contextPath}/Reportes/filtroReporteInfo"><i class="fa fa-times"></i> Reporte Activos Informaticos ISDEMU</a>
 									</li>
                                                                         
 									

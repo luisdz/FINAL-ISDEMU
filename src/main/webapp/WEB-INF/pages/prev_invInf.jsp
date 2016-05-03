@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li>
                 <a href="#">
-                    Inventario
+                    Reportes
                 </a>
             </li>
             <li class="active">
@@ -24,7 +24,7 @@
         <!-- start: EXPORT DATA TABLE PANEL  -->
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Reporte <span class="text-bold">Historia Inventario</span> Por Persona </h4>
+                <h4 class="panel-title">Reporte <span class="text-bold">Inventario Informatico</span> ISDEMU</h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -59,7 +59,7 @@
             <div class="panel-body">
                 
                 
-               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvHPers"  modelAttribute="inventario" id="movF" >
+               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvInformatico"  modelAttribute="inventario" id="movF" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
@@ -70,20 +70,10 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                             
+                                 
                             
-                                <div class="form-group">
-                                <label class="control-label" for="form-field-select-3">
-                                    Responsable Equipo<span  class="symbol "></span>
-                                </label>
-                                <form:select path="tbcPersona.idPersona" class="form-control search-select" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
-                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>
-                                    <c:forEach var="persona" items="${persona}">
-                                        <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
-                                    </c:forEach>                                    
-                                </form:select>
-                                 <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>
                                 
-                            </div>
                              <div class="form-group no-display">
                                 <label for="form-field-select-3">
                                     Mayor o menor de 600<span id="span_clasi" class="symbol "></span>
@@ -105,7 +95,7 @@
 
                     </div>
                     <div class="col-md-2">
-                        <button id="btn_guardar" class="btn btn-yellow btn-block" onsubmit="return valida(event);" type="submit" >
+                                    <button id="btn_guardar" class="btn btn-yellow btn-block" type="submit" >
                                         Consultar Activo <i class="fa fa-arrow-circle-right"></i>
                                     </button>
                                 </div>
@@ -148,7 +138,7 @@
 
 <%@include file="footer.jsp"%>
 
-<script src="${pageContext.request.contextPath}/assets/validaciones/validacionesISDEMU-01.js"></script>
+<script src="${pageContext.request.contextPath}/assets/validaciones/validacionesISDEMU-01.js"></script> 
  <script>
  
     
@@ -161,14 +151,6 @@
 
 
     });
-    
- $("#btn_guardar").submit(
-         function()
- {
-     alert("fucntion");
- }
- })
-            );   
 
 //Combos dependientes
 
@@ -254,25 +236,14 @@ $("#dropdown1").change(function () {
    function enviarReporte2 ()
     {
         //alert("excel2");
-     validaRespMov();
+     //validaLocalizacion();
      
      //alert("excel");
-     if(validaRespMov()===true)
-     {
-     window.location.href='${pageContext.request.contextPath}/Reportes/getRptInvHistPersona/'+ $('#responsable option:selected').val() + '/'+$('#mayor option:selected').val() ;
-    
-     };
+    // if($('#localizacion option:selected').val() > 0)
+    //{ 
+     window.location.href='${pageContext.request.contextPath}/Reportes/getReporteInformaticoInv/'+ 0 + '/'+$('#mayor option:selected').val() ;
+  // };
         
-   };
-   
-   function valida()
-   {
-       alert("asfd");
-       if($('#responsable option:selected').val()==0)
-       {
-           alert("asdfweeeee");
-           return false;
-       } 
    };
       
      

@@ -1,30 +1,28 @@
-<%@include file="header.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- 
+    Document   : reporte_inventario_ubicacion
+    Created on : 12-nov-2015, 22:52:44
+    Author     : Walter
+--%>
+
+<%@include file="header.jsp" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!-- start: BREADCRUMB -->
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb">
-            <li>
-                <a href="#">
-                    Inventario
-                </a>
-            </li>
-            <li class="active">
-                Consultar
-            </li>
-        </ol>
-    </div>
-</div>
-<!-- end: BREADCRUMB -->
 <!-- start: PAGE CONTENT -->
+
+<!--    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+-->
+
+
+<!-- jQuery Form Validation code -->
+
+
 
 <div class="row">
     <div class="col-md-12">
-        <!-- start: EXPORT DATA TABLE PANEL  -->
+        <!-- start: FORM VALIDATION 1 PANEL -->
         <div class="panel panel-white">
             <div class="panel-heading">
-                <h4 class="panel-title">Reporte <span class="text-bold">Historia Inventario</span> Por Persona </h4>
+                <h4 class="panel-title">Reportes  <span class="text-bold">Activos fijos</span></h4>
                 <div class="panel-tools">
                     <div class="dropdown">
                         <a data-toggle="dropdown" class="btn btn-xs dropdown-toggle btn-transparent-grey">
@@ -57,9 +55,17 @@
                 </div>
             </div>
             <div class="panel-body">
+                <h2><i class="fa fa-pencil-square"></i> Reportes</h2>
+                <p>
+                    Esta es la seccion de Reportes de Activos Fijos según Ubicacion
+                </p>
+                <hr>
                 
+                  
                 
-               <form:form method="POST" action="${pageContext.request.contextPath}/Reportes/listReporteInvHPers"  modelAttribute="inventario" id="movF" >
+                 
+ 
+        <form:form method="POST" modelAttribute="movimiento" id="repAsign" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="errorHandler alert alert-danger no-display" id="mensajeErrorFormM"  >
@@ -69,55 +75,56 @@
                                 <i class="fa fa-ok"></i> Guardado con Exito!
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            
-                                <div class="form-group">
-                                <label class="control-label" for="form-field-select-3">
-                                    Responsable Equipo<span  class="symbol "></span>
+                        <div class="col-md-6">                            
+                            <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Tipo Localizacion<span id="span_clasi" class="symbol "></span>
                                 </label>
-                                <form:select path="tbcPersona.idPersona" class="form-control search-select" id="responsable" name="dropdown2" onchange="return validaRespMov(event);" onblur="return validaRespMov(event);">
-                                    <form:option value="0"  label="Selecciona la persona asignada del Activo"/>
-                                    <c:forEach var="persona" items="${persona}">
-                                        <form:option value="${persona.idPersona}"  label="${persona.nombrePersona}"/>
-                                    </c:forEach>                                    
+                                <form:select path="" class="form-control" id="tipoClasificacion" name="tipoClasificacion" >
+                                    <form:option value="0"  label="Seleccione un Tipo de Localizacion"/>
+                                    <c:forEach var="clasiL" items="${clasiLocalizacion}">
+                                        <form:option value="${clasiL.idClasificacionLocalizacion}"  label="${clasiL.nombreClasificacion}"/>
+                                    </c:forEach>
                                 </form:select>
-                                 <span for="responsable" class="help-block  no-display" id="span_resp">Seleccione El nuevo responsable</span>
-                                
+                                <span for="clasiL" class="help-block  no-display" id="span_dropdownT">Seleccione un Tipo de Localizacion</span>
                             </div>
-                             <div class="form-group no-display">
+                            
+                            <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Localizacion<span id="span_local" class="symbol "></span>
+                                </label>
+                                <form:select path="" class="form-control" id="localizacion" name="localizacion" >
+                                    <form:option value="0"  label="Selecciona una localizacion"/>
+                                    
+                                </form:select>
+                                <span for="local" class="help-block  no-display" id="span_local">Seleccione una Clasificacion</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="form-field-select-3">
+                                    Ubicacion<span id="span_clasi" class="symbol "></span>
+                                </label>
+                                <form:select path="" class="form-control" id="ubicacion" name="ubicacion" >
+                                    <form:option value="0"  label="Selecciona una Ubicacion"/>
+                                   
+                                </form:select>
+                                <span for="ubicacion" class="help-block  no-display" id="span_ubicacionT">Seleccione una Ubicacion</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-6">                          
+                            <div class="form-group">
                                 <label for="form-field-select-3">
                                     Mayor o menor de 600<span id="span_clasi" class="symbol "></span>
                                 </label>
 
-                                <form:select path="valor" class="form-control" id="mayor" name="mayor" >
+                                <form:select path="" class="form-control" id="mayor" name="mayor" >
                                     <form:option value="0"  label="Menor de 600"/>
                                     <form:option value="1"  label="Mayor de 600"/>
                                 </form:select>
                                 <span for="mayor" class="help-block  no-display" id="span_dropdownT">Seleccione una Clasificacion</span>
                             </div>
-                            <br>
                         </div>
-                        
-                         
-                      
-                    <div class="row">
-                    <div class="col-md-8">
-
-                    </div>
-                    <div class="col-md-2">
-                        <button id="btn_guardar" class="btn btn-yellow btn-block" onsubmit="return valida(event);" type="submit" >
-                                        Consultar Activo <i class="fa fa-arrow-circle-right"></i>
-                                    </button>
-                                </div>
-                        <div class="col-md-2">
-                        <button class="btn btn-yellow btn-block" type="button" id="ingresar" onclick="return enviarReporte2(event);" value="0" >
-                            Guardar Excel <i class="fa fa-arrow-circle-right"></i>
-                        </button>
-                    </div>
-                    </div>
-                    
-                </div>
-
                     </div>
                     <div class="row  no-display">
                         <div class="col-md-12">
@@ -130,25 +137,34 @@
 
                 </form:form>
                 
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-yellow btn-block" type="button" id="ingresar" onclick="return verReporte2(event);" value="0" >
+                            Ver reporte<i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-yellow btn-block" type="button" id="ingresar" onclick="return enviarReporte2(event);" value="0" >
+                            Guardar excel<i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
 
             </div>
         </div>
-        <!-- end: EXPORT DATA TABLE PANEL -->
+        <!-- end: FORM VALIDATION 1 PANEL -->
     </div>
-</div>
+ 
+
 <!-- end: PAGE CONTENT-->
 
-<script  language="JavaScript">
-    function confirmar( mensaje ) 
-    { 
-        return confirm(mensaje); 
-    } 
-</script>
 
 
-<%@include file="footer.jsp"%>
-
-<script src="${pageContext.request.contextPath}/assets/validaciones/validacionesISDEMU-01.js"></script>
+<%@include file="footer.jsp" %>	
+ 
+ 
  <script>
  
     
@@ -161,14 +177,6 @@
 
 
     });
-    
- $("#btn_guardar").submit(
-         function()
- {
-     alert("fucntion");
- }
- })
-            );   
 
 //Combos dependientes
 
@@ -251,31 +259,66 @@ $("#dropdown1").change(function () {
 
     });
     
-   function enviarReporte2 ()
+      //index change de localizacion para cargar ubicacion
+    
+     $("#localizacion").change(function () {
+        var idLocalizacion = $('#localizacion :selected').val(); // define the variable
+      // alert(idLocalizacion);
+
+
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/Inventario/listaUbicacion",
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: idLocalizacion,
+            success: function (data) {
+                var html = '';
+                var len = data.length;
+                //alert("devuelve algo"+data);
+                $('#ubicacion').empty();
+                html = '<option value="0"  label="Selecciona una Ubicacion"/>';
+                data.forEach(function (entry)
+                {
+                    console.log(entry);
+                    // alert("foreach :"+entry.nombreClase );
+                    html += '<option value="' + entry.idUbicacion + '">' + entry.nombreUbicacion + '</option>';
+                });
+                $('#ubicacion').append(html);
+                // alert("devuelve algo: "+data);
+            },
+            error: function (data, status, er) {
+                alert("error: " + data + " status: " + status + " er:" + er);
+
+
+            }
+        });
+
+
+    });
+
+
+    function enviarReporte2 ()
     {
-        //alert("excel2");
-     validaRespMov();
-     
-     //alert("excel");
-     if(validaRespMov()===true)
+    
+      
+     window.location.href='${pageContext.request.contextPath}/ReportesU/getReporteUbicacion/'+ $('#ubicacion option:selected').val() + '/'+$('#mayor option:selected').val() ;
+    
+               
+    };
+      
+    function verReporte2 ()
+    {
+     validaRespRepAsign();
+     if(validaRespRepAsign()==true)
      {
-     window.location.href='${pageContext.request.contextPath}/Reportes/getRptInvHistPersona/'+ $('#responsable option:selected').val() + '/'+$('#mayor option:selected').val() ;
+      
+     window.location.href='${pageContext.request.contextPath}/ReportesU/verReporteUbicacion/'+ $('#ubicacion option:selected').val() + '/'+$('#mayor option:selected').val() ;
     
      };
         
-   };
-   
-   function valida()
-   {
-       alert("asfd");
-       if($('#responsable option:selected').val()==0)
-       {
-           alert("asdfweeeee");
-           return false;
-       } 
-   };
-      
-     
-        
+    };
     
 </script>
