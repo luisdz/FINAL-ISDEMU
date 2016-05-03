@@ -155,12 +155,12 @@ public class TB_MovimientoController  extends WebAppConfig  {
     public ModelAndView addMovimiento() {
         System.out.println("esntra aqui GETT movimiento");
         Map<String, Object> myModel = new HashMap<String, Object>();
-        List Invent = tbInventarioService.getAll();
+        //List Invent = tbInventarioService.getAll();
         List persona = tbcPersonaService.getAll();        
         List clasiLocalizacion=tbcClasificacionLocalizacionService.getAll();
         myModel.put("persona", persona);
         myModel.put("movimiento", new TbMovimiento());
-        myModel.put("inventario", Invent);        
+       // myModel.put("inventario", Invent);        
         myModel.put("clasiLocalizacion",clasiLocalizacion);
         return new ModelAndView("movimiento", myModel);
     }
