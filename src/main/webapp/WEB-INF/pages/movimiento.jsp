@@ -334,7 +334,7 @@
         if(rol==="[INFORMATICA]" && res!=='61104' )
         {
          alert("Usted solamente puede agregar o realizar esta accion sobre codigos de informatica");   
-         alert("<%=SecurityContextHolder.getContext().getAuthentication().getAuthorities()%>");   
+        // alert("<%=SecurityContextHolder.getContext().getAuthentication().getAuthorities()%>");   
         }
         else{
             

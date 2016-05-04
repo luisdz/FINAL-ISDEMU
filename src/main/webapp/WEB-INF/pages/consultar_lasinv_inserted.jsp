@@ -242,7 +242,7 @@
         <c:forEach items="${inventario}" var="inv">
         a=a+1;
         </c:forEach>
-       alert("alert : "+a)
+       //alert("alert : "+a)
        window.location.href='${pageContext.request.contextPath}/Reportes/getFormatoAsignacion/'+a ;
      
        
