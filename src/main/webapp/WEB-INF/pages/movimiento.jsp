@@ -325,8 +325,27 @@
     function enviarCodeM()
     {
         var codigoI = $("#codigo").val(); 
+        //alert("entra");
+        console.log('tu valor');
+        var rol="<%=SecurityContextHolder.getContext().getAuthentication().getAuthorities()%>";
+       // alert(rol);
+        var res = codigoI.substring(0,5);
+     //alert(res);
+        if(rol==="[INFORMATICA]" && res!=='61104' )
+        {
+         alert("Usted solamente puede agregar o realizar esta accion sobre codigos de informatica");   
+         alert("<%=SecurityContextHolder.getContext().getAuthentication().getAuthorities()%>");   
+        }
+        else{
+            
+            if (codigoI=="")
+        {
+            return 0;
+        }
         if (condigoYaAgregado(codigoI) === true)
         {
+            
+            
 
             $.ajax({
                 type: "POST",
@@ -388,7 +407,7 @@
             $('#span_codigoE').closest("div").removeClass("has-success");
         }
 
-    }
+    }}
     ;
 
 
