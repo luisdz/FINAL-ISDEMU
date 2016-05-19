@@ -237,9 +237,7 @@
          $('#print').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarFaltantePersona/'+Persona+'" ' );    
          $('#prints').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarSobrantePersona/'+Persona+'" ' );    
          
-        if (condigoYaAgregado(codigoI) === true)
-        {
-
+        
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/Descargo/agregarInventario",
@@ -279,13 +277,8 @@
                 }
 
             });//Fin .ajax
-        }
-        else
-                    {
-                        $('#span_codigoE').removeClass("no-display");
-                        $('#span_codigoE').closest("div").addClass("has-error");
-                        $('#span_codigoE').closest("div").removeClass("has-success");
-                    }
+       
+     
         
     };
     
@@ -440,4 +433,9 @@
         $('#dropdown').select2();
 
     });
+       $("form").submit(function( event ) {
+      // alert('sunmit');
+      enviarCodeD();
+  event.preventDefault();
+});
 </script>

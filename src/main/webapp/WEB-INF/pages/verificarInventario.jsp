@@ -247,7 +247,7 @@
      function enviarCodeD()
     {
         //$( "#print" ).append( "onclick='location.href='${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarFaltante/6''" );
-   
+  // alert('entra');
     var codigoI = $("#codigo").val();
         var localizacion=$("#localizacion").val();
          $('#print').attr('onclick', 'location.href="${pageContext.request.contextPath}/VerificarInventario/ReporteVerificarFaltante/'+localizacion+'" ' );    
@@ -284,9 +284,11 @@
                     }
                     else
                     {
-                        $('#span_codigoE').removeClass("no-display");
-                        $('#span_codigoE').closest("div").addClass("has-error");
-                        $('#span_codigoE').closest("div").removeClass("has-success");
+                        
+                           
+                       $('#span_codigoE').removeClass("no-display");
+                       $('#span_codigoE').closest("div").addClass("has-error");
+                       $('#span_codigoE').closest("div").removeClass("has-success");
                     }
                 },
                 error: function (data, status, er) {
