@@ -162,13 +162,7 @@
 
     });
     
- $("#btn_guardar").submit(
-         function()
- {
-     alert("fucntion");
- }
- })
-            );   
+     
 
 //Combos dependientes
 
