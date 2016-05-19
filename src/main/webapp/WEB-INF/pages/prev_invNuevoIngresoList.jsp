@@ -121,8 +121,8 @@
                                 <th>Codigo</th> 
                                 <th>Descripcion</th>
                                 <th>Marca</th>
-                                <th class="no-display">Modelo</th>
-                                <th class="no-display">Serie</th>
+                                <th>Modelo</th>
+                                <th>Serie</th>
                                 <th>Fecha de adquisicion</th>
                                 <th>Valor</th> 
                                 <th hidden="true">Clase</th> 
@@ -147,8 +147,8 @@
                                                 <td>${con[0]}</td>
                                                 <td>${con[1]}</td>
                                                 <td>${con[2]}</td>
-                                                <td class="no-display">${con[3]}</td>
-                                                <td class="no-display">${con[4]}</td>
+                                                <td>${con[3]}</td>
+                                                <td>${con[4]}</td>
                                                 <td>${con[5]}</td>
                                                 <td>$${con[6]}</td>
                                                 <td hidden="true">${con[7]}</td>
